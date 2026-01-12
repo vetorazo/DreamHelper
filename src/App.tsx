@@ -16,6 +16,9 @@ function App() {
     riskTolerance: 0.5,
   });
 
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+  const [editingBubbleId, setEditingBubbleId] = useState<string | null>(null);
+
   const addBubble = (type: BubbleType, quality: BubbleQuality) => {
     if (bubbleState.bubbles.length >= bubbleState.visionCapacity) {
       alert('Vision is full!');
@@ -38,6 +41,25 @@ function App() {
     setBubbleState({
       ...bubbleState,
       bubbles: bubbleState.bubbles.filter(b => b.id !== id),
+    });
+  };
+
+  const updateBubbleQuality = (id: string, newQuality: BubbleQuality) => {
+    setBubbleState({
+      ...bubbleState,
+      bubbles: bubbleState.bubbles.map(b => 
+        b.id === id ? { ...b, quality: newQuality } : b
+      ),
+    });
+  };
+
+  const moveBubble = (fromIndex: number, toIndex: number) => {
+    const newBubbles = [...bubbleState.bubbles];
+    const [removed] = newBubbles.splice(fromIndex, 1);
+    newBubbles.splice(toIndex, 0, removed);
+    setBubbleState({
+      ...bubbleState,
+      bubbles: newBubbles,
     });
   };
 
@@ -92,22 +114,108 @@ function App() {
               <p style={{ color: '#999', textAlign: 'center' }}>No bubbles yet. Add some above!</p>
             ) : (
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-                {bubbleState.bubbles.map(bubble => (
+                {bubbleState.bubbles.map((bubble, index) => (
                   <div
                     key={bubble.id}
+                    draggable
+                    onDragStart={() => setDraggedIndex(index)}
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={() => {
+                      if (draggedIndex !== null) {
+                        moveBubble(draggedIndex, index);
+                        setDraggedIndex(null);
+                      }
+                    }}
                     style={{
                       padding: '10px',
                       borderRadius: '6px',
                       backgroundColor: getQualityColor(bubble.quality),
                       color: bubble.quality === 'White' || bubble.quality === 'Blue' ? '#000' : '#fff',
-                      cursor: 'pointer',
-                      border: '2px solid #000',
+                      cursor: 'grab',
+                      border: editingBubbleId === bubble.id ? '3px solid #4CAF50' : '2px solid #000',
+                      position: 'relative',
+                      minWidth: '80px',
                     }}
-                    onClick={() => removeBubble(bubble.id)}
-                    title="Click to remove"
                   >
                     <div style={{ fontSize: '12px', fontWeight: 'bold' }}>{bubble.type}</div>
-                    <div style={{ fontSize: '10px' }}>{bubble.quality}</div>
+                    <div style={{ fontSize: '10px', marginBottom: '5px' }}>{bubble.quality}</div>
+                    
+                    {editingBubbleId === bubble.id ? (
+                      <div style={{ 
+                        position: 'absolute', 
+                        top: '100%', 
+                        left: 0, 
+                        backgroundColor: '#fff', 
+                        border: '2px solid #4CAF50',
+                        borderRadius: '4px',
+                        padding: '5px',
+                        zIndex: 1000,
+                        marginTop: '5px',
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+                      }}>
+                        {(['White', 'Blue', 'Purple', 'Orange', 'Red', 'Rainbow'] as BubbleQuality[]).map(quality => (
+                          <button
+                            key={quality}
+                            onClick={() => {
+                              updateBubbleQuality(bubble.id, quality);
+                              setEditingBubbleId(null);
+                            }}
+                            style={{
+                              display: 'block',
+                              width: '100%',
+                              padding: '5px 10px',
+                              margin: '2px 0',
+                              backgroundColor: getQualityColor(quality),
+                              color: quality === 'White' || quality === 'Blue' ? '#000' : '#fff',
+                              border: 'none',
+                              borderRadius: '3px',
+                              cursor: 'pointer',
+                              fontSize: '11px',
+                              fontWeight: 'bold',
+                            }}
+                          >
+                            {quality}
+                          </button>
+                        ))}
+                      </div>
+                    ) : null}
+                    
+                    <div style={{ display: 'flex', gap: '5px', marginTop: '5px' }}>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setEditingBubbleId(editingBubbleId === bubble.id ? null : bubble.id);
+                        }}
+                        style={{
+                          padding: '2px 6px',
+                          fontSize: '10px',
+                          backgroundColor: 'rgba(255,255,255,0.3)',
+                          border: '1px solid rgba(0,0,0,0.3)',
+                          borderRadius: '3px',
+                          cursor: 'pointer',
+                        }}
+                        title="Change quality"
+                      >
+                        ✎
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          removeBubble(bubble.id);
+                        }}
+                        style={{
+                          padding: '2px 6px',
+                          fontSize: '10px',
+                          backgroundColor: 'rgba(255,0,0,0.6)',
+                          border: '1px solid rgba(0,0,0,0.3)',
+                          borderRadius: '3px',
+                          cursor: 'pointer',
+                        }}
+                        title="Remove bubble"
+                      >
+                        ✕
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -170,6 +278,9 @@ function App() {
         <h3>How to Use:</h3>
         <ol>
           <li>Add your current Dream Bubbles using the dropdowns above</li>
+          <li><strong>Drag bubbles to reorder them</strong></li>
+          <li><strong>Click the ✎ button to change a bubble's quality</strong></li>
+          <li>Click the ✕ button to remove a bubble</li>
           <li>The calculator will show you the top 3 recommended Lotus choices</li>
           <li>The score shows the expected value increase for each choice</li>
           <li>Green highlight = best choice</li>
