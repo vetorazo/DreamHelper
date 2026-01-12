@@ -8,7 +8,7 @@ import type {
 } from "./types";
 import { DEFAULT_QUALITY_MULTIPLIERS, DEFAULT_TYPE_WEIGHTS } from "./types";
 import { rankLotusChoices } from "./engine/calculator";
-import { SAMPLE_LOTUSES } from "./data/lotuses";
+import { LOTUSES } from './data/lotuses';
 
 function App() {
   const [bubbleState, setBubbleState] = useState<BubbleState>({
@@ -78,7 +78,7 @@ function App() {
 
   const recommendations = rankLotusChoices(
     bubbleState,
-    SAMPLE_LOTUSES,
+    LOTUSES,
     userWeights,
     3
   );
