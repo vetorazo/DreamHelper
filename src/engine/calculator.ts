@@ -1,5 +1,4 @@
-import type { Bubble, BubbleState, LotusEffect, UserWeights } from '../types';
-import { DEFAULT_QUALITY_MULTIPLIERS } from '../types';
+import type { BubbleState, LotusEffect, UserWeights } from '../types';
 
 /**
  * Calculate the total value of a bubble state based on user weights
@@ -155,7 +154,7 @@ function determineQuality(
   if (qualitySpec === 'highest') {
     const qualities: Array<'White' | 'Blue' | 'Purple' | 'Orange' | 'Red' | 'Rainbow'> = 
       ['White', 'Blue', 'Purple', 'Orange', 'Red', 'Rainbow'];
-    let highest = 'White';
+    let highest: 'White' | 'Blue' | 'Purple' | 'Orange' | 'Red' | 'Rainbow' = 'White';
     for (const bubble of state.bubbles) {
       if (qualities.indexOf(bubble.quality) > qualities.indexOf(highest)) {
         highest = bubble.quality;
