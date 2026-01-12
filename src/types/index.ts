@@ -1,16 +1,22 @@
 // Core type definitions for Dream Helper
 
-export type BubbleQuality = 'White' | 'Blue' | 'Purple' | 'Orange' | 'Red' | 'Rainbow';
+export type BubbleQuality =
+  | "White"
+  | "Blue"
+  | "Purple"
+  | "Orange"
+  | "Red"
+  | "Rainbow";
 
-export type BubbleType = 
-  | 'Gear'
-  | 'Blacksail' 
-  | 'Cube'
-  | 'Commodity'
-  | 'Netherrealm'
-  | 'Fluorescent'
-  | 'Fuel'
-  | 'Whim';
+export type BubbleType =
+  | "Gear"
+  | "Blacksail"
+  | "Cube"
+  | "Commodity"
+  | "Netherrealm"
+  | "Fluorescent"
+  | "Fuel"
+  | "Whim";
 
 export interface Bubble {
   id: string;
@@ -35,17 +41,40 @@ export interface LotusEffect {
 }
 
 export type EffectType =
-  | { type: 'add'; count: number | [number, number]; quality?: BubbleQuality | 'highest' | 'purple_or_better' | 'blue_or_better'; bubbleType?: BubbleType | 'random' }
-  | { type: 'remove'; count: number; target?: 'random' | 'lowest' | 'highest' }
-  | { type: 'upgrade'; count: number; tiers: number; target?: 'random' | 'all' }
-  | { type: 'replicate'; count: number; target?: 'random' | BubbleType }
-  | { type: 'changeType'; count: number; newType: BubbleType; upgradeAfter?: boolean }
-  | { type: 'fundamental_multiplyOnEnterNightmare'; bubbleType?: BubbleType; multiplier: number; minQuality?: BubbleQuality }
-  | { type: 'fundamental_chanceUpgradeOnEnterNightmare'; chance: number; bubbleType?: BubbleType }
-  | { type: 'fundamental_bonusOnQualityChange' }
-  | { type: 'fundamental_bonusOnTypeChange' }
-  | { type: 'fundamental_bonusOnAddRemove' }
-  | { type: 'complex'; customLogic: string }; // For complex multi-step effects
+  | {
+      type: "add";
+      count: number | [number, number];
+      quality?:
+        | BubbleQuality
+        | "highest"
+        | "purple_or_better"
+        | "blue_or_better";
+      bubbleType?: BubbleType | "random";
+    }
+  | { type: "remove"; count: number; target?: "random" | "lowest" | "highest" }
+  | { type: "upgrade"; count: number; tiers: number; target?: "random" | "all" }
+  | { type: "replicate"; count: number; target?: "random" | BubbleType }
+  | {
+      type: "changeType";
+      count: number;
+      newType: BubbleType;
+      upgradeAfter?: boolean;
+    }
+  | {
+      type: "fundamental_multiplyOnEnterNightmare";
+      bubbleType?: BubbleType;
+      multiplier: number;
+      minQuality?: BubbleQuality;
+    }
+  | {
+      type: "fundamental_chanceUpgradeOnEnterNightmare";
+      chance: number;
+      bubbleType?: BubbleType;
+    }
+  | { type: "fundamental_bonusOnQualityChange" }
+  | { type: "fundamental_bonusOnTypeChange" }
+  | { type: "fundamental_bonusOnAddRemove" }
+  | { type: "complex"; customLogic: string }; // For complex multi-step effects
 
 export interface UserWeights {
   qualityMultipliers: Record<BubbleQuality, number>;
