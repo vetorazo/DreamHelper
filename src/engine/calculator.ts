@@ -3,7 +3,7 @@ import type { BubbleState, LotusEffect, UserWeights } from "../types";
 /**
  * Apply fundamental effects to a state
  * These are persistent "upon entering nightmare" effects
- * 
+ *
  * CONCEPT vs Rails: Like ActiveRecord scopes that stack
  *   Rails: User.active.premium.recent (chains scopes)
  *   Here: applyFundamental(state, fundamental) modifies state based on fundamental type
@@ -271,16 +271,18 @@ export function scoreLotusChoice(
   weights: UserWeights
 ): number {
   const currentValue = calculateStateValue(currentState, weights);
-  
+
   // Simulate the lotus effect
   let simulatedState = simulateLotusEffect(currentState, lotus);
-  
+
   // Apply fundamental effects if entering nightmare
   // CONCEPT: Like Rails transaction callbacks - apply all accumulated effects
   simulatedState = applyFundamentalEffects(simulatedState);
-  
+
   const newValue = calculateStateValue(simulatedState, weights);
 
+  return newValue - currentValue;
+}
 
 /**
  * Rank all available lotus choices and return top N

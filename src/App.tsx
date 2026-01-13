@@ -12,20 +12,21 @@ import { LOTUSES } from "./data/lotuses";
 
 /**
  * REACT HOOKS vs RAILS:
- * 
+ *
  * useState - Like Rails instance variables (@bubbles), but with a setter that triggers re-render
  *   Rails: @bubbles = []; then @bubbles << new_bubble (mutate directly)
  *   React: const [bubbles, setBubbles] = useState([]); then setBubbles([...bubbles, new])
- * 
+ *
  * useEffect - Like Rails callbacks (after_create, after_update)
  *   Rails: after_commit :save_to_cache
  *   React: useEffect(() => { saveToLocalStorage() }, [bubbles]) // runs when bubbles change
- * 
+ *
  * localStorage - Like Rails.cache, but client-side browser storage
  *   Persists across page reloads until manually cleared
  */
 
 const STORAGE_KEY = "dreamhelper-bubble-state"; // Like a Rails cache key
+const WEIGHTS_STORAGE_KEY = "dreamhelper-user-weights";
 
 function App() {
   // CONCEPT: Lazy initialization - function runs only on first render
@@ -47,10 +48,20 @@ function App() {
     };
   });
 
-  const [userWeights] = useState<UserWeights>({
-    qualityMultipliers: DEFAULT_QUALITY_MULTIPLIERS,
-    typeWeights: DEFAULT_TYPE_WEIGHTS,
-    riskTolerance: 0.5,
+  const [userWeights, setUserWeights] = useState<UserWeights>(() => {
+    const saved = localStorage.getItem(WEIGHTS_STORAGE_KEY);
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        console.error("Failed to parse saved weights:", e);
+      }
+    }
+    return {
+      qualityMultipliers: DEFAULT_QUALITY_MULTIPLIERS,
+      typeWeights: DEFAULT_TYPE_WEIGHTS,
+      riskTolerance: 0.5,
+    };
   });
 
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
@@ -58,12 +69,12 @@ function App() {
 
   /**
    * useEffect - SIDE EFFECTS hook
-   * 
+   *
    * Like Rails callbacks, runs after component renders
-   * 
+   *
    * Rails equivalent:
    *   after_commit :save_to_cache, if: :bubbles_changed?
-   * 
+   *
    * Syntax: useEffect(() => { code }, [dependencies])
    * - First arg: function to run (the effect)
    * - Second arg: array of dependencies (when to re-run)
@@ -77,26 +88,27 @@ function App() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(bubbleState));
   }, [bubbleState]); // Dependency array - re-run when bubbleState changes
 
-  /**
-   * useEffect - SIDE EFFECTS hook
-   * 
-   * Like Rails callbacks, runs after component renders
-   * 
-   * Rails equivalent:
-   *   after_commit :save_to_cache, if: :bubbles_changed?
-   * 
-   * Syntax: useEffect(() => { code }, [dependencies])
-   * - First arg: function to run (the effect)
-   * - Second arg: array of dependencies (when to re-run)
-   *   - [] = run once on mount (like Rails after_create)
-   *   - [bubbleState] = run whenever bubbleState changes (like Rails after_update)
-   *   - no array = run on every render (usually bad, like N+1 queries)
-   */
   useEffect(() => {
-    // DEBOUNCING: In production, you'd debounce this like Rails queue_as :low_priority
-    // For now, save immediately on every change
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(bubbleState));
-  }, [bubbleState]); // Dependency array - re-run when bubbleState changes
+    localStorage.setItem(WEIGHTS_STORAGE_KEY, JSON.stringify(userWeights));
+  }, [userWeights]);
+
+  const updateTypeWeight = (type: BubbleType, weight: number) => {
+    setUserWeights({
+      ...userWeights,
+      typeWeights: {
+        ...userWeights.typeWeights,
+        [type]: weight,
+      },
+    });
+  };
+
+  const resetWeights = () => {
+    setUserWeights({
+      qualityMultipliers: DEFAULT_QUALITY_MULTIPLIERS,
+      typeWeights: DEFAULT_TYPE_WEIGHTS,
+      riskTolerance: 0.5,
+    });
+  };
 
   const addBubble = (type: BubbleType, quality: BubbleQuality) => {
     if (bubbleState.bubbles.length >= bubbleState.visionCapacity) {
@@ -126,7 +138,11 @@ function App() {
   const updateBubbleQuality = (id: string, newQuality: BubbleQuality) => {
     setBubbleState({
       ...bubbleState,
-    
+      bubbles: bubbleState.bubbles.map((b) =>
+        b.id === id ? { ...b, quality: newQuality } : b
+      ),
+    });
+  };
 
   const startNewRun = () => {
     // Clear everything including fundamental
@@ -135,10 +151,6 @@ function App() {
       visionCapacity: 10,
     });
     localStorage.removeItem(STORAGE_KEY);
-  };  bubbles: bubbleState.bubbles.map((b) =>
-        b.id === id ? { ...b, quality: newQuality } : b
-      ),
-    });
   };
 
   const moveBubble = (fromIndex: number, toIndex: number) => {
@@ -156,15 +168,6 @@ function App() {
       ...bubbleState,
       bubbles: [],
     });
-  };
-
-  const startNewRun = () => {
-    // Clear everything including fundamental
-    setBubbleState({
-      bubbles: [],
-      visionCapacity: 10,
-    });
-    localStorage.removeItem(STORAGE_KEY);
   };
 
   const recommendations = rankLotusChoices(
@@ -440,6 +443,90 @@ function App() {
 
         {/* Right side: Recommendations */}
         <div>
+          {/* Bubble Type Weights Section */}
+          <div
+            style={{
+              backgroundColor: "#f5f5f5",
+              border: "2px solid #9e9e9e",
+              borderRadius: "8px",
+              padding: "15px",
+              marginBottom: "20px",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: "10px",
+              }}
+            >
+              <h3 style={{ margin: 0 }}>⚖️ Bubble Type Priorities</h3>
+              <button
+                onClick={resetWeights}
+                style={{
+                  padding: "4px 8px",
+                  fontSize: "12px",
+                  backgroundColor: "#757575",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                }}
+                title="Reset to default weights"
+              >
+                Reset
+              </button>
+            </div>
+            <p style={{ fontSize: "12px", color: "#666", margin: "0 0 10px 0" }}>
+              Higher values = more valuable in recommendations
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              {(Object.keys(userWeights.typeWeights) as BubbleType[]).map(
+                (type) => (
+                  <div
+                    key={type}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                    }}
+                  >
+                    <label
+                      style={{
+                        minWidth: "100px",
+                        fontSize: "13px",
+                        fontWeight: "500",
+                      }}
+                    >
+                      {type}:
+                    </label>
+                    <input
+                      type="range"
+                      min="0"
+                      max="2"
+                      step="0.1"
+                      value={userWeights.typeWeights[type]}
+                      onChange={(e) =>
+                        updateTypeWeight(type, parseFloat(e.target.value))
+                      }
+                      style={{ flex: 1 }}
+                    />
+                    <span
+                      style={{
+                        minWidth: "35px",
+                        fontSize: "13px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {userWeights.typeWeights[type].toFixed(1)}
+                    </span>
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+
           <h2>Recommended Lotus Choices</h2>
           {bubbleState.bubbles.length === 0 ? (
             <p style={{ color: "#999" }}>
