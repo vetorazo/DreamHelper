@@ -143,6 +143,21 @@ export const LOTUSES: LotusEffect[] = [
     "isFundamental": false
   },
   {
+    "id": "adds-1-3-bubbles-that-are-the-same-quality-as-the-highest-quality-bubble-you-own-including-rainbow",
+    "name": "Adds 1-3 bubbles that are the same quality as the ",
+    "description": "Adds 1-3 bubbles that are the same quality as the highest-quality bubble you own (including Rainbow)",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "Rainbow"
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": false
+  },
+  {
     "id": "upgrades-the-quality-of-1-bubble-by-1-tier",
     "name": "Upgrades the quality of 1 bubble by 1 tier",
     "description": "Upgrades the quality of 1 bubble by 1 tier",
@@ -176,6 +191,30 @@ export const LOTUSES: LotusEffect[] = [
       "tiers": 3
     },
     "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "upgrades-the-quality-of-1-bubble-to-the-same-quality-as-the-highest-quality-bubble-you-own-including-rainbow",
+    "name": "Upgrades the quality of 1 bubble to the same quali",
+    "description": "Upgrades the quality of 1 bubble to the same quality as the highest-quality bubble you own (including Rainbow)",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "upgrades-the-quality-of-2-bubbles-to-the-same-quality-as-the-highest-quality-bubble-you-own-including-rainbow",
+    "name": "Upgrades the quality of 2 bubbles to the same qual",
+    "description": "Upgrades the quality of 2 bubbles to the same quality as the highest-quality bubble you own (including Rainbow)",
+    "effect": {
+      "type": "upgrade",
+      "count": 2,
+      "tiers": 1
+    },
+    "nightmareOmen": "Major difficulty increase",
     "isFundamental": false
   },
   {
@@ -335,6 +374,81 @@ export const LOTUSES: LotusEffect[] = [
     "isFundamental": false
   },
   {
+    "id": "adds-1-gear-bubble-that-is-the-same-quality-as-the-highest-quality-bubble-you-own-including-rainbow",
+    "name": "Adds 1 Gear Bubble that is the same quality as the",
+    "description": "Adds 1 Gear Bubble that is the same quality as the highest-quality bubble you own (including Rainbow)",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "Rainbow",
+      "bubbleType": "Gear"
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-gear-bubbles-that-are-the-same-quality-as-the-highest-quality-bubble-you-own-including-rainbow",
+    "name": "Adds 2 Gear Bubbles that are the same quality as t",
+    "description": "Adds 2 Gear Bubbles that are the same quality as the highest-quality bubble you own (including Rainbow)",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "Rainbow",
+      "bubbleType": "Gear"
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-gear-bubbles-that-are-the-same-quality-as-the-highest-quality-bubble-you-own-including-rainbow",
+    "name": "Adds 1-3 Gear Bubbles that are the same quality as",
+    "description": "Adds 1-3 Gear Bubbles that are the same quality as the highest-quality bubble you own (including Rainbow)",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "Rainbow",
+      "bubbleType": "Gear"
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "randomly-selects-1-gear-bubble-to-replicate",
+    "name": "Randomly selects 1 Gear Bubble to replicate",
+    "description": "Randomly selects 1 Gear Bubble to replicate",
+    "effect": {
+      "type": "replicate",
+      "count": 1
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "randomly-selects-2-gear-bubbles-to-replicate",
+    "name": "Randomly selects 2 Gear Bubbles to replicate",
+    "description": "Randomly selects 2 Gear Bubbles to replicate",
+    "effect": {
+      "type": "replicate",
+      "count": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "randomly-selects-1-3-gear-bubbles-to-replicate",
+    "name": "Randomly selects 1-3 Gear Bubbles to replicate",
+    "description": "Randomly selects 1-3 Gear Bubbles to replicate",
+    "effect": {
+      "type": "replicate",
+      "count": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
     "id": "changes-the-type-of-1-bubble-to-gear",
     "name": "Changes the type of 1 bubble to Gear",
     "description": "Changes the type of 1 bubble to Gear",
@@ -374,6 +488,19 @@ export const LOTUSES: LotusEffect[] = [
     "isFundamental": false
   },
   {
+    "id": "changes-the-type-of-3-5-bubbles-to-gear",
+    "name": "Changes the type of 3-5 bubbles to Gear",
+    "description": "Changes the type of 3-5 bubbles to Gear",
+    "effect": {
+      "type": "changeType",
+      "count": 5,
+      "newType": "Gear",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
     "id": "changes-the-type-of-1-bubble-to-gear-and-then-upgrades-its-quality-by-1-tier",
     "name": "Changes the type of 1 bubble to Gear, and then upg",
     "description": "Changes the type of 1 bubble to Gear, and then upgrades its quality by 1 tier",
@@ -396,6 +523,2587 @@ export const LOTUSES: LotusEffect[] = [
     },
     "nightmareOmen": "Significant difficulty increase",
     "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-2-3-bubbles-to-gear-and-upgrades-their-quality-by-1-tier",
+    "name": "Changes the type of 2-3 bubbles to Gear and upgrad",
+    "description": "Changes the type of 2-3 bubbles to Gear and upgrades their quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-then-adds-1-gear-bubble-that-is-purple-or-better",
+    "name": "Removes 1 bubble and then adds 1 Gear Bubble that ",
+    "description": "Removes 1 bubble and then adds 1 Gear Bubble that is Purple or better",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "purple_or_better",
+      "bubbleType": "Gear"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-then-adds-2-gear-bubbles-that-are-blue-or-better",
+    "name": "Removes 1 bubble and then adds 2 Gear Bubbles that",
+    "description": "Removes 1 bubble and then adds 2 Gear Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "blue_or_better",
+      "bubbleType": "Gear"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-then-adds-1-3-gear-bubbles-that-are-blue-or-better",
+    "name": "Removes 1 bubble and then adds 1-3 Gear Bubbles th",
+    "description": "Removes 1 bubble and then adds 1-3 Gear Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "blue_or_better",
+      "bubbleType": "Gear"
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-changes-the-type-of-1-bubble-to-gear-and-then-upgrades-its-quality-by-1-tier",
+    "name": "Removes 1 bubble, changes the type of 1 bubble to ",
+    "description": "Removes 1 bubble, changes the type of 1 bubble to Gear, and then upgrades its quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-changes-the-type-of-2-bubbles-to-gear",
+    "name": "Removes 1 bubble and changes the type of 2 bubbles",
+    "description": "Removes 1 bubble and changes the type of 2 bubbles to Gear",
+    "effect": {
+      "type": "remove",
+      "count": 1
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-changes-the-type-of-1-3-bubbles-to-gear",
+    "name": "Removes 1 bubble and changes the type of 1-3 bubbl",
+    "description": "Removes 1 bubble and changes the type of 1-3 bubbles to Gear",
+    "effect": {
+      "type": "remove",
+      "count": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "upon-entering-a-nightmare-for-every-3-gear-bubbles-you-have-you-additionally-gain-1-red-gear-bubble",
+    "name": "Upon entering a Nightmare, for every 3 Gear Bubble",
+    "description": "Upon entering a Nightmare, for every 3 Gear Bubbles you have, you additionally gain 1 Red Gear Bubble",
+    "effect": {
+      "type": "fundamental_multiplyOnEnterNightmare",
+      "bubbleType": "Gear",
+      "multiplier": 0.3333333333333333
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-for-every-6-gear-bubbles-you-have-you-additionally-gain-1-rainbow-gear-bubble",
+    "name": "Upon entering a Nightmare, for every 6 Gear Bubble",
+    "description": "Upon entering a Nightmare, for every 6 Gear Bubbles you have, you additionally gain 1 Rainbow Gear Bubble",
+    "effect": {
+      "type": "fundamental_multiplyOnEnterNightmare",
+      "bubbleType": "Gear",
+      "multiplier": 0.16666666666666666
+    },
+    "nightmareOmen": "Extreme difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-for-every-3-purple-or-lower-gear-bubbles-you-have-converts-them-into-1-orange-or-better-including-rainbow-whim-bubble",
+    "name": "Upon entering a Nightmare, for every 3 Purple or l",
+    "description": "Upon entering a Nightmare, for every 3 Purple or lower Gear Bubbles you have, converts them into 1 Orange or better (including Rainbow) Whim Bubble",
+    "effect": {
+      "type": "fundamental_multiplyOnEnterNightmare",
+      "bubbleType": "Gear",
+      "multiplier": 0.3333333333333333
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-there-is-a-45-chance-that-the-quality-of-all-your-gear-bubbles-will-be-upgraded-by-1-tier-up-to-rainbow",
+    "name": "Upon entering a Nightmare, there is a 45% chance t",
+    "description": "Upon entering a Nightmare, there is a 45% chance that the quality of all your Gear Bubbles will be upgraded by 1 tier, up to Rainbow",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "adds-1-blacksail-bubble",
+    "name": "Adds 1 Blacksail Bubble",
+    "description": "Adds 1 Blacksail Bubble",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "bubbleType": "Blacksail"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-blacksail-bubbles",
+    "name": "Adds 2 Blacksail Bubbles",
+    "description": "Adds 2 Blacksail Bubbles",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "bubbleType": "Blacksail"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-blacksail-bubbles",
+    "name": "Adds 1-3 Blacksail Bubbles",
+    "description": "Adds 1-3 Blacksail Bubbles",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "bubbleType": "Blacksail"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-blacksail-bubble-that-is-blue-or-better",
+    "name": "Adds 1 Blacksail Bubble that is Blue or better",
+    "description": "Adds 1 Blacksail Bubble that is Blue or better",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "blue_or_better",
+      "bubbleType": "Blacksail"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-blacksail-bubbles-that-are-blue-or-better",
+    "name": "Adds 2 Blacksail Bubbles that are Blue or better",
+    "description": "Adds 2 Blacksail Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "blue_or_better",
+      "bubbleType": "Blacksail"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-blacksail-bubbles-that-are-blue-or-better",
+    "name": "Adds 1-3 Blacksail Bubbles that are Blue or better",
+    "description": "Adds 1-3 Blacksail Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "blue_or_better",
+      "bubbleType": "Blacksail"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-blacksail-bubble-that-is-purple-or-better",
+    "name": "Adds 1 Blacksail Bubble that is Purple or better",
+    "description": "Adds 1 Blacksail Bubble that is Purple or better",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "purple_or_better",
+      "bubbleType": "Blacksail"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-blacksail-bubble-that-is-purple-or-better",
+    "name": "Adds 2 Blacksail Bubble that is Purple or better",
+    "description": "Adds 2 Blacksail Bubble that is Purple or better",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "purple_or_better",
+      "bubbleType": "Blacksail"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-blacksail-bubbles-that-are-purple-or-better",
+    "name": "Adds 1-3 Blacksail Bubbles that are Purple or bett",
+    "description": "Adds 1-3 Blacksail Bubbles that are Purple or better",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "purple_or_better",
+      "bubbleType": "Blacksail"
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-blacksail-bubble-that-is-the-same-quality-as-the-highest-quality-bubble-you-own-including-rainbow",
+    "name": "Adds 1 Blacksail Bubble that is the same quality a",
+    "description": "Adds 1 Blacksail Bubble that is the same quality as the highest-quality bubble you own (including Rainbow)",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "Rainbow",
+      "bubbleType": "Blacksail"
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-blacksail-bubbles-that-are-the-same-quality-as-the-highest-quality-bubble-you-own-including-rainbow",
+    "name": "Adds 2 Blacksail Bubbles that are the same quality",
+    "description": "Adds 2 Blacksail Bubbles that are the same quality as the highest-quality bubble you own (including Rainbow)",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "Rainbow",
+      "bubbleType": "Blacksail"
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-blacksail-bubbles-that-are-the-same-quality-as-the-highest-quality-bubble-you-own-including-rainbow",
+    "name": "Adds 1-3 Blacksail Bubbles that are the same quali",
+    "description": "Adds 1-3 Blacksail Bubbles that are the same quality as the highest-quality bubble you own (including Rainbow)",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "Rainbow",
+      "bubbleType": "Blacksail"
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "randomly-selects-1-blacksail-bubble-to-replicate",
+    "name": "Randomly selects 1 Blacksail Bubble to replicate",
+    "description": "Randomly selects 1 Blacksail Bubble to replicate",
+    "effect": {
+      "type": "replicate",
+      "count": 1
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "randomly-selects-2-blacksail-bubbles-to-replicate",
+    "name": "Randomly selects 2 Blacksail Bubbles to replicate",
+    "description": "Randomly selects 2 Blacksail Bubbles to replicate",
+    "effect": {
+      "type": "replicate",
+      "count": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "randomly-selects-1-3-blacksail-bubbles-to-replicate",
+    "name": "Randomly selects 1-3 Blacksail Bubbles to replicat",
+    "description": "Randomly selects 1-3 Blacksail Bubbles to replicate",
+    "effect": {
+      "type": "replicate",
+      "count": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-1-bubble-to-blacksail",
+    "name": "Changes the type of 1 bubble to Blacksail",
+    "description": "Changes the type of 1 bubble to Blacksail",
+    "effect": {
+      "type": "changeType",
+      "count": 1,
+      "newType": "Blacksail",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-2-bubbles-to-blacksail",
+    "name": "Changes the type of 2 bubbles to Blacksail",
+    "description": "Changes the type of 2 bubbles to Blacksail",
+    "effect": {
+      "type": "changeType",
+      "count": 2,
+      "newType": "Blacksail",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-3-bubbles-to-blacksail",
+    "name": "Changes the type of 3 bubbles to Blacksail",
+    "description": "Changes the type of 3 bubbles to Blacksail",
+    "effect": {
+      "type": "changeType",
+      "count": 3,
+      "newType": "Blacksail",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-3-5-bubbles-to-blacksail",
+    "name": "Changes the type of 3-5 bubbles to Blacksail",
+    "description": "Changes the type of 3-5 bubbles to Blacksail",
+    "effect": {
+      "type": "changeType",
+      "count": 5,
+      "newType": "Blacksail",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-1-bubble-to-blacksail-and-then-upgrades-its-quality-by-1-tier",
+    "name": "Changes the type of 1 bubble to Blacksail, and the",
+    "description": "Changes the type of 1 bubble to Blacksail, and then upgrades its quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-2-bubbles-to-blacksail-and-upgrades-their-quality-by-1-tier",
+    "name": "Changes the type of 2 bubbles to Blacksail and upg",
+    "description": "Changes the type of 2 bubbles to Blacksail and upgrades their quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-2-3-bubbles-to-blacksail-and-upgrades-their-quality-by-1-tier",
+    "name": "Changes the type of 2-3 bubbles to Blacksail and u",
+    "description": "Changes the type of 2-3 bubbles to Blacksail and upgrades their quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-then-adds-1-blacksail-bubble-that-is-purple-or-better",
+    "name": "Removes 1 bubble and then adds 1 Blacksail Bubble ",
+    "description": "Removes 1 bubble and then adds 1 Blacksail Bubble that is Purple or better",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "purple_or_better",
+      "bubbleType": "Blacksail"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-then-adds-2-blacksail-bubbles-that-are-blue-or-better",
+    "name": "Removes 1 bubble and then adds 2 Blacksail Bubbles",
+    "description": "Removes 1 bubble and then adds 2 Blacksail Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "blue_or_better",
+      "bubbleType": "Blacksail"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-then-adds-1-3-blacksail-bubbles-that-are-blue-or-better",
+    "name": "Removes 1 bubble and then adds 1-3 Blacksail Bubbl",
+    "description": "Removes 1 bubble and then adds 1-3 Blacksail Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "blue_or_better",
+      "bubbleType": "Blacksail"
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-changes-the-type-of-1-bubble-to-blacksail-and-then-upgrades-its-quality-by-1-tier",
+    "name": "Removes 1 bubble, changes the type of 1 bubble to ",
+    "description": "Removes 1 bubble, changes the type of 1 bubble to Blacksail, and then upgrades its quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-changes-the-type-of-2-bubbles-to-blacksail",
+    "name": "Removes 1 bubble and changes the type of 2 bubbles",
+    "description": "Removes 1 bubble and changes the type of 2 bubbles to Blacksail",
+    "effect": {
+      "type": "remove",
+      "count": 1
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-changes-the-type-of-1-3-bubbles-to-blacksail",
+    "name": "Removes 1 bubble and changes the type of 1-3 bubbl",
+    "description": "Removes 1 bubble and changes the type of 1-3 bubbles to Blacksail",
+    "effect": {
+      "type": "remove",
+      "count": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "upon-entering-a-nightmare-for-every-3-blacksail-bubbles-you-have-you-additionally-gain-1-red-blacksail-bubble",
+    "name": "Upon entering a Nightmare, for every 3 Blacksail B",
+    "description": "Upon entering a Nightmare, for every 3 Blacksail Bubbles you have, you additionally gain 1 Red Blacksail Bubble",
+    "effect": {
+      "type": "fundamental_multiplyOnEnterNightmare",
+      "bubbleType": "Blacksail",
+      "multiplier": 0.3333333333333333
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-for-every-6-blacksail-bubbles-you-have-you-additionally-gain-1-rainbow-blacksail-bubble",
+    "name": "Upon entering a Nightmare, for every 6 Blacksail B",
+    "description": "Upon entering a Nightmare, for every 6 Blacksail Bubbles you have, you additionally gain 1 Rainbow Blacksail Bubble",
+    "effect": {
+      "type": "fundamental_multiplyOnEnterNightmare",
+      "bubbleType": "Blacksail",
+      "multiplier": 0.16666666666666666
+    },
+    "nightmareOmen": "Extreme difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-for-every-3-purple-or-lower-blacksail-bubbles-you-have-converts-them-into-1-orange-or-better-including-rainbow-whim-bubble",
+    "name": "Upon entering a Nightmare, for every 3 Purple or l",
+    "description": "Upon entering a Nightmare, for every 3 Purple or lower Blacksail Bubbles you have, converts them into 1 Orange or better (including Rainbow) Whim Bubble",
+    "effect": {
+      "type": "fundamental_multiplyOnEnterNightmare",
+      "bubbleType": "Blacksail",
+      "multiplier": 0.3333333333333333
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-there-is-a-45-chance-that-the-quality-of-all-your-blacksail-bubbles-will-be-upgraded-by-1-tier-up-to-rainbow",
+    "name": "Upon entering a Nightmare, there is a 45% chance t",
+    "description": "Upon entering a Nightmare, there is a 45% chance that the quality of all your Blacksail Bubbles will be upgraded by 1 tier, up to Rainbow",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "adds-1-cube-bubble",
+    "name": "Adds 1 Cube Bubble",
+    "description": "Adds 1 Cube Bubble",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "bubbleType": "Cube"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-cube-bubbles",
+    "name": "Adds 2 Cube Bubbles",
+    "description": "Adds 2 Cube Bubbles",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "bubbleType": "Cube"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-cube-bubbles",
+    "name": "Adds 1-3 Cube Bubbles",
+    "description": "Adds 1-3 Cube Bubbles",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "bubbleType": "Cube"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-cube-bubble-that-is-blue-or-better",
+    "name": "Adds 1 Cube Bubble that is Blue or better",
+    "description": "Adds 1 Cube Bubble that is Blue or better",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "blue_or_better",
+      "bubbleType": "Cube"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-cube-bubbles-that-are-blue-or-better",
+    "name": "Adds 2 Cube Bubbles that are Blue or better",
+    "description": "Adds 2 Cube Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "blue_or_better",
+      "bubbleType": "Cube"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-cube-bubbles-that-are-blue-or-better",
+    "name": "Adds 1-3 Cube Bubbles that are Blue or better",
+    "description": "Adds 1-3 Cube Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "blue_or_better",
+      "bubbleType": "Cube"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-cube-bubble-that-is-purple-or-better",
+    "name": "Adds 1 Cube Bubble that is Purple or better",
+    "description": "Adds 1 Cube Bubble that is Purple or better",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "purple_or_better",
+      "bubbleType": "Cube"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-cube-bubble-that-is-purple-or-better",
+    "name": "Adds 2 Cube Bubble that is Purple or better",
+    "description": "Adds 2 Cube Bubble that is Purple or better",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "purple_or_better",
+      "bubbleType": "Cube"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-cube-bubbles-that-are-purple-or-better",
+    "name": "Adds 1-3 Cube Bubbles that are Purple or better",
+    "description": "Adds 1-3 Cube Bubbles that are Purple or better",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "purple_or_better",
+      "bubbleType": "Cube"
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-cube-bubble-that-is-the-same-quality-as-the-highest-quality-bubble-you-own-including-rainbow",
+    "name": "Adds 1 Cube Bubble that is the same quality as the",
+    "description": "Adds 1 Cube Bubble that is the same quality as the highest-quality bubble you own (including Rainbow)",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "Rainbow",
+      "bubbleType": "Cube"
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-cube-bubbles-that-are-the-same-quality-as-the-highest-quality-bubble-you-own-including-rainbow",
+    "name": "Adds 2 Cube Bubbles that are the same quality as t",
+    "description": "Adds 2 Cube Bubbles that are the same quality as the highest-quality bubble you own (including Rainbow)",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "Rainbow",
+      "bubbleType": "Cube"
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-cube-bubbles-that-are-the-same-quality-as-the-highest-quality-bubble-you-own-including-rainbow",
+    "name": "Adds 1-3 Cube Bubbles that are the same quality as",
+    "description": "Adds 1-3 Cube Bubbles that are the same quality as the highest-quality bubble you own (including Rainbow)",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "Rainbow",
+      "bubbleType": "Cube"
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "randomly-selects-1-cube-bubble-to-replicate",
+    "name": "Randomly selects 1 Cube Bubble to replicate",
+    "description": "Randomly selects 1 Cube Bubble to replicate",
+    "effect": {
+      "type": "replicate",
+      "count": 1
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "randomly-selects-2-cube-bubbles-to-replicate",
+    "name": "Randomly selects 2 Cube Bubbles to replicate",
+    "description": "Randomly selects 2 Cube Bubbles to replicate",
+    "effect": {
+      "type": "replicate",
+      "count": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "randomly-selects-1-3-cube-bubbles-to-replicate",
+    "name": "Randomly selects 1-3 Cube Bubbles to replicate",
+    "description": "Randomly selects 1-3 Cube Bubbles to replicate",
+    "effect": {
+      "type": "replicate",
+      "count": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-1-bubble-to-cube",
+    "name": "Changes the type of 1 bubble to Cube",
+    "description": "Changes the type of 1 bubble to Cube",
+    "effect": {
+      "type": "changeType",
+      "count": 1,
+      "newType": "Cube",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-2-bubbles-to-cube",
+    "name": "Changes the type of 2 bubbles to Cube",
+    "description": "Changes the type of 2 bubbles to Cube",
+    "effect": {
+      "type": "changeType",
+      "count": 2,
+      "newType": "Cube",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-3-bubbles-to-cube",
+    "name": "Changes the type of 3 bubbles to Cube",
+    "description": "Changes the type of 3 bubbles to Cube",
+    "effect": {
+      "type": "changeType",
+      "count": 3,
+      "newType": "Cube",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-3-5-bubbles-to-cube",
+    "name": "Changes the type of 3-5 bubbles to Cube",
+    "description": "Changes the type of 3-5 bubbles to Cube",
+    "effect": {
+      "type": "changeType",
+      "count": 5,
+      "newType": "Cube",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-1-bubble-to-cube-and-then-upgrades-its-quality-by-1-tier",
+    "name": "Changes the type of 1 bubble to Cube, and then upg",
+    "description": "Changes the type of 1 bubble to Cube, and then upgrades its quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-2-bubbles-to-cube-and-upgrades-their-quality-by-1-tier",
+    "name": "Changes the type of 2 bubbles to Cube and upgrades",
+    "description": "Changes the type of 2 bubbles to Cube and upgrades their quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-2-3-bubbles-to-cube-and-upgrades-their-quality-by-1-tier",
+    "name": "Changes the type of 2-3 bubbles to Cube and upgrad",
+    "description": "Changes the type of 2-3 bubbles to Cube and upgrades their quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-then-adds-1-cube-bubble-that-is-purple-or-better",
+    "name": "Removes 1 bubble and then adds 1 Cube Bubble that ",
+    "description": "Removes 1 bubble and then adds 1 Cube Bubble that is Purple or better",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "purple_or_better",
+      "bubbleType": "Cube"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-then-adds-2-cube-bubbles-that-are-blue-or-better",
+    "name": "Removes 1 bubble and then adds 2 Cube Bubbles that",
+    "description": "Removes 1 bubble and then adds 2 Cube Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "blue_or_better",
+      "bubbleType": "Cube"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-then-adds-1-3-cube-bubbles-that-are-blue-or-better",
+    "name": "Removes 1 bubble and then adds 1-3 Cube Bubbles th",
+    "description": "Removes 1 bubble and then adds 1-3 Cube Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "blue_or_better",
+      "bubbleType": "Cube"
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-changes-the-type-of-1-bubble-to-cube-and-then-upgrades-its-quality-by-1-tier",
+    "name": "Removes 1 bubble, changes the type of 1 bubble to ",
+    "description": "Removes 1 bubble, changes the type of 1 bubble to Cube, and then upgrades its quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-changes-the-type-of-2-bubbles-to-cube",
+    "name": "Removes 1 bubble and changes the type of 2 bubbles",
+    "description": "Removes 1 bubble and changes the type of 2 bubbles to Cube",
+    "effect": {
+      "type": "remove",
+      "count": 1
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-changes-the-type-of-1-3-bubbles-to-cube",
+    "name": "Removes 1 bubble and changes the type of 1-3 bubbl",
+    "description": "Removes 1 bubble and changes the type of 1-3 bubbles to Cube",
+    "effect": {
+      "type": "remove",
+      "count": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "upon-entering-a-nightmare-for-every-3-cube-bubbles-you-have-you-additionally-gain-1-red-cube-bubble",
+    "name": "Upon entering a Nightmare, for every 3 Cube Bubble",
+    "description": "Upon entering a Nightmare, for every 3 Cube Bubbles you have, you additionally gain 1 Red Cube Bubble",
+    "effect": {
+      "type": "fundamental_multiplyOnEnterNightmare",
+      "multiplier": 0.3333333333333333
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-for-every-6-cube-bubbles-you-have-you-additionally-gain-1-rainbow-cube-bubble",
+    "name": "Upon entering a Nightmare, for every 6 Cube Bubble",
+    "description": "Upon entering a Nightmare, for every 6 Cube Bubbles you have, you additionally gain 1 Rainbow Cube Bubble",
+    "effect": {
+      "type": "fundamental_multiplyOnEnterNightmare",
+      "multiplier": 0.16666666666666666
+    },
+    "nightmareOmen": "Extreme difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-for-every-3-purple-or-lower-cube-bubbles-you-have-converts-them-into-1-orange-or-better-including-rainbow-whim-bubble",
+    "name": "Upon entering a Nightmare, for every 3 Purple or l",
+    "description": "Upon entering a Nightmare, for every 3 Purple or lower Cube Bubbles you have, converts them into 1 Orange or better (including Rainbow) Whim Bubble",
+    "effect": {
+      "type": "fundamental_multiplyOnEnterNightmare",
+      "multiplier": 0.3333333333333333
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-there-is-a-45-chance-that-the-quality-of-all-your-cube-bubbles-will-be-upgraded-by-1-tier-up-to-rainbow",
+    "name": "Upon entering a Nightmare, there is a 45% chance t",
+    "description": "Upon entering a Nightmare, there is a 45% chance that the quality of all your Cube Bubbles will be upgraded by 1 tier, up to Rainbow",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "adds-1-commodity-bubble",
+    "name": "Adds 1 Commodity Bubble",
+    "description": "Adds 1 Commodity Bubble",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "bubbleType": "Commodity"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-commodity-bubbles",
+    "name": "Adds 2 Commodity Bubbles",
+    "description": "Adds 2 Commodity Bubbles",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "bubbleType": "Commodity"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-commodity-bubbles",
+    "name": "Adds 1-3 Commodity Bubbles",
+    "description": "Adds 1-3 Commodity Bubbles",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "bubbleType": "Commodity"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-commodity-bubble-that-is-blue-or-better",
+    "name": "Adds 1 Commodity Bubble that is Blue or better",
+    "description": "Adds 1 Commodity Bubble that is Blue or better",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "blue_or_better",
+      "bubbleType": "Commodity"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-commodity-bubbles-that-are-blue-or-better",
+    "name": "Adds 2 Commodity Bubbles that are Blue or better",
+    "description": "Adds 2 Commodity Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "blue_or_better",
+      "bubbleType": "Commodity"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-commodity-bubbles-that-are-blue-or-better",
+    "name": "Adds 1-3 Commodity Bubbles that are Blue or better",
+    "description": "Adds 1-3 Commodity Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "blue_or_better",
+      "bubbleType": "Commodity"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-commodity-bubble-that-is-purple-or-better",
+    "name": "Adds 1 Commodity Bubble that is Purple or better",
+    "description": "Adds 1 Commodity Bubble that is Purple or better",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "purple_or_better",
+      "bubbleType": "Commodity"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-commodity-bubble-that-is-purple-or-better",
+    "name": "Adds 2 Commodity Bubble that is Purple or better",
+    "description": "Adds 2 Commodity Bubble that is Purple or better",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "purple_or_better",
+      "bubbleType": "Commodity"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-commodity-bubbles-that-are-purple-or-better",
+    "name": "Adds 1-3 Commodity Bubbles that are Purple or bett",
+    "description": "Adds 1-3 Commodity Bubbles that are Purple or better",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "purple_or_better",
+      "bubbleType": "Commodity"
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-commodity-bubble-that-is-the-same-quality-as-the-highest-quality-bubble-you-own-including-rainbow",
+    "name": "Adds 1 Commodity Bubble that is the same quality a",
+    "description": "Adds 1 Commodity Bubble that is the same quality as the highest-quality bubble you own (including Rainbow)",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "Rainbow",
+      "bubbleType": "Commodity"
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-commodity-bubbles-that-are-the-same-quality-as-the-highest-quality-bubble-you-own-including-rainbow",
+    "name": "Adds 2 Commodity Bubbles that are the same quality",
+    "description": "Adds 2 Commodity Bubbles that are the same quality as the highest-quality bubble you own (including Rainbow)",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "Rainbow",
+      "bubbleType": "Commodity"
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-commodity-bubbles-that-are-the-same-quality-as-the-highest-quality-bubble-you-own-including-rainbow",
+    "name": "Adds 1-3 Commodity Bubbles that are the same quali",
+    "description": "Adds 1-3 Commodity Bubbles that are the same quality as the highest-quality bubble you own (including Rainbow)",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "Rainbow",
+      "bubbleType": "Commodity"
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "randomly-selects-1-commodity-bubble-to-replicate",
+    "name": "Randomly selects 1 Commodity Bubble to replicate",
+    "description": "Randomly selects 1 Commodity Bubble to replicate",
+    "effect": {
+      "type": "replicate",
+      "count": 1
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "randomly-selects-2-commodity-bubbles-to-replicate",
+    "name": "Randomly selects 2 Commodity Bubbles to replicate",
+    "description": "Randomly selects 2 Commodity Bubbles to replicate",
+    "effect": {
+      "type": "replicate",
+      "count": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "randomly-selects-1-3-commodity-bubbles-to-replicate",
+    "name": "Randomly selects 1-3 Commodity Bubbles to replicat",
+    "description": "Randomly selects 1-3 Commodity Bubbles to replicate",
+    "effect": {
+      "type": "replicate",
+      "count": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-1-bubble-to-commodity",
+    "name": "Changes the type of 1 bubble to Commodity",
+    "description": "Changes the type of 1 bubble to Commodity",
+    "effect": {
+      "type": "changeType",
+      "count": 1,
+      "newType": "Commodity",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-2-bubbles-to-commodity",
+    "name": "Changes the type of 2 bubbles to Commodity",
+    "description": "Changes the type of 2 bubbles to Commodity",
+    "effect": {
+      "type": "changeType",
+      "count": 2,
+      "newType": "Commodity",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-3-bubbles-to-commodity",
+    "name": "Changes the type of 3 bubbles to Commodity",
+    "description": "Changes the type of 3 bubbles to Commodity",
+    "effect": {
+      "type": "changeType",
+      "count": 3,
+      "newType": "Commodity",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-3-5-bubbles-to-commodity",
+    "name": "Changes the type of 3-5 bubbles to Commodity",
+    "description": "Changes the type of 3-5 bubbles to Commodity",
+    "effect": {
+      "type": "changeType",
+      "count": 5,
+      "newType": "Commodity",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-1-bubble-to-commodity-and-then-upgrades-its-quality-by-1-tier",
+    "name": "Changes the type of 1 bubble to Commodity, and the",
+    "description": "Changes the type of 1 bubble to Commodity, and then upgrades its quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-2-bubbles-to-commodity-and-upgrades-their-quality-by-1-tier",
+    "name": "Changes the type of 2 bubbles to Commodity and upg",
+    "description": "Changes the type of 2 bubbles to Commodity and upgrades their quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-2-3-bubbles-to-commodity-and-upgrades-their-quality-by-1-tier",
+    "name": "Changes the type of 2-3 bubbles to Commodity and u",
+    "description": "Changes the type of 2-3 bubbles to Commodity and upgrades their quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-then-adds-1-commodity-bubble-that-is-purple-or-better",
+    "name": "Removes 1 bubble and then adds 1 Commodity Bubble ",
+    "description": "Removes 1 bubble and then adds 1 Commodity Bubble that is Purple or better",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "purple_or_better",
+      "bubbleType": "Commodity"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-then-adds-2-commodity-bubbles-that-are-blue-or-better",
+    "name": "Removes 1 bubble and then adds 2 Commodity Bubbles",
+    "description": "Removes 1 bubble and then adds 2 Commodity Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "blue_or_better",
+      "bubbleType": "Commodity"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-then-adds-1-3-commodity-bubbles-that-are-blue-or-better",
+    "name": "Removes 1 bubble and then adds 1-3 Commodity Bubbl",
+    "description": "Removes 1 bubble and then adds 1-3 Commodity Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "blue_or_better",
+      "bubbleType": "Commodity"
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-changes-the-type-of-1-bubble-to-commodity-and-then-upgrades-its-quality-by-1-tier",
+    "name": "Removes 1 bubble, changes the type of 1 bubble to ",
+    "description": "Removes 1 bubble, changes the type of 1 bubble to Commodity, and then upgrades its quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-changes-the-type-of-2-bubbles-to-commodity",
+    "name": "Removes 1 bubble and changes the type of 2 bubbles",
+    "description": "Removes 1 bubble and changes the type of 2 bubbles to Commodity",
+    "effect": {
+      "type": "remove",
+      "count": 1
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-changes-the-type-of-1-3-bubbles-to-commodity",
+    "name": "Removes 1 bubble and changes the type of 1-3 bubbl",
+    "description": "Removes 1 bubble and changes the type of 1-3 bubbles to Commodity",
+    "effect": {
+      "type": "remove",
+      "count": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "upon-entering-a-nightmare-for-every-3-commodity-bubbles-you-have-you-additionally-gain-1-red-commodity-bubble",
+    "name": "Upon entering a Nightmare, for every 3 Commodity B",
+    "description": "Upon entering a Nightmare, for every 3 Commodity Bubbles you have, you additionally gain 1 Red Commodity Bubble",
+    "effect": {
+      "type": "fundamental_multiplyOnEnterNightmare",
+      "multiplier": 0.3333333333333333
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-for-every-6-commodity-bubbles-you-have-you-additionally-gain-1-rainbow-commodity-bubble",
+    "name": "Upon entering a Nightmare, for every 6 Commodity B",
+    "description": "Upon entering a Nightmare, for every 6 Commodity Bubbles you have, you additionally gain 1 Rainbow Commodity Bubble",
+    "effect": {
+      "type": "fundamental_multiplyOnEnterNightmare",
+      "multiplier": 0.16666666666666666
+    },
+    "nightmareOmen": "Extreme difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-for-every-3-purple-or-lower-commodity-bubbles-you-have-converts-them-into-1-orange-or-better-including-rainbow-whim-bubble",
+    "name": "Upon entering a Nightmare, for every 3 Purple or l",
+    "description": "Upon entering a Nightmare, for every 3 Purple or lower Commodity Bubbles you have, converts them into 1 Orange or better (including Rainbow) Whim Bubble",
+    "effect": {
+      "type": "fundamental_multiplyOnEnterNightmare",
+      "multiplier": 0.3333333333333333
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-there-is-a-45-chance-that-the-quality-of-all-your-commodity-bubbles-will-be-upgraded-by-1-tier-up-to-rainbow",
+    "name": "Upon entering a Nightmare, there is a 45% chance t",
+    "description": "Upon entering a Nightmare, there is a 45% chance that the quality of all your Commodity Bubbles will be upgraded by 1 tier, up to Rainbow",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "adds-1-netherrealm-bubble",
+    "name": "Adds 1 Netherrealm Bubble",
+    "description": "Adds 1 Netherrealm Bubble",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "bubbleType": "Netherrealm"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-netherrealm-bubbles",
+    "name": "Adds 2 Netherrealm Bubbles",
+    "description": "Adds 2 Netherrealm Bubbles",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "bubbleType": "Netherrealm"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-netherrealm-bubbles",
+    "name": "Adds 1-3 Netherrealm Bubbles",
+    "description": "Adds 1-3 Netherrealm Bubbles",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "bubbleType": "Netherrealm"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-netherrealm-bubble-that-is-blue-or-better",
+    "name": "Adds 1 Netherrealm Bubble that is Blue or better",
+    "description": "Adds 1 Netherrealm Bubble that is Blue or better",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "blue_or_better",
+      "bubbleType": "Netherrealm"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-netherrealm-bubbles-that-are-blue-or-better",
+    "name": "Adds 2 Netherrealm Bubbles that are Blue or better",
+    "description": "Adds 2 Netherrealm Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "blue_or_better",
+      "bubbleType": "Netherrealm"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-netherrealm-bubbles-that-are-blue-or-better",
+    "name": "Adds 1-3 Netherrealm Bubbles that are Blue or bett",
+    "description": "Adds 1-3 Netherrealm Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "blue_or_better",
+      "bubbleType": "Netherrealm"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-netherrealm-bubble-that-is-purple-or-better",
+    "name": "Adds 1 Netherrealm Bubble that is Purple or better",
+    "description": "Adds 1 Netherrealm Bubble that is Purple or better",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "purple_or_better",
+      "bubbleType": "Netherrealm"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-netherrealm-bubble-that-is-purple-or-better",
+    "name": "Adds 2 Netherrealm Bubble that is Purple or better",
+    "description": "Adds 2 Netherrealm Bubble that is Purple or better",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "purple_or_better",
+      "bubbleType": "Netherrealm"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-netherrealm-bubbles-that-are-purple-or-better",
+    "name": "Adds 1-3 Netherrealm Bubbles that are Purple or be",
+    "description": "Adds 1-3 Netherrealm Bubbles that are Purple or better",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "purple_or_better",
+      "bubbleType": "Netherrealm"
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-netherrealm-bubble-that-is-the-same-quality-as-the-highest-quality-bubble-you-own-including-rainbow",
+    "name": "Adds 1 Netherrealm Bubble that is the same quality",
+    "description": "Adds 1 Netherrealm Bubble that is the same quality as the highest-quality bubble you own (including Rainbow)",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "Rainbow",
+      "bubbleType": "Netherrealm"
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-netherrealm-bubbles-that-are-the-same-quality-as-the-highest-quality-bubble-you-own-including-rainbow",
+    "name": "Adds 2 Netherrealm Bubbles that are the same quali",
+    "description": "Adds 2 Netherrealm Bubbles that are the same quality as the highest-quality bubble you own (including Rainbow)",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "Rainbow",
+      "bubbleType": "Netherrealm"
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-netherrealm-bubbles-that-are-the-same-quality-as-the-highest-quality-bubble-you-own-including-rainbow",
+    "name": "Adds 1-3 Netherrealm Bubbles that are the same qua",
+    "description": "Adds 1-3 Netherrealm Bubbles that are the same quality as the highest-quality bubble you own (including Rainbow)",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "Rainbow",
+      "bubbleType": "Netherrealm"
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "randomly-selects-1-netherrealm-bubble-to-replicate",
+    "name": "Randomly selects 1 Netherrealm Bubble to replicate",
+    "description": "Randomly selects 1 Netherrealm Bubble to replicate",
+    "effect": {
+      "type": "replicate",
+      "count": 1
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "randomly-selects-2-netherrealm-bubbles-to-replicate",
+    "name": "Randomly selects 2 Netherrealm Bubbles to replicat",
+    "description": "Randomly selects 2 Netherrealm Bubbles to replicate",
+    "effect": {
+      "type": "replicate",
+      "count": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "randomly-selects-1-3-netherrealm-bubbles-to-replicate",
+    "name": "Randomly selects 1-3 Netherrealm Bubbles to replic",
+    "description": "Randomly selects 1-3 Netherrealm Bubbles to replicate",
+    "effect": {
+      "type": "replicate",
+      "count": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-1-bubble-to-netherrealm",
+    "name": "Changes the type of 1 bubble to Netherrealm",
+    "description": "Changes the type of 1 bubble to Netherrealm",
+    "effect": {
+      "type": "changeType",
+      "count": 1,
+      "newType": "Netherrealm",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-2-bubbles-to-netherrealm",
+    "name": "Changes the type of 2 bubbles to Netherrealm",
+    "description": "Changes the type of 2 bubbles to Netherrealm",
+    "effect": {
+      "type": "changeType",
+      "count": 2,
+      "newType": "Netherrealm",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-3-bubbles-to-netherrealm",
+    "name": "Changes the type of 3 bubbles to Netherrealm",
+    "description": "Changes the type of 3 bubbles to Netherrealm",
+    "effect": {
+      "type": "changeType",
+      "count": 3,
+      "newType": "Netherrealm",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-3-5-bubbles-to-netherrealm",
+    "name": "Changes the type of 3-5 bubbles to Netherrealm",
+    "description": "Changes the type of 3-5 bubbles to Netherrealm",
+    "effect": {
+      "type": "changeType",
+      "count": 5,
+      "newType": "Netherrealm",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-1-bubble-to-netherrealm-and-then-upgrades-its-quality-by-1-tier",
+    "name": "Changes the type of 1 bubble to Netherrealm, and t",
+    "description": "Changes the type of 1 bubble to Netherrealm, and then upgrades its quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-2-bubbles-to-netherrealm-and-upgrades-their-quality-by-1-tier",
+    "name": "Changes the type of 2 bubbles to Netherrealm and u",
+    "description": "Changes the type of 2 bubbles to Netherrealm and upgrades their quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-2-3-bubbles-to-netherrealm-and-upgrades-their-quality-by-1-tier",
+    "name": "Changes the type of 2-3 bubbles to Netherrealm and",
+    "description": "Changes the type of 2-3 bubbles to Netherrealm and upgrades their quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-then-adds-1-netherrealm-bubble-that-is-purple-or-better",
+    "name": "Removes 1 bubble and then adds 1 Netherrealm Bubbl",
+    "description": "Removes 1 bubble and then adds 1 Netherrealm Bubble that is Purple or better",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "purple_or_better",
+      "bubbleType": "Netherrealm"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-then-adds-2-netherrealm-bubbles-that-are-blue-or-better",
+    "name": "Removes 1 bubble and then adds 2 Netherrealm Bubbl",
+    "description": "Removes 1 bubble and then adds 2 Netherrealm Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "blue_or_better",
+      "bubbleType": "Netherrealm"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-then-adds-1-3-netherrealm-bubbles-that-are-blue-or-better",
+    "name": "Removes 1 bubble and then adds 1-3 Netherrealm Bub",
+    "description": "Removes 1 bubble and then adds 1-3 Netherrealm Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "blue_or_better",
+      "bubbleType": "Netherrealm"
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-changes-the-type-of-1-bubble-to-netherrealm-and-then-upgrades-its-quality-by-1-tier",
+    "name": "Removes 1 bubble, changes the type of 1 bubble to ",
+    "description": "Removes 1 bubble, changes the type of 1 bubble to Netherrealm, and then upgrades its quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-changes-the-type-of-2-bubbles-to-netherrealm",
+    "name": "Removes 1 bubble and changes the type of 2 bubbles",
+    "description": "Removes 1 bubble and changes the type of 2 bubbles to Netherrealm",
+    "effect": {
+      "type": "remove",
+      "count": 1
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-changes-the-type-of-1-3-bubbles-to-netherrealm",
+    "name": "Removes 1 bubble and changes the type of 1-3 bubbl",
+    "description": "Removes 1 bubble and changes the type of 1-3 bubbles to Netherrealm",
+    "effect": {
+      "type": "remove",
+      "count": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "upon-entering-a-nightmare-for-every-3-netherrealm-bubbles-you-have-you-additionally-gain-1-red-netherrealm-bubble",
+    "name": "Upon entering a Nightmare, for every 3 Netherrealm",
+    "description": "Upon entering a Nightmare, for every 3 Netherrealm Bubbles you have, you additionally gain 1 Red Netherrealm Bubble",
+    "effect": {
+      "type": "fundamental_multiplyOnEnterNightmare",
+      "multiplier": 0.3333333333333333
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-for-every-6-netherrealm-bubbles-you-have-you-additionally-gain-1-rainbow-netherrealm-bubble",
+    "name": "Upon entering a Nightmare, for every 6 Netherrealm",
+    "description": "Upon entering a Nightmare, for every 6 Netherrealm Bubbles you have, you additionally gain 1 Rainbow Netherrealm Bubble",
+    "effect": {
+      "type": "fundamental_multiplyOnEnterNightmare",
+      "multiplier": 0.16666666666666666
+    },
+    "nightmareOmen": "Extreme difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-for-every-3-purple-or-lower-netherrealm-bubbles-you-have-converts-them-into-1-orange-or-better-including-rainbow-whim-bubble",
+    "name": "Upon entering a Nightmare, for every 3 Purple or l",
+    "description": "Upon entering a Nightmare, for every 3 Purple or lower Netherrealm Bubbles you have, converts them into 1 Orange or better (including Rainbow) Whim Bubble",
+    "effect": {
+      "type": "fundamental_multiplyOnEnterNightmare",
+      "multiplier": 0.3333333333333333
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-there-is-a-45-chance-that-the-quality-of-all-your-netherrealm-bubbles-will-be-upgraded-by-1-tier-up-to-rainbow",
+    "name": "Upon entering a Nightmare, there is a 45% chance t",
+    "description": "Upon entering a Nightmare, there is a 45% chance that the quality of all your Netherrealm Bubbles will be upgraded by 1 tier, up to Rainbow",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "adds-1-fluorescent-bubble",
+    "name": "Adds 1 Fluorescent Bubble",
+    "description": "Adds 1 Fluorescent Bubble",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "bubbleType": "Fluorescent"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-fluorescent-bubbles",
+    "name": "Adds 2 Fluorescent Bubbles",
+    "description": "Adds 2 Fluorescent Bubbles",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "bubbleType": "Fluorescent"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-fluorescent-bubbles",
+    "name": "Adds 1-3 Fluorescent Bubbles",
+    "description": "Adds 1-3 Fluorescent Bubbles",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "bubbleType": "Fluorescent"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-fluorescent-bubble-that-is-blue-or-better",
+    "name": "Adds 1 Fluorescent Bubble that is Blue or better",
+    "description": "Adds 1 Fluorescent Bubble that is Blue or better",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "blue_or_better",
+      "bubbleType": "Fluorescent"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-fluorescent-bubbles-that-are-blue-or-better",
+    "name": "Adds 2 Fluorescent Bubbles that are Blue or better",
+    "description": "Adds 2 Fluorescent Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "blue_or_better",
+      "bubbleType": "Fluorescent"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-fluorescent-bubbles-that-are-blue-or-better",
+    "name": "Adds 1-3 Fluorescent Bubbles that are Blue or bett",
+    "description": "Adds 1-3 Fluorescent Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "blue_or_better",
+      "bubbleType": "Fluorescent"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-fluorescent-bubble-that-is-purple-or-better",
+    "name": "Adds 1 Fluorescent Bubble that is Purple or better",
+    "description": "Adds 1 Fluorescent Bubble that is Purple or better",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "purple_or_better",
+      "bubbleType": "Fluorescent"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-fluorescent-bubble-that-is-purple-or-better",
+    "name": "Adds 2 Fluorescent Bubble that is Purple or better",
+    "description": "Adds 2 Fluorescent Bubble that is Purple or better",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "purple_or_better",
+      "bubbleType": "Fluorescent"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-fluorescent-bubbles-that-are-purple-or-better",
+    "name": "Adds 1-3 Fluorescent Bubbles that are Purple or be",
+    "description": "Adds 1-3 Fluorescent Bubbles that are Purple or better",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "purple_or_better",
+      "bubbleType": "Fluorescent"
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-fluorescent-bubble-that-is-the-same-quality-as-the-highest-quality-bubble-you-own-including-rainbow",
+    "name": "Adds 1 Fluorescent Bubble that is the same quality",
+    "description": "Adds 1 Fluorescent Bubble that is the same quality as the highest-quality bubble you own (including Rainbow)",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "Rainbow",
+      "bubbleType": "Fluorescent"
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-fluorescent-bubbles-that-are-the-same-quality-as-the-highest-quality-bubble-you-own-including-rainbow",
+    "name": "Adds 2 Fluorescent Bubbles that are the same quali",
+    "description": "Adds 2 Fluorescent Bubbles that are the same quality as the highest-quality bubble you own (including Rainbow)",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "Rainbow",
+      "bubbleType": "Fluorescent"
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-fluorescent-bubbles-that-are-the-same-quality-as-the-highest-quality-bubble-you-own-including-rainbow",
+    "name": "Adds 1-3 Fluorescent Bubbles that are the same qua",
+    "description": "Adds 1-3 Fluorescent Bubbles that are the same quality as the highest-quality bubble you own (including Rainbow)",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "Rainbow",
+      "bubbleType": "Fluorescent"
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "randomly-selects-1-fluorescent-bubble-to-replicate",
+    "name": "Randomly selects 1 Fluorescent Bubble to replicate",
+    "description": "Randomly selects 1 Fluorescent Bubble to replicate",
+    "effect": {
+      "type": "replicate",
+      "count": 1
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "randomly-selects-2-fluorescent-bubbles-to-replicate",
+    "name": "Randomly selects 2 Fluorescent Bubbles to replicat",
+    "description": "Randomly selects 2 Fluorescent Bubbles to replicate",
+    "effect": {
+      "type": "replicate",
+      "count": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "randomly-selects-1-3-fluorescent-bubbles-to-replicate",
+    "name": "Randomly selects 1-3 Fluorescent Bubbles to replic",
+    "description": "Randomly selects 1-3 Fluorescent Bubbles to replicate",
+    "effect": {
+      "type": "replicate",
+      "count": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-1-bubble-to-fluorescent",
+    "name": "Changes the type of 1 bubble to Fluorescent",
+    "description": "Changes the type of 1 bubble to Fluorescent",
+    "effect": {
+      "type": "changeType",
+      "count": 1,
+      "newType": "Fluorescent",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-2-bubbles-to-fluorescent",
+    "name": "Changes the type of 2 bubbles to Fluorescent",
+    "description": "Changes the type of 2 bubbles to Fluorescent",
+    "effect": {
+      "type": "changeType",
+      "count": 2,
+      "newType": "Fluorescent",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-3-bubbles-to-fluorescent",
+    "name": "Changes the type of 3 bubbles to Fluorescent",
+    "description": "Changes the type of 3 bubbles to Fluorescent",
+    "effect": {
+      "type": "changeType",
+      "count": 3,
+      "newType": "Fluorescent",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-3-5-bubbles-to-fluorescent",
+    "name": "Changes the type of 3-5 bubbles to Fluorescent",
+    "description": "Changes the type of 3-5 bubbles to Fluorescent",
+    "effect": {
+      "type": "changeType",
+      "count": 5,
+      "newType": "Fluorescent",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-1-bubble-to-fluorescent-and-then-upgrades-its-quality-by-1-tier",
+    "name": "Changes the type of 1 bubble to Fluorescent, and t",
+    "description": "Changes the type of 1 bubble to Fluorescent, and then upgrades its quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-2-bubbles-to-fluorescent-and-upgrades-their-quality-by-1-tier",
+    "name": "Changes the type of 2 bubbles to Fluorescent and u",
+    "description": "Changes the type of 2 bubbles to Fluorescent and upgrades their quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-2-3-bubbles-to-fluorescent-and-upgrades-their-quality-by-1-tier",
+    "name": "Changes the type of 2-3 bubbles to Fluorescent and",
+    "description": "Changes the type of 2-3 bubbles to Fluorescent and upgrades their quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-then-adds-1-fluorescent-bubble-that-is-purple-or-better",
+    "name": "Removes 1 bubble and then adds 1 Fluorescent Bubbl",
+    "description": "Removes 1 bubble and then adds 1 Fluorescent Bubble that is Purple or better",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "purple_or_better",
+      "bubbleType": "Fluorescent"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-then-adds-2-fluorescent-bubbles-that-are-blue-or-better",
+    "name": "Removes 1 bubble and then adds 2 Fluorescent Bubbl",
+    "description": "Removes 1 bubble and then adds 2 Fluorescent Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "blue_or_better",
+      "bubbleType": "Fluorescent"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-then-adds-1-3-fluorescent-bubbles-that-are-blue-or-better",
+    "name": "Removes 1 bubble and then adds 1-3 Fluorescent Bub",
+    "description": "Removes 1 bubble and then adds 1-3 Fluorescent Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "blue_or_better",
+      "bubbleType": "Fluorescent"
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-changes-the-type-of-1-bubble-to-fluorescent-and-then-upgrades-its-quality-by-1-tier",
+    "name": "Removes 1 bubble, changes the type of 1 bubble to ",
+    "description": "Removes 1 bubble, changes the type of 1 bubble to Fluorescent, and then upgrades its quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-changes-the-type-of-2-bubbles-to-fluorescent",
+    "name": "Removes 1 bubble and changes the type of 2 bubbles",
+    "description": "Removes 1 bubble and changes the type of 2 bubbles to Fluorescent",
+    "effect": {
+      "type": "remove",
+      "count": 1
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-changes-the-type-of-1-3-bubbles-to-fluorescent",
+    "name": "Removes 1 bubble and changes the type of 1-3 bubbl",
+    "description": "Removes 1 bubble and changes the type of 1-3 bubbles to Fluorescent",
+    "effect": {
+      "type": "remove",
+      "count": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "upon-entering-a-nightmare-for-every-3-fluorescent-bubbles-you-have-you-additionally-gain-1-red-fluorescent-bubble",
+    "name": "Upon entering a Nightmare, for every 3 Fluorescent",
+    "description": "Upon entering a Nightmare, for every 3 Fluorescent Bubbles you have, you additionally gain 1 Red Fluorescent Bubble",
+    "effect": {
+      "type": "fundamental_multiplyOnEnterNightmare",
+      "multiplier": 0.3333333333333333
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-for-every-6-fluorescent-bubbles-you-have-you-additionally-gain-1-rainbow-fluorescent-bubble",
+    "name": "Upon entering a Nightmare, for every 6 Fluorescent",
+    "description": "Upon entering a Nightmare, for every 6 Fluorescent Bubbles you have, you additionally gain 1 Rainbow Fluorescent Bubble",
+    "effect": {
+      "type": "fundamental_multiplyOnEnterNightmare",
+      "multiplier": 0.16666666666666666
+    },
+    "nightmareOmen": "Extreme difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-for-every-3-purple-or-lower-fluorescent-bubbles-you-have-converts-them-into-1-orange-or-better-including-rainbow-whim-bubble",
+    "name": "Upon entering a Nightmare, for every 3 Purple or l",
+    "description": "Upon entering a Nightmare, for every 3 Purple or lower Fluorescent Bubbles you have, converts them into 1 Orange or better (including Rainbow) Whim Bubble",
+    "effect": {
+      "type": "fundamental_multiplyOnEnterNightmare",
+      "multiplier": 0.3333333333333333
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-there-is-a-45-chance-that-the-quality-of-all-your-fluorescent-bubbles-will-be-upgraded-by-1-tier-up-to-rainbow",
+    "name": "Upon entering a Nightmare, there is a 45% chance t",
+    "description": "Upon entering a Nightmare, there is a 45% chance that the quality of all your Fluorescent Bubbles will be upgraded by 1 tier, up to Rainbow",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "adds-1-whim-bubble",
+    "name": "Adds 1 Whim Bubble",
+    "description": "Adds 1 Whim Bubble",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "bubbleType": "Whim"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-whim-bubbles",
+    "name": "Adds 2 Whim Bubbles",
+    "description": "Adds 2 Whim Bubbles",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "bubbleType": "Whim"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-whim-bubbles",
+    "name": "Adds 1-3 Whim Bubbles",
+    "description": "Adds 1-3 Whim Bubbles",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "bubbleType": "Whim"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-whim-bubble-that-is-blue-or-better",
+    "name": "Adds 1 Whim Bubble that is Blue or better",
+    "description": "Adds 1 Whim Bubble that is Blue or better",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "blue_or_better",
+      "bubbleType": "Whim"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-whim-bubbles-that-are-blue-or-better",
+    "name": "Adds 2 Whim Bubbles that are Blue or better",
+    "description": "Adds 2 Whim Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "blue_or_better",
+      "bubbleType": "Whim"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-whim-bubbles-that-are-blue-or-better",
+    "name": "Adds 1-3 Whim Bubbles that are Blue or better",
+    "description": "Adds 1-3 Whim Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "blue_or_better",
+      "bubbleType": "Whim"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-whim-bubble-that-is-purple-or-better",
+    "name": "Adds 1 Whim Bubble that is Purple or better",
+    "description": "Adds 1 Whim Bubble that is Purple or better",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "purple_or_better",
+      "bubbleType": "Whim"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-whim-bubble-that-is-purple-or-better",
+    "name": "Adds 2 Whim Bubble that is Purple or better",
+    "description": "Adds 2 Whim Bubble that is Purple or better",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "purple_or_better",
+      "bubbleType": "Whim"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-whim-bubbles-that-are-purple-or-better",
+    "name": "Adds 1-3 Whim Bubbles that are Purple or better",
+    "description": "Adds 1-3 Whim Bubbles that are Purple or better",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "purple_or_better",
+      "bubbleType": "Whim"
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-whim-bubble-that-is-the-same-quality-as-the-highest-quality-bubble-you-own-including-rainbow",
+    "name": "Adds 1 Whim Bubble that is the same quality as the",
+    "description": "Adds 1 Whim Bubble that is the same quality as the highest-quality bubble you own (including Rainbow)",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "Rainbow",
+      "bubbleType": "Whim"
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-2-whim-bubbles-that-are-the-same-quality-as-the-highest-quality-bubble-you-own-including-rainbow",
+    "name": "Adds 2 Whim Bubbles that are the same quality as t",
+    "description": "Adds 2 Whim Bubbles that are the same quality as the highest-quality bubble you own (including Rainbow)",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "Rainbow",
+      "bubbleType": "Whim"
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-3-whim-bubbles-that-are-the-same-quality-as-the-highest-quality-bubble-you-own-including-rainbow",
+    "name": "Adds 1-3 Whim Bubbles that are the same quality as",
+    "description": "Adds 1-3 Whim Bubbles that are the same quality as the highest-quality bubble you own (including Rainbow)",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "Rainbow",
+      "bubbleType": "Whim"
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "randomly-selects-1-whim-bubble-to-replicate",
+    "name": "Randomly selects 1 Whim Bubble to replicate",
+    "description": "Randomly selects 1 Whim Bubble to replicate",
+    "effect": {
+      "type": "replicate",
+      "count": 1
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "randomly-selects-2-whim-bubbles-to-replicate",
+    "name": "Randomly selects 2 Whim Bubbles to replicate",
+    "description": "Randomly selects 2 Whim Bubbles to replicate",
+    "effect": {
+      "type": "replicate",
+      "count": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "randomly-selects-1-3-whim-bubbles-to-replicate",
+    "name": "Randomly selects 1-3 Whim Bubbles to replicate",
+    "description": "Randomly selects 1-3 Whim Bubbles to replicate",
+    "effect": {
+      "type": "replicate",
+      "count": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-1-bubble-to-whim",
+    "name": "Changes the type of 1 bubble to Whim",
+    "description": "Changes the type of 1 bubble to Whim",
+    "effect": {
+      "type": "changeType",
+      "count": 1,
+      "newType": "Whim",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-2-bubbles-to-whim",
+    "name": "Changes the type of 2 bubbles to Whim",
+    "description": "Changes the type of 2 bubbles to Whim",
+    "effect": {
+      "type": "changeType",
+      "count": 2,
+      "newType": "Whim",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-3-bubbles-to-whim",
+    "name": "Changes the type of 3 bubbles to Whim",
+    "description": "Changes the type of 3 bubbles to Whim",
+    "effect": {
+      "type": "changeType",
+      "count": 3,
+      "newType": "Whim",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-3-5-bubbles-to-whim",
+    "name": "Changes the type of 3-5 bubbles to Whim",
+    "description": "Changes the type of 3-5 bubbles to Whim",
+    "effect": {
+      "type": "changeType",
+      "count": 5,
+      "newType": "Whim",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-1-bubble-to-whim-and-then-upgrades-its-quality-by-1-tier",
+    "name": "Changes the type of 1 bubble to Whim, and then upg",
+    "description": "Changes the type of 1 bubble to Whim, and then upgrades its quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-2-bubbles-to-whim-and-upgrades-their-quality-by-1-tier",
+    "name": "Changes the type of 2 bubbles to Whim and upgrades",
+    "description": "Changes the type of 2 bubbles to Whim and upgrades their quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "changes-the-type-of-2-3-bubbles-to-whim-and-upgrades-their-quality-by-1-tier",
+    "name": "Changes the type of 2-3 bubbles to Whim and upgrad",
+    "description": "Changes the type of 2-3 bubbles to Whim and upgrades their quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-then-adds-1-whim-bubble-that-is-purple-or-better",
+    "name": "Removes 1 bubble and then adds 1 Whim Bubble that ",
+    "description": "Removes 1 bubble and then adds 1 Whim Bubble that is Purple or better",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "purple_or_better",
+      "bubbleType": "Whim"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-then-adds-2-whim-bubbles-that-are-blue-or-better",
+    "name": "Removes 1 bubble and then adds 2 Whim Bubbles that",
+    "description": "Removes 1 bubble and then adds 2 Whim Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "blue_or_better",
+      "bubbleType": "Whim"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-then-adds-1-3-whim-bubbles-that-are-blue-or-better",
+    "name": "Removes 1 bubble and then adds 1-3 Whim Bubbles th",
+    "description": "Removes 1 bubble and then adds 1-3 Whim Bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "blue_or_better",
+      "bubbleType": "Whim"
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-changes-the-type-of-1-bubble-to-whim-and-then-upgrades-its-quality-by-1-tier",
+    "name": "Removes 1 bubble, changes the type of 1 bubble to ",
+    "description": "Removes 1 bubble, changes the type of 1 bubble to Whim, and then upgrades its quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-changes-the-type-of-2-bubbles-to-whim",
+    "name": "Removes 1 bubble and changes the type of 2 bubbles",
+    "description": "Removes 1 bubble and changes the type of 2 bubbles to Whim",
+    "effect": {
+      "type": "remove",
+      "count": 1
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-changes-the-type-of-1-3-bubbles-to-whim",
+    "name": "Removes 1 bubble and changes the type of 1-3 bubbl",
+    "description": "Removes 1 bubble and changes the type of 1-3 bubbles to Whim",
+    "effect": {
+      "type": "remove",
+      "count": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "upon-entering-a-nightmare-for-every-3-whim-bubbles-you-have-you-additionally-gain-1-red-whim-bubble",
+    "name": "Upon entering a Nightmare, for every 3 Whim Bubble",
+    "description": "Upon entering a Nightmare, for every 3 Whim Bubbles you have, you additionally gain 1 Red Whim Bubble",
+    "effect": {
+      "type": "fundamental_multiplyOnEnterNightmare",
+      "multiplier": 0.3333333333333333
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-for-every-6-whim-bubbles-you-have-you-additionally-gain-1-rainbow-whim-bubble",
+    "name": "Upon entering a Nightmare, for every 6 Whim Bubble",
+    "description": "Upon entering a Nightmare, for every 6 Whim Bubbles you have, you additionally gain 1 Rainbow Whim Bubble",
+    "effect": {
+      "type": "fundamental_multiplyOnEnterNightmare",
+      "multiplier": 0.16666666666666666
+    },
+    "nightmareOmen": "Extreme difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-for-every-3-purple-or-lower-whim-bubbles-you-have-converts-them-into-1-orange-or-better-including-rainbow-whim-bubble",
+    "name": "Upon entering a Nightmare, for every 3 Purple or l",
+    "description": "Upon entering a Nightmare, for every 3 Purple or lower Whim Bubbles you have, converts them into 1 Orange or better (including Rainbow) Whim Bubble",
+    "effect": {
+      "type": "fundamental_multiplyOnEnterNightmare",
+      "multiplier": 0.3333333333333333
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-there-is-a-45-chance-that-the-quality-of-all-your-whim-bubbles-will-be-upgraded-by-1-tier-up-to-rainbow",
+    "name": "Upon entering a Nightmare, there is a 45% chance t",
+    "description": "Upon entering a Nightmare, there is a 45% chance that the quality of all your Whim Bubbles will be upgraded by 1 tier, up to Rainbow",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
   },
   {
     "id": "removes-1-bubble-and-then-upgrades-the-quality-of-1-bubble-by-4-tiers",
@@ -422,77 +3130,331 @@ export const LOTUSES: LotusEffect[] = [
     "isFundamental": false
   },
   {
-    "id": "adds-1-blacksail-bubble",
-    "name": "Adds 1 Blacksail Bubble",
-    "description": "Adds 1 Blacksail Bubble",
+    "id": "removes-1-bubble-and-then-adds-1-bubble-that-is-purple-or-better",
+    "name": "Removes 1 bubble and then adds 1 bubble that is Pu",
+    "description": "Removes 1 bubble and then adds 1 bubble that is Purple or better",
     "effect": {
       "type": "add",
       "count": 1,
-      "bubbleType": "Blacksail"
+      "quality": "purple_or_better"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-then-adds-2-bubbles-that-are-blue-or-better",
+    "name": "Removes 1 bubble and then adds 2 bubbles that are ",
+    "description": "Removes 1 bubble and then adds 2 bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": 2,
+      "quality": "blue_or_better"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-and-then-adds-1-3-bubbles-that-are-blue-or-better",
+    "name": "Removes 1 bubble and then adds 1-3 bubbles that ar",
+    "description": "Removes 1 bubble and then adds 1-3 bubbles that are Blue or better",
+    "effect": {
+      "type": "add",
+      "count": [
+        1,
+        3
+      ],
+      "quality": "blue_or_better"
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-1-bubble-then-randomly-upgrades-the-quality-of-1-3-bubbles-by-1-tier",
+    "name": "Removes 1 bubble, then randomly upgrades the quali",
+    "description": "Removes 1 bubble, then randomly upgrades the quality of 1-3 bubbles by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 3,
+      "tiers": 1
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "upon-entering-a-nightmare-for-every-3-different-types-of-bubbles-you-have-you-additionally-gain-1-red-bubble-of-a-random-type",
+    "name": "Upon entering a Nightmare, for every 3 different t",
+    "description": "Upon entering a Nightmare, for every 3 different types of bubbles you have, you additionally gain 1 Red bubble of a random type",
+    "effect": {
+      "type": "fundamental_multiplyOnEnterNightmare",
+      "multiplier": 0.3333333333333333
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-for-every-3-different-types-of-bubbles-you-have-you-additionally-gain-1-red-whim-bubble",
+    "name": "Upon entering a Nightmare, for every 3 different t",
+    "description": "Upon entering a Nightmare, for every 3 different types of bubbles you have, you additionally gain 1 Red Whim Bubble",
+    "effect": {
+      "type": "fundamental_multiplyOnEnterNightmare",
+      "multiplier": 0.3333333333333333
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-fills-up-the-initial-empty-slots-of-the-vision-with-white-bubbles-of-random-types",
+    "name": "Upon entering a Nightmare, fills up the initial em",
+    "description": "Upon entering a Nightmare, fills up the initial empty slots of the Vision with White bubbles of random types",
+    "effect": {
+      "type": "complex",
+      "customLogic": "Upon entering a Nightmare, fills up the initial empty slots of the Vision with White bubbles of random types"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-fills-up-the-initial-empty-slots-of-the-vision-with-purple-bubbles-of-a-random-type",
+    "name": "Upon entering a Nightmare, fills up the initial em",
+    "description": "Upon entering a Nightmare, fills up the initial empty slots of the Vision with Purple bubbles of a random type",
+    "effect": {
+      "type": "complex",
+      "customLogic": "Upon entering a Nightmare, fills up the initial empty slots of the Vision with Purple bubbles of a random type"
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-fills-up-the-initial-empty-slots-of-the-vision-with-orange-bubbles-of-a-random-type",
+    "name": "Upon entering a Nightmare, fills up the initial em",
+    "description": "Upon entering a Nightmare, fills up the initial empty slots of the Vision with Orange bubbles of a random type",
+    "effect": {
+      "type": "complex",
+      "customLogic": "Upon entering a Nightmare, fills up the initial empty slots of the Vision with Orange bubbles of a random type"
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-there-is-a-100-chance-to-upgrade-the-quality-of-each-bubble-by-2-tiers-for-every-unfilled-initial-empty-slot-the-chance-is-reduced-by-10",
+    "name": "Upon entering a Nightmare, there is a 100% chance ",
+    "description": "Upon entering a Nightmare, there is a 100% chance to upgrade the quality of each bubble by 2 tiers. For every unfilled initial empty slot, the chance is reduced by 10%",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 2
+    },
+    "nightmareOmen": "Extreme difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "whenever-the-quality-of-a-bubble-changes-additionally-upgrades-the-quality-of-1-bubble-by-1-tier",
+    "name": "Whenever the quality of a bubble changes, addition",
+    "description": "Whenever the quality of a bubble changes, additionally upgrades the quality of 1 bubble by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "whenever-adding-or-removing-a-bubble-additionally-upgrades-the-quality-of-1-bubble-by-1-tier",
+    "name": "Whenever adding or removing a bubble, additionally",
+    "description": "Whenever adding or removing a bubble, additionally upgrades the quality of 1 bubble by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "whenever-the-type-of-a-bubble-changes-additionally-upgrades-the-quality-of-1-bubble-by-1-tier",
+    "name": "Whenever the type of a bubble changes, additionall",
+    "description": "Whenever the type of a bubble changes, additionally upgrades the quality of 1 bubble by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-4-rainbow-bubbles-in-each-dream-omen-selection-after-this-1-bubble-will-be-removed-from-lowest-quality-to-highest-quality",
+    "name": "Adds 4 Rainbow bubbles. In each Dream Omen selecti",
+    "description": "Adds 4 Rainbow bubbles. In each Dream Omen selection after this, 1 bubble will be removed (from lowest quality to highest quality)",
+    "effect": {
+      "type": "add",
+      "count": 4,
+      "quality": "Rainbow"
+    },
+    "nightmareOmen": "Extreme difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-bubble-but-no-more-bubbles-can-be-added-later-upon-entering-a-nightmare-each-bubble-is-additionally-replicated-1-time",
+    "name": "Adds 1 bubble, but no more bubbles can be added la",
+    "description": "Adds 1 bubble, but no more bubbles can be added later. Upon entering a Nightmare, each bubble is additionally replicated 1 time",
+    "effect": {
+      "type": "add",
+      "count": 1
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "removes-bubbles-until-leaving-only-1-random-bubble-of-each-type-then-changes-their-quality-to-orange",
+    "name": "Removes bubbles until leaving only 1 random bubble",
+    "description": "Removes bubbles until leaving only 1 random bubble of each type, then changes their quality to Orange",
+    "effect": {
+      "type": "remove",
+      "count": 1
+    },
+    "nightmareOmen": "Extreme difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "removes-bubbles-until-only-1-random-bubble-is-left-then-changes-its-quality-to-red-and-replicates-1-copy-of-it",
+    "name": "Removes bubbles until only 1 random bubble is left",
+    "description": "Removes bubbles until only 1 random bubble is left, then changes its quality to Red and replicates 1 copy of it",
+    "effect": {
+      "type": "remove",
+      "count": 1
+    },
+    "nightmareOmen": "Extreme difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "randomly-changes-the-type-of-all-bubbles-and-then-randomly-changes-the-quality-of-all-bubbles-reducing-their-quality-by-at-most-1-tier-or-upgrading-their-quality-by-at-most-2-tiers",
+    "name": "Randomly changes the type of all bubbles, and then",
+    "description": "Randomly changes the type of all bubbles, and then randomly changes the quality of all bubbles, reducing their quality by at most 1 tier or upgrading their quality by at most 2 tiers",
+    "effect": {
+      "type": "changeType",
+      "count": 1,
+      "newType": "Gear",
+      "upgradeAfter": false
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "randomly-changes-the-quality-of-1-bubble-reducing-their-quality-by-at-most-1-tier-or-upgrading-their-quality-by-at-most-2-tiers",
+    "name": "Randomly changes the quality of 1 bubble, reducing",
+    "description": "Randomly changes the quality of 1 bubble, reducing their quality by at most 1 tier or upgrading their quality by at most 2 tiers",
+    "effect": {
+      "type": "complex",
+      "customLogic": "Randomly changes the quality of 1 bubble, reducing their quality by at most 1 tier or upgrading their quality by at most 2 tiers"
     },
     "nightmareOmen": "Minor difficulty increase",
     "isFundamental": false
   },
   {
-    "id": "adds-1-cube-bubble",
-    "name": "Adds 1 Cube Bubble",
-    "description": "Adds 1 Cube Bubble",
+    "id": "the-quality-of-bubbles-can-t-be-changed-anymore-upon-entering-a-nightmare-you-additionally-obtain-a-number-of-whim-bubbles-equal-to-the-number-of-bubbles-you-already-have",
+    "name": "The quality of bubbles can't be changed anymore. U",
+    "description": "The quality of bubbles can't be changed anymore. Upon entering a Nightmare, you additionally obtain a number of Whim Bubbles equal to the number of bubbles you already have",
+    "effect": {
+      "type": "complex",
+      "customLogic": "The quality of bubbles can't be changed anymore. Upon entering a Nightmare, you additionally obtain a number of Whim Bubbles equal to the number of bubbles you already have"
+    },
+    "nightmareOmen": "Extreme difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "upon-entering-a-nightmare-you-additionally-gain-all-the-bubbles-that-have-been-removed-in-the-sweet-dreams-of-this-round",
+    "name": "Upon entering a Nightmare, you additionally gain a",
+    "description": "Upon entering a Nightmare, you additionally gain all the bubbles that have been removed in the Sweet Dreams of this round",
+    "effect": {
+      "type": "remove",
+      "count": 1
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": true
+  },
+  {
+    "id": "removes-half-your-bubbles-rounding-down-and-replicates-your-remaining-bubbles-with-the-chance-to-upgrade-their-quality-by-1-tier",
+    "name": "Removes half your bubbles (rounding down) and repl",
+    "description": "Removes half your bubbles (rounding down) and replicates your remaining bubbles, with the chance to upgrade their quality by 1 tier",
+    "effect": {
+      "type": "upgrade",
+      "count": 1,
+      "tiers": 1
+    },
+    "nightmareOmen": "Major difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-white-bubble-and-locks-it-during-each-omen-selection-its-quality-is-upgraded-by-1-tier-up-to-rainbow",
+    "name": "Adds 1 White bubble and locks it. During each omen",
+    "description": "Adds 1 White bubble and locks it. During each omen selection, its quality is upgraded by 1 tier, up to Rainbow",
     "effect": {
       "type": "add",
       "count": 1,
-      "bubbleType": "Cube"
+      "quality": "Rainbow"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-rainbow-bubble-and-locks-it-during-each-omen-selection-its-quality-is-reduced-by-1-tier",
+    "name": "Adds 1 Rainbow bubble and locks it. During each om",
+    "description": "Adds 1 Rainbow bubble and locks it. During each omen selection, its quality is reduced by 1 tier",
+    "effect": {
+      "type": "add",
+      "count": 1,
+      "quality": "Rainbow"
     },
     "nightmareOmen": "Minor difficulty increase",
     "isFundamental": false
   },
   {
-    "id": "adds-1-commodity-bubble",
-    "name": "Adds 1 Commodity Bubble",
-    "description": "Adds 1 Commodity Bubble",
+    "id": "locks-the-highest-quality-bubble",
+    "name": "Locks the highest-quality bubble",
+    "description": "Locks the highest-quality bubble",
     "effect": {
-      "type": "add",
-      "count": 1,
-      "bubbleType": "Commodity"
+      "type": "complex",
+      "customLogic": "Locks the highest-quality bubble"
     },
     "nightmareOmen": "Minor difficulty increase",
     "isFundamental": false
   },
   {
-    "id": "adds-1-netherrealm-bubble",
-    "name": "Adds 1 Netherrealm Bubble",
-    "description": "Adds 1 Netherrealm Bubble",
+    "id": "locks-the-1-3-highest-quality-bubbles",
+    "name": "Locks the 1-3 highest-quality bubbles",
+    "description": "Locks the 1-3 highest-quality bubbles",
+    "effect": {
+      "type": "complex",
+      "customLogic": "Locks the 1-3 highest-quality bubbles"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "adds-1-rainbow-bubble-that-will-be-removed-during-the-next-omen-selection",
+    "name": "Adds 1 Rainbow Bubble that will be removed during ",
+    "description": "Adds 1 Rainbow Bubble that will be removed during the next omen selection",
     "effect": {
       "type": "add",
       "count": 1,
-      "bubbleType": "Netherrealm"
+      "quality": "Rainbow"
     },
     "nightmareOmen": "Minor difficulty increase",
     "isFundamental": false
   },
   {
-    "id": "adds-1-fluorescent-bubble",
-    "name": "Adds 1 Fluorescent Bubble",
-    "description": "Adds 1 Fluorescent Bubble",
+    "id": "removes-the-highest-quality-bubble-and-replicates-2-copies-of-it-in-the-next-omen-selection",
+    "name": "Removes the highest quality bubble and replicates ",
+    "description": "Removes the highest quality bubble and replicates 2 copies of it in the next omen selection",
     "effect": {
-      "type": "add",
-      "count": 1,
-      "bubbleType": "Fluorescent"
+      "type": "remove",
+      "count": 1
     },
-    "nightmareOmen": "Minor difficulty increase",
-    "isFundamental": false
-  },
-  {
-    "id": "adds-1-whim-bubble",
-    "name": "Adds 1 Whim Bubble",
-    "description": "Adds 1 Whim Bubble",
-    "effect": {
-      "type": "add",
-      "count": 1,
-      "bubbleType": "Whim"
-    },
-    "nightmareOmen": "Minor difficulty increase",
+    "nightmareOmen": "Moderate difficulty increase",
     "isFundamental": false
   }
 ];
 
-// Total lotuses: 39
+// Total lotuses: 274

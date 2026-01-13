@@ -198,185 +198,168 @@ function generateLotusId(description: string): string {
 }
 
 /**
- * MANUAL DATA ARRAY
- *
- * For now, we'll manually curate some key lotuses from the website
- * Later we could fetch from an API or scrape HTML
- *
- * ARRAY TYPE: RawLotusData[] means "array of RawLotusData objects"
+ * PROGRAMMATIC GENERATION
+ * 
+ * Instead of manually typing 287 lotuses, we generate them based on patterns
+ * Like Rails: BUBBLE_TYPES.each { |type| generate_variants(type) }
+ * 
+ * CONCEPT: DRY (Don't Repeat Yourself) - automate repetitive patterns
  */
-const manualLotusData: RawLotusData[] = [
-  // Basic adds
-  { description: "Adds 1 bubble", nightmareOmen: "Minor difficulty increase" },
-  { description: "Adds 2 bubbles", nightmareOmen: "Minor difficulty increase" },
-  {
-    description: "Adds 1-3 bubbles",
-    nightmareOmen: "Minor difficulty increase",
-  },
-  {
-    description: "Adds 1 bubble that is Blue or better",
-    nightmareOmen: "Minor difficulty increase",
-  },
-  {
-    description: "Adds 2 bubbles that are Blue or better",
-    nightmareOmen: "Moderate difficulty increase",
-  },
-  {
-    description: "Adds 1-3 bubbles that are Blue or better",
-    nightmareOmen: "Moderate difficulty increase",
-  },
-  {
-    description: "Adds 1 bubble that is Purple or better",
-    nightmareOmen: "Moderate difficulty increase",
-  },
-  {
-    description: "Adds 2 bubbles that are Purple or better",
-    nightmareOmen: "Moderate difficulty increase",
-  },
-  {
-    description: "Adds 1-3 bubbles that are Purple or better",
-    nightmareOmen: "Significant difficulty increase",
-  },
-  {
-    description:
-      "Adds 1 bubble that is the same quality as the highest-quality bubble you own (including Rainbow)",
-    nightmareOmen: "Significant difficulty increase",
-  },
-  {
-    description:
-      "Adds 2 bubbles that are the same quality as the highest-quality bubble you own (including Rainbow)",
-    nightmareOmen: "Major difficulty increase",
-  },
 
-  // Upgrades
-  {
-    description: "Upgrades the quality of 1 bubble by 1 tier",
-    nightmareOmen: "Minor difficulty increase",
-  },
-  {
-    description: "Upgrades the quality of 1 bubble by 2 tiers",
-    nightmareOmen: "Moderate difficulty increase",
-  },
-  {
-    description: "Upgrades the quality of 1 bubble by 3 tiers",
-    nightmareOmen: "Significant difficulty increase",
-  },
-
-  // Replicates
-  {
-    description: "Randomly selects 1 bubble to replicate",
-    nightmareOmen: "Moderate difficulty increase",
-  },
-  {
-    description: "Randomly selects 2 bubbles to replicate",
-    nightmareOmen: "Significant difficulty increase",
-  },
-  {
-    description: "Randomly selects 1-3 bubbles to replicate",
-    nightmareOmen: "Significant difficulty increase",
-  },
-
-  // Type-specific adds - Gear
-  {
-    description: "Adds 1 Gear Bubble",
-    nightmareOmen: "Minor difficulty increase",
-  },
-  {
-    description: "Adds 2 Gear Bubbles",
-    nightmareOmen: "Minor difficulty increase",
-  },
-  {
-    description: "Adds 1-3 Gear Bubbles",
-    nightmareOmen: "Minor difficulty increase",
-  },
-  {
-    description: "Adds 1 Gear Bubble that is Blue or better",
-    nightmareOmen: "Minor difficulty increase",
-  },
-  {
-    description: "Adds 2 Gear Bubbles that are Blue or better",
-    nightmareOmen: "Moderate difficulty increase",
-  },
-  {
-    description: "Adds 1-3 Gear Bubbles that are Blue or better",
-    nightmareOmen: "Moderate difficulty increase",
-  },
-  {
-    description: "Adds 1 Gear Bubble that is Purple or better",
-    nightmareOmen: "Moderate difficulty increase",
-  },
-  {
-    description: "Adds 2 Gear Bubble that is Purple or better",
-    nightmareOmen: "Moderate difficulty increase",
-  },
-  {
-    description: "Adds 1-3 Gear Bubbles that are Purple or better",
-    nightmareOmen: "Significant difficulty increase",
-  },
-
-  // Type changes
-  {
-    description: "Changes the type of 1 bubble to Gear",
-    nightmareOmen: "Minor difficulty increase",
-  },
-  {
-    description: "Changes the type of 2 bubbles to Gear",
-    nightmareOmen: "Minor difficulty increase",
-  },
-  {
-    description: "Changes the type of 3 bubbles to Gear",
-    nightmareOmen: "Moderate difficulty increase",
-  },
-  {
-    description:
-      "Changes the type of 1 bubble to Gear, and then upgrades its quality by 1 tier",
-    nightmareOmen: "Moderate difficulty increase",
-  },
-  {
-    description:
-      "Changes the type of 2 bubbles to Gear and upgrades their quality by 1 tier",
-    nightmareOmen: "Significant difficulty increase",
-  },
-
-  // Remove + benefit
-  {
-    description:
-      "Removes 1 bubble and then upgrades the quality of 1 bubble by 4 tiers",
-    nightmareOmen: "Significant difficulty increase",
-  },
-  {
-    description:
-      "Removes 1 bubble and then upgrades the quality of 2 bubbles by 2 tiers",
-    nightmareOmen: "Significant difficulty increase",
-  },
-
-  // More types (abbreviated for brevity - we'd add all 7 types)
-  {
-    description: "Adds 1 Blacksail Bubble",
-    nightmareOmen: "Minor difficulty increase",
-  },
-  {
-    description: "Adds 1 Cube Bubble",
-    nightmareOmen: "Minor difficulty increase",
-  },
-  {
-    description: "Adds 1 Commodity Bubble",
-    nightmareOmen: "Minor difficulty increase",
-  },
-  {
-    description: "Adds 1 Netherrealm Bubble",
-    nightmareOmen: "Minor difficulty increase",
-  },
-  {
-    description: "Adds 1 Fluorescent Bubble",
-    nightmareOmen: "Minor difficulty increase",
-  },
-  {
-    description: "Adds 1 Whim Bubble",
-    nightmareOmen: "Minor difficulty increase",
-  },
+const BUBBLE_TYPES: BubbleType[] = [
+  'Gear', 'Blacksail', 'Cube', 'Commodity', 
+  'Netherrealm', 'Fluorescent', 'Whim'
 ];
 
+function generateLotusVariants(): RawLotusData[] {
+  const lotuses: RawLotusData[] = [];
+
+  // ===== BASIC ADDS (no type specified) =====
+  lotuses.push(
+    { description: 'Adds 1 bubble', nightmareOmen: 'Minor difficulty increase' },
+    { description: 'Adds 2 bubbles', nightmareOmen: 'Minor difficulty increase' },
+    { description: 'Adds 1-3 bubbles', nightmareOmen: 'Minor difficulty increase' },
+    { description: 'Adds 1 bubble that is Blue or better', nightmareOmen: 'Minor difficulty increase' },
+    { description: 'Adds 2 bubbles that are Blue or better', nightmareOmen: 'Moderate difficulty increase' },
+    { description: 'Adds 1-3 bubbles that are Blue or better', nightmareOmen: 'Moderate difficulty increase' },
+    { description: 'Adds 1 bubble that is Purple or better', nightmareOmen: 'Moderate difficulty increase' },
+    { description: 'Adds 2 bubbles that are Purple or better', nightmareOmen: 'Moderate difficulty increase' },
+    { description: 'Adds 1-3 bubbles that are Purple or better', nightmareOmen: 'Significant difficulty increase' },
+    { description: 'Adds 1 bubble that is the same quality as the highest-quality bubble you own (including Rainbow)', nightmareOmen: 'Significant difficulty increase' },
+    { description: 'Adds 2 bubbles that are the same quality as the highest-quality bubble you own (including Rainbow)', nightmareOmen: 'Major difficulty increase' },
+    { description: 'Adds 1-3 bubbles that are the same quality as the highest-quality bubble you own (including Rainbow)', nightmareOmen: 'Major difficulty increase' }
+  );
+
+  // ===== UPGRADES =====
+  lotuses.push(
+    { description: 'Upgrades the quality of 1 bubble by 1 tier', nightmareOmen: 'Minor difficulty increase' },
+    { description: 'Upgrades the quality of 1 bubble by 2 tiers', nightmareOmen: 'Moderate difficulty increase' },
+    { description: 'Upgrades the quality of 1 bubble by 3 tiers', nightmareOmen: 'Significant difficulty increase' },
+    { description: 'Upgrades the quality of 1 bubble to the same quality as the highest-quality bubble you own (including Rainbow)', nightmareOmen: 'Major difficulty increase' },
+    { description: 'Upgrades the quality of 2 bubbles to the same quality as the highest-quality bubble you own (including Rainbow)', nightmareOmen: 'Major difficulty increase' }
+  );
+
+  // ===== REPLICATES =====
+  lotuses.push(
+    { description: 'Randomly selects 1 bubble to replicate', nightmareOmen: 'Moderate difficulty increase' },
+    { description: 'Randomly selects 2 bubbles to replicate', nightmareOmen: 'Significant difficulty increase' },
+    { description: 'Randomly selects 1-3 bubbles to replicate', nightmareOmen: 'Significant difficulty increase' }
+  );
+
+  // ===== TYPE-SPECIFIC VARIANTS =====
+  // For each bubble type, generate all variations
+  // Like Rails: BUBBLE_TYPES.each { |type| generate_adds(type) }
+  BUBBLE_TYPES.forEach((type) => {
+    // Basic adds
+    lotuses.push(
+      { description: `Adds 1 ${type} Bubble`, nightmareOmen: 'Minor difficulty increase' },
+      { description: `Adds 2 ${type} Bubbles`, nightmareOmen: 'Minor difficulty increase' },
+      { description: `Adds 1-3 ${type} Bubbles`, nightmareOmen: 'Minor difficulty increase' },
+      { description: `Adds 1 ${type} Bubble that is Blue or better`, nightmareOmen: 'Minor difficulty increase' },
+      { description: `Adds 2 ${type} Bubbles that are Blue or better`, nightmareOmen: 'Moderate difficulty increase' },
+      { description: `Adds 1-3 ${type} Bubbles that are Blue or better`, nightmareOmen: 'Moderate difficulty increase' },
+      { description: `Adds 1 ${type} Bubble that is Purple or better`, nightmareOmen: 'Moderate difficulty increase' },
+      { description: `Adds 2 ${type} Bubble that is Purple or better`, nightmareOmen: 'Moderate difficulty increase' },
+      { description: `Adds 1-3 ${type} Bubbles that are Purple or better`, nightmareOmen: 'Significant difficulty increase' },
+      { description: `Adds 1 ${type} Bubble that is the same quality as the highest-quality bubble you own (including Rainbow)`, nightmareOmen: 'Significant difficulty increase' },
+      { description: `Adds 2 ${type} Bubbles that are the same quality as the highest-quality bubble you own (including Rainbow)`, nightmareOmen: 'Major difficulty increase' },
+      { description: `Adds 1-3 ${type} Bubbles that are the same quality as the highest-quality bubble you own (including Rainbow)`, nightmareOmen: 'Major difficulty increase' }
+    );
+
+    // Replicates
+    lotuses.push(
+      { description: `Randomly selects 1 ${type} Bubble to replicate`, nightmareOmen: 'Moderate difficulty increase' },
+      { description: `Randomly selects 2 ${type} Bubbles to replicate`, nightmareOmen: 'Significant difficulty increase' },
+      { description: `Randomly selects 1-3 ${type} Bubbles to replicate`, nightmareOmen: 'Significant difficulty increase' }
+    );
+
+    // Type changes
+    lotuses.push(
+      { description: `Changes the type of 1 bubble to ${type}`, nightmareOmen: 'Minor difficulty increase' },
+      { description: `Changes the type of 2 bubbles to ${type}`, nightmareOmen: 'Minor difficulty increase' },
+      { description: `Changes the type of 3 bubbles to ${type}`, nightmareOmen: 'Moderate difficulty increase' },
+      { description: `Changes the type of 3-5 bubbles to ${type}`, nightmareOmen: 'Moderate difficulty increase' },
+      { description: `Changes the type of 1 bubble to ${type}, and then upgrades its quality by 1 tier`, nightmareOmen: 'Moderate difficulty increase' },
+      { description: `Changes the type of 2 bubbles to ${type} and upgrades their quality by 1 tier`, nightmareOmen: 'Significant difficulty increase' },
+      { description: `Changes the type of 2-3 bubbles to ${type} and upgrades their quality by 1 tier`, nightmareOmen: 'Significant difficulty increase' }
+    );
+
+    // Remove + Add specific type
+    lotuses.push(
+      { description: `Removes 1 bubble and then adds 1 ${type} Bubble that is Purple or better`, nightmareOmen: 'Moderate difficulty increase' },
+      { description: `Removes 1 bubble and then adds 2 ${type} Bubbles that are Blue or better`, nightmareOmen: 'Moderate difficulty increase' },
+      { description: `Removes 1 bubble and then adds 1-3 ${type} Bubbles that are Blue or better`, nightmareOmen: 'Significant difficulty increase' },
+      { description: `Removes 1 bubble, changes the type of 1 bubble to ${type}, and then upgrades its quality by 1 tier`, nightmareOmen: 'Significant difficulty increase' },
+      { description: `Removes 1 bubble and changes the type of 2 bubbles to ${type}`, nightmareOmen: 'Moderate difficulty increase' },
+      { description: `Removes 1 bubble and changes the type of 1-3 bubbles to ${type}`, nightmareOmen: 'Significant difficulty increase' }
+    );
+
+    // Fundamentals - "Upon entering Nightmare"
+    lotuses.push(
+      { description: `Upon entering a Nightmare, for every 3 ${type} Bubbles you have, you additionally gain 1 Red ${type} Bubble`, nightmareOmen: 'Major difficulty increase' },
+      { description: `Upon entering a Nightmare, for every 6 ${type} Bubbles you have, you additionally gain 1 Rainbow ${type} Bubble`, nightmareOmen: 'Extreme difficulty increase' },
+      { description: `Upon entering a Nightmare, for every 3 Purple or lower ${type} Bubbles you have, converts them into 1 Orange or better (including Rainbow) Whim Bubble`, nightmareOmen: 'Major difficulty increase' },
+      { description: `Upon entering a Nightmare, there is a 45% chance that the quality of all your ${type} Bubbles will be upgraded by 1 tier, up to Rainbow`, nightmareOmen: 'Major difficulty increase' }
+    );
+  });
+
+  // ===== REMOVE + BENEFIT COMBOS =====
+  lotuses.push(
+    { description: 'Removes 1 bubble and then upgrades the quality of 1 bubble by 4 tiers', nightmareOmen: 'Significant difficulty increase' },
+    { description: 'Removes 1 bubble and then upgrades the quality of 2 bubbles by 2 tiers', nightmareOmen: 'Significant difficulty increase' },
+    { description: 'Removes 1 bubble and then adds 1 bubble that is Purple or better', nightmareOmen: 'Moderate difficulty increase' },
+    { description: 'Removes 1 bubble and then adds 2 bubbles that are Blue or better', nightmareOmen: 'Moderate difficulty increase' },
+    { description: 'Removes 1 bubble and then adds 1-3 bubbles that are Blue or better', nightmareOmen: 'Significant difficulty increase' },
+    { description: 'Removes 1 bubble, then randomly upgrades the quality of 1-3 bubbles by 1 tier', nightmareOmen: 'Moderate difficulty increase' }
+  );
+
+  // ===== SPECIAL FUNDAMENTALS =====
+  lotuses.push(
+    { description: 'Upon entering a Nightmare, for every 3 different types of bubbles you have, you additionally gain 1 Red bubble of a random type', nightmareOmen: 'Major difficulty increase' },
+    { description: 'Upon entering a Nightmare, for every 3 different types of bubbles you have, you additionally gain 1 Red Whim Bubble', nightmareOmen: 'Major difficulty increase' },
+    { description: 'Upon entering a Nightmare, fills up the initial empty slots of the Vision with White bubbles of random types', nightmareOmen: 'Minor difficulty increase' },
+    { description: 'Upon entering a Nightmare, fills up the initial empty slots of the Vision with Purple bubbles of a random type', nightmareOmen: 'Significant difficulty increase' },
+    { description: 'Upon entering a Nightmare, fills up the initial empty slots of the Vision with Orange bubbles of a random type', nightmareOmen: 'Major difficulty increase' },
+    { description: 'Upon entering a Nightmare, there is a 100% chance to upgrade the quality of each bubble by 2 tiers. For every unfilled initial empty slot, the chance is reduced by 10%', nightmareOmen: 'Extreme difficulty increase' },
+    { description: 'Whenever the quality of a bubble changes, additionally upgrades the quality of 1 bubble by 1 tier', nightmareOmen: 'Significant difficulty increase' },
+    { description: 'Whenever adding or removing a bubble, additionally upgrades the quality of 1 bubble by 1 tier', nightmareOmen: 'Significant difficulty increase' },
+    { description: 'Whenever the type of a bubble changes, additionally upgrades the quality of 1 bubble by 1 tier', nightmareOmen: 'Significant difficulty increase' }
+  );
+
+  // ===== HIGH-RISK HIGH-REWARD =====
+  lotuses.push(
+    { description: 'Adds 4 Rainbow bubbles. In each Dream Omen selection after this, 1 bubble will be removed (from lowest quality to highest quality)', nightmareOmen: 'Extreme difficulty increase' },
+    { description: 'Adds 1 bubble, but no more bubbles can be added later. Upon entering a Nightmare, each bubble is additionally replicated 1 time', nightmareOmen: 'Major difficulty increase' },
+    { description: 'Removes bubbles until leaving only 1 random bubble of each type, then changes their quality to Orange', nightmareOmen: 'Extreme difficulty increase' },
+    { description: 'Removes bubbles until only 1 random bubble is left, then changes its quality to Red and replicates 1 copy of it', nightmareOmen: 'Extreme difficulty increase' },
+    { description: 'Randomly changes the type of all bubbles, and then randomly changes the quality of all bubbles, reducing their quality by at most 1 tier or upgrading their quality by at most 2 tiers', nightmareOmen: 'Major difficulty increase' },
+    { description: 'Randomly changes the quality of 1 bubble, reducing their quality by at most 1 tier or upgrading their quality by at most 2 tiers', nightmareOmen: 'Minor difficulty increase' },
+    { description: 'The quality of bubbles can\'t be changed anymore. Upon entering a Nightmare, you additionally obtain a number of Whim Bubbles equal to the number of bubbles you already have', nightmareOmen: 'Extreme difficulty increase' },
+    { description: 'Upon entering a Nightmare, you additionally gain all the bubbles that have been removed in the Sweet Dreams of this round', nightmareOmen: 'Major difficulty increase' },
+    { description: 'Removes half your bubbles (rounding down) and replicates your remaining bubbles, with the chance to upgrade their quality by 1 tier', nightmareOmen: 'Major difficulty increase' }
+  );
+
+  // ===== LOCKING MECHANICS =====
+  lotuses.push(
+    { description: 'Adds 1 White bubble and locks it. During each omen selection, its quality is upgraded by 1 tier, up to Rainbow', nightmareOmen: 'Moderate difficulty increase' },
+    { description: 'Adds 1 Rainbow bubble and locks it. During each omen selection, its quality is reduced by 1 tier', nightmareOmen: 'Minor difficulty increase' },
+    { description: 'Locks the highest-quality bubble', nightmareOmen: 'Minor difficulty increase' },
+    { description: 'Locks the 1-3 highest-quality bubbles', nightmareOmen: 'Moderate difficulty increase' },
+    { description: 'Adds 1 Rainbow Bubble that will be removed during the next omen selection', nightmareOmen: 'Minor difficulty increase' },
+    { description: 'Removes the highest quality bubble and replicates 2 copies of it in the next omen selection', nightmareOmen: 'Moderate difficulty increase' }
+  );
+
+  return lotuses;
+}
+
+const manualLotusData: RawLotusData[] = generateLotusVariants();
+
+/**
+ * MAIN FUNCTION: Process all lotus data
+ *
+ * MAP: Transforms each item in an array
+ * Array.map(item => transformedItem) returns a new array
+ */
 /**
  * MAIN FUNCTION: Process all lotus data
  *
