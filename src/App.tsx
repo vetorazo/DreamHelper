@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type {
   BubbleState,
   Bubble,
@@ -8,12 +8,43 @@ import type {
 } from "./types";
 import { DEFAULT_QUALITY_MULTIPLIERS, DEFAULT_TYPE_WEIGHTS } from "./types";
 import { rankLotusChoices } from "./engine/calculator";
-import { LOTUSES } from './data/lotuses';
+import { LOTUSES } from "./data/lotuses";
+
+/**
+ * REACT HOOKS vs RAILS:
+ * 
+ * useState - Like Rails instance variables (@bubbles), but with a setter that triggers re-render
+ *   Rails: @bubbles = []; then @bubbles << new_bubble (mutate directly)
+ *   React: const [bubbles, setBubbles] = useState([]); then setBubbles([...bubbles, new])
+ * 
+ * useEffect - Like Rails callbacks (after_create, after_update)
+ *   Rails: after_commit :save_to_cache
+ *   React: useEffect(() => { saveToLocalStorage() }, [bubbles]) // runs when bubbles change
+ * 
+ * localStorage - Like Rails.cache, but client-side browser storage
+ *   Persists across page reloads until manually cleared
+ */
+
+const STORAGE_KEY = "dreamhelper-bubble-state"; // Like a Rails cache key
 
 function App() {
-  const [bubbleState, setBubbleState] = useState<BubbleState>({
-    bubbles: [],
-    visionCapacity: 10,
+  // CONCEPT: Lazy initialization - function runs only on first render
+  // Like Rails: @bubbles ||= load_from_cache
+  const [bubbleState, setBubbleState] = useState<BubbleState>(() => {
+    // Try to load from localStorage on initial mount
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        return JSON.parse(saved); // Like Rails: JSON.parse(cached_value)
+      } catch (e) {
+        console.error("Failed to parse saved state:", e);
+      }
+    }
+    // Default state if nothing saved
+    return {
+      bubbles: [],
+      visionCapacity: 10,
+    };
   });
 
   const [userWeights] = useState<UserWeights>({
@@ -24,6 +55,48 @@ function App() {
 
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
   const [editingBubbleId, setEditingBubbleId] = useState<string | null>(null);
+
+  /**
+   * useEffect - SIDE EFFECTS hook
+   * 
+   * Like Rails callbacks, runs after component renders
+   * 
+   * Rails equivalent:
+   *   after_commit :save_to_cache, if: :bubbles_changed?
+   * 
+   * Syntax: useEffect(() => { code }, [dependencies])
+   * - First arg: function to run (the effect)
+   * - Second arg: array of dependencies (when to re-run)
+   *   - [] = run once on mount (like Rails after_create)
+   *   - [bubbleState] = run whenever bubbleState changes (like Rails after_update)
+   *   - no array = run on every render (usually bad, like N+1 queries)
+   */
+  useEffect(() => {
+    // DEBOUNCING: In production, you'd debounce this like Rails queue_as :low_priority
+    // For now, save immediately on every change
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(bubbleState));
+  }, [bubbleState]); // Dependency array - re-run when bubbleState changes
+
+  /**
+   * useEffect - SIDE EFFECTS hook
+   * 
+   * Like Rails callbacks, runs after component renders
+   * 
+   * Rails equivalent:
+   *   after_commit :save_to_cache, if: :bubbles_changed?
+   * 
+   * Syntax: useEffect(() => { code }, [dependencies])
+   * - First arg: function to run (the effect)
+   * - Second arg: array of dependencies (when to re-run)
+   *   - [] = run once on mount (like Rails after_create)
+   *   - [bubbleState] = run whenever bubbleState changes (like Rails after_update)
+   *   - no array = run on every render (usually bad, like N+1 queries)
+   */
+  useEffect(() => {
+    // DEBOUNCING: In production, you'd debounce this like Rails queue_as :low_priority
+    // For now, save immediately on every change
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(bubbleState));
+  }, [bubbleState]); // Dependency array - re-run when bubbleState changes
 
   const addBubble = (type: BubbleType, quality: BubbleQuality) => {
     if (bubbleState.bubbles.length >= bubbleState.visionCapacity) {
@@ -53,7 +126,16 @@ function App() {
   const updateBubbleQuality = (id: string, newQuality: BubbleQuality) => {
     setBubbleState({
       ...bubbleState,
-      bubbles: bubbleState.bubbles.map((b) =>
+    
+
+  const startNewRun = () => {
+    // Clear everything including fundamental
+    setBubbleState({
+      bubbles: [],
+      visionCapacity: 10,
+    });
+    localStorage.removeItem(STORAGE_KEY);
+  };  bubbles: bubbleState.bubbles.map((b) =>
         b.id === id ? { ...b, quality: newQuality } : b
       ),
     });
@@ -76,6 +158,15 @@ function App() {
     });
   };
 
+  const startNewRun = () => {
+    // Clear everything including fundamental
+    setBubbleState({
+      bubbles: [],
+      visionCapacity: 10,
+    });
+    localStorage.removeItem(STORAGE_KEY);
+  };
+
   const recommendations = rankLotusChoices(
     bubbleState,
     LOTUSES,
@@ -89,6 +180,27 @@ function App() {
       <p style={{ color: "#666" }}>
         Optimize your Dream Lotus choices in Torchlight Infinite
       </p>
+
+      <div style={{ marginBottom: "10px" }}>
+        <button
+          onClick={startNewRun}
+          style={{
+            backgroundColor: "#ff6b6b",
+            color: "white",
+            padding: "8px 16px",
+            border: "none",
+            borderRadius: "6px",
+            cursor: "pointer",
+            fontWeight: "bold",
+          }}
+          title="Clear all bubbles and start fresh"
+        >
+          🆕 New Run
+        </button>
+        <span style={{ marginLeft: "10px", fontSize: "12px", color: "#999" }}>
+          (Your progress auto-saves!)
+        </span>
+      </div>
 
       <div
         style={{
