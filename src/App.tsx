@@ -174,6 +174,19 @@ function App() {
     3
   );
 
+  const selectLotus = (lotusId: string) => {
+    const lotus = LOTUSES.find((l) => l.id === lotusId);
+    if (!lotus) return;
+
+    // If this is the first lotus choice and it's a fundamental, track it
+    if (!bubbleState.fundamental && lotus.isFundamental) {
+      setBubbleState({
+        ...bubbleState,
+        fundamental: lotus,
+      });
+    }
+  };
+
   return (
     <div style={{ padding: "20px", fontFamily: "system-ui, sans-serif" }}>
       <h1>🌙 Dream Helper - Twinightmare Calculator</h1>
@@ -201,6 +214,23 @@ function App() {
           (Your progress auto-saves!)
         </span>
       </div>
+
+      {bubbleState.fundamental && (
+        <div
+          style={{
+            backgroundColor: "#e3f2fd",
+            border: "2px solid #2196F3",
+            borderRadius: "8px",
+            padding: "15px",
+            marginBottom: "20px",
+          }}
+        >
+          <strong style={{ color: "#1976D2" }}>⭐ Fundamental Active:</strong>
+          <p style={{ margin: "5px 0 0 0", fontSize: "14px" }}>
+            {bubbleState.fundamental.description}
+          </p>
+        </div>
+      )}
 
       <div
         style={{
@@ -482,6 +512,39 @@ function App() {
                   >
                     Result: {rec.simulatedState.bubbles.length} bubbles
                   </div>
+                  {rec.lotus.isFundamental && !bubbleState.fundamental && (
+                    <div
+                      style={{
+                        marginTop: "10px",
+                        padding: "8px",
+                        backgroundColor: "#fff3cd",
+                        border: "1px solid #ffc107",
+                        borderRadius: "4px",
+                        fontSize: "12px",
+                      }}
+                    >
+                      ⚠️ This is a <strong>Fundamental</strong> - persistent
+                      effect for the whole run!
+                    </div>
+                  )}
+                  <button
+                    onClick={() => selectLotus(rec.lotus.id)}
+                    style={{
+                      marginTop: "10px",
+                      padding: "8px 16px",
+                      backgroundColor: index === 0 ? "#4CAF50" : "#2196F3",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "6px",
+                      cursor: "pointer",
+                      fontWeight: "bold",
+                      fontSize: "14px",
+                    }}
+                  >
+                    {rec.lotus.isFundamental && !bubbleState.fundamental
+                      ? "Set as Fundamental"
+                      : "Select This Lotus"}
+                  </button>
                 </div>
               ))}
             </div>
