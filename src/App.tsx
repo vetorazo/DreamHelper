@@ -48,14 +48,27 @@ function App() {
       try {
         const parsed = JSON.parse(saved);
         // Validate and filter out any bubbles with invalid types
-        if (parsed.bubbles) {
-          parsed.bubbles = parsed.bubbles.filter((b: Bubble) =>
-            VALID_BUBBLE_TYPES.includes(b.type)
+        if (parsed.bubbles && Array.isArray(parsed.bubbles)) {
+          const filteredBubbles = parsed.bubbles.filter(
+            (b: any) =>
+              b.type && VALID_BUBBLE_TYPES.includes(b.type as BubbleType)
           );
+          // If all bubbles were invalid, clear storage and start fresh
+          if (parsed.bubbles.length > 0 && filteredBubbles.length === 0) {
+            console.warn("All bubbles invalid, clearing storage");
+            localStorage.removeItem(STORAGE_KEY);
+            return {
+              bubbles: [],
+              visionCapacity: 10,
+            };
+          }
+          parsed.bubbles = filteredBubbles;
         }
         return parsed;
       } catch (e) {
         console.error("Failed to parse saved state:", e);
+        // Clear corrupted data
+        localStorage.removeItem(STORAGE_KEY);
       }
     }
     // Default state if nothing saved
