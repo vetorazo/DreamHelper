@@ -15,7 +15,6 @@ export type BubbleType =
   | "Commodity"
   | "Netherrealm"
   | "Fluorescent"
-  | "Fuel"
   | "Whim";
 
 export interface Bubble {
@@ -106,6 +105,5 @@ export const DEFAULT_TYPE_WEIGHTS: Record<BubbleType, number> = {
   Commodity: 1.0,
   Netherrealm: 1.0,
   Fluorescent: 1.0,
-  Fuel: 1.0,
   Whim: 1.2, // Slightly higher as it counts as all types
 };

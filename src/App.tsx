@@ -261,7 +261,7 @@ function App() {
                   "Commodity",
                   "Netherrealm",
                   "Fluorescent",
-                  "Fuel",
+
                   "Whim",
                 ] as BubbleType[]
               ).map((type) => (
