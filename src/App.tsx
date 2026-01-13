@@ -38,12 +38,38 @@ const VALID_BUBBLE_TYPES: BubbleType[] = [
   "Whim",
 ];
 
+// Helper to safely access localStorage
+function safeLocalStorageGet(key: string): string | null {
+  try {
+    return localStorage.getItem(key);
+  } catch (e) {
+    console.warn("localStorage access denied:", e);
+    return null;
+  }
+}
+
+function safeLocalStorageSet(key: string, value: string): void {
+  try {
+    localStorage.setItem(key, value);
+  } catch (e) {
+    console.warn("localStorage access denied:", e);
+  }
+}
+
+function safeLocalStorageRemove(key: string): void {
+  try {
+    localStorage.removeItem(key);
+  } catch (e) {
+    console.warn("localStorage access denied:", e);
+  }
+}
+
 function App() {
   // CONCEPT: Lazy initialization - function runs only on first render
   // Like Rails: @bubbles ||= load_from_cache
   const [bubbleState, setBubbleState] = useState<BubbleState>(() => {
     // Try to load from localStorage on initial mount
-    const saved = localStorage.getItem(STORAGE_KEY);
+    const saved = safeLocalStorageGet(STORAGE_KEY);
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
@@ -56,7 +82,7 @@ function App() {
           // If all bubbles were invalid, clear storage and start fresh
           if (parsed.bubbles.length > 0 && filteredBubbles.length === 0) {
             console.warn("All bubbles invalid, clearing storage");
-            localStorage.removeItem(STORAGE_KEY);
+            safeLocalStorageRemove(STORAGE_KEY);
             return {
               bubbles: [],
               visionCapacity: 10,
@@ -68,7 +94,7 @@ function App() {
       } catch (e) {
         console.error("Failed to parse saved state:", e);
         // Clear corrupted data
-        localStorage.removeItem(STORAGE_KEY);
+        safeLocalStorageRemove(STORAGE_KEY);
       }
     }
     // Default state if nothing saved
@@ -79,7 +105,7 @@ function App() {
   });
 
   const [userWeights, setUserWeights] = useState<UserWeights>(() => {
-    const saved = localStorage.getItem(WEIGHTS_STORAGE_KEY);
+    const saved = safeLocalStorageGet(WEIGHTS_STORAGE_KEY);
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
@@ -128,11 +154,11 @@ function App() {
   useEffect(() => {
     // DEBOUNCING: In production, you'd debounce this like Rails queue_as :low_priority
     // For now, save immediately on every change
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(bubbleState));
+    safeLocalStorageSet(STORAGE_KEY, JSON.stringify(bubbleState));
   }, [bubbleState]); // Dependency array - re-run when bubbleState changes
 
   useEffect(() => {
-    localStorage.setItem(WEIGHTS_STORAGE_KEY, JSON.stringify(userWeights));
+    safeLocalStorageSet(WEIGHTS_STORAGE_KEY, JSON.stringify(userWeights));
   }, [userWeights]);
 
   const updateTypeWeight = (type: BubbleType, weight: number) => {
@@ -193,7 +219,7 @@ function App() {
       bubbles: [],
       visionCapacity: 10,
     });
-    localStorage.removeItem(STORAGE_KEY);
+    safeLocalStorageRemove(STORAGE_KEY);
   };
 
   const moveBubble = (fromIndex: number, toIndex: number) => {
