@@ -28,6 +28,16 @@ import { LOTUSES } from "./data/lotuses";
 const STORAGE_KEY = "dreamhelper-bubble-state"; // Like a Rails cache key
 const WEIGHTS_STORAGE_KEY = "dreamhelper-user-weights";
 
+const VALID_BUBBLE_TYPES: BubbleType[] = [
+  "Gear",
+  "Blacksail",
+  "Cube",
+  "Commodity",
+  "Netherrealm",
+  "Fluorescent",
+  "Whim",
+];
+
 function App() {
   // CONCEPT: Lazy initialization - function runs only on first render
   // Like Rails: @bubbles ||= load_from_cache
@@ -36,7 +46,14 @@ function App() {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       try {
-        return JSON.parse(saved); // Like Rails: JSON.parse(cached_value)
+        const parsed = JSON.parse(saved);
+        // Validate and filter out any bubbles with invalid types
+        if (parsed.bubbles) {
+          parsed.bubbles = parsed.bubbles.filter((b: Bubble) =>
+            VALID_BUBBLE_TYPES.includes(b.type)
+          );
+        }
+        return parsed;
       } catch (e) {
         console.error("Failed to parse saved state:", e);
       }
@@ -52,7 +69,20 @@ function App() {
     const saved = localStorage.getItem(WEIGHTS_STORAGE_KEY);
     if (saved) {
       try {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        // Clean up any invalid type weights (like "Fuel")
+        if (parsed.typeWeights) {
+          const cleanedWeights: Record<BubbleType, number> = {} as Record<
+            BubbleType,
+            number
+          >;
+          VALID_BUBBLE_TYPES.forEach((type) => {
+            cleanedWeights[type] =
+              parsed.typeWeights[type] ?? DEFAULT_TYPE_WEIGHTS[type];
+          });
+          parsed.typeWeights = cleanedWeights;
+        }
+        return parsed;
       } catch (e) {
         console.error("Failed to parse saved weights:", e);
       }
@@ -478,10 +508,14 @@ function App() {
                 Reset
               </button>
             </div>
-            <p style={{ fontSize: "12px", color: "#666", margin: "0 0 10px 0" }}>
+            <p
+              style={{ fontSize: "12px", color: "#666", margin: "0 0 10px 0" }}
+            >
               Higher values = more valuable in recommendations
             </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "8px" }}
+            >
               {(Object.keys(userWeights.typeWeights) as BubbleType[]).map(
                 (type) => (
                   <div
