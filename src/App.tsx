@@ -5,6 +5,7 @@ import type {
   BubbleType,
   BubbleQuality,
   UserWeights,
+  LotusEffect,
 } from "./types";
 import { DEFAULT_QUALITY_MULTIPLIERS, DEFAULT_TYPE_WEIGHTS } from "./types";
 import { rankLotusChoices } from "./engine/calculator";
@@ -135,6 +136,10 @@ function App() {
 
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
   const [editingBubbleId, setEditingBubbleId] = useState<string | null>(null);
+  
+  // NEW: Current lotus choices for comparison (like Rails shopping cart)
+  const [currentChoices, setCurrentChoices] = useState<LotusEffect[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   /**
    * useEffect - SIDE EFFECTS hook
@@ -239,9 +244,36 @@ function App() {
     });
   };
 
+  // NEW: Functions for lotus choice comparison
+  const addToCurrentChoices = (lotus: LotusEffect) => {
+    // Don't add duplicates (like Rails: unless @cart.include?(product))
+    if (!currentChoices.find((l) => l.id === lotus.id)) {
+      setCurrentChoices([...currentChoices, lotus]);
+    }
+    setSearchQuery(""); // Clear search after adding
+  };
+
+  const removeFromCurrentChoices = (lotusId: string) => {
+    setCurrentChoices(currentChoices.filter((l) => l.id !== lotusId));
+  };
+
+  const clearCurrentChoices = () => {
+    setCurrentChoices([]);
+  };
+
+  // Filter lotuses based on search query (like Rails: Product.where("name LIKE ?", query))
+  const searchResults =
+    searchQuery.length >= 2
+      ? LOTUSES.filter((lotus) =>
+          lotus.description.toLowerCase().includes(searchQuery.toLowerCase())
+        ).slice(0, 10) // Limit to 10 results
+      : [];
+
+  // SMART RECOMMENDATIONS: Use currentChoices if available, otherwise show top 3 from all
+  const lotusesToRank = currentChoices.length > 0 ? currentChoices : LOTUSES;
   const recommendations = rankLotusChoices(
     bubbleState,
-    LOTUSES,
+    lotusesToRank,
     userWeights,
     3
   );
@@ -257,6 +289,9 @@ function App() {
         fundamental: lotus,
       });
     }
+    
+    // Clear current choices after selecting (ready for next choice)
+    clearCurrentChoices();
   };
 
   return (
@@ -600,7 +635,152 @@ function App() {
             </div>
           </div>
 
+          {/* NEW: Lotus Choice Comparison Section */}
+          <div
+            style={{
+              backgroundColor: "#fff3cd",
+              border: "2px solid #ffc107",
+              borderRadius: "8px",
+              padding: "15px",
+              marginBottom: "20px",
+              marginTop: "20px",
+            }}
+          >
+            <h3 style={{ margin: "0 0 10px 0" }}>🎯 Compare Lotus Choices</h3>
+            <p style={{ fontSize: "12px", color: "#666", margin: "0 0 10px 0" }}>
+              Search and add the lotuses you're offered in-game
+            </p>
+
+            {/* Search Input */}
+            <div style={{ position: "relative", marginBottom: "10px" }}>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search lotus... (e.g. 'adds 2 gear')"
+                style={{
+                  width: "100%",
+                  padding: "8px",
+                  fontSize: "14px",
+                  border: "2px solid #ffc107",
+                  borderRadius: "4px",
+                  boxSizing: "border-box",
+                }}
+              />
+
+              {/* Search Results Dropdown */}
+              {searchResults.length > 0 && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "100%",
+                    left: 0,
+                    right: 0,
+                    backgroundColor: "white",
+                    border: "2px solid #ffc107",
+                    borderTop: "none",
+                    borderRadius: "0 0 4px 4px",
+                    maxHeight: "200px",
+                    overflowY: "auto",
+                    zIndex: 1000,
+                  }}
+                >
+                  {searchResults.map((lotus) => (
+                    <div
+                      key={lotus.id}
+                      onClick={() => addToCurrentChoices(lotus)}
+                      style={{
+                        padding: "8px",
+                        cursor: "pointer",
+                        borderBottom: "1px solid #eee",
+                        fontSize: "13px",
+                      }}
+                      onMouseOver={(e) =>
+                        (e.currentTarget.style.backgroundColor = "#f5f5f5")
+                      }
+                      onMouseOut={(e) =>
+                        (e.currentTarget.style.backgroundColor = "white")
+                      }
+                    >
+                      {lotus.description}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Current Choices */}
+            {currentChoices.length > 0 && (
+              <div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: "8px",
+                  }}
+                >
+                  <strong style={{ fontSize: "14px" }}>
+                    Comparing ({currentChoices.length}):
+                  </strong>
+                  <button
+                    onClick={clearCurrentChoices}
+                    style={{
+                      padding: "4px 8px",
+                      fontSize: "12px",
+                      backgroundColor: "#dc3545",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Clear All
+                  </button>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                  {currentChoices.map((lotus) => (
+                    <div
+                      key={lotus.id}
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        padding: "8px",
+                        backgroundColor: "white",
+                        border: "1px solid #ddd",
+                        borderRadius: "4px",
+                        fontSize: "13px",
+                      }}
+                    >
+                      <span>{lotus.description}</span>
+                      <button
+                        onClick={() => removeFromCurrentChoices(lotus.id)}
+                        style={{
+                          padding: "2px 6px",
+                          fontSize: "12px",
+                          backgroundColor: "#dc3545",
+                          color: "white",
+                          border: "none",
+                          borderRadius: "3px",
+                          cursor: "pointer",
+                        }}
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
           <h2>Recommended Lotus Choices</h2>
+          {currentChoices.length > 0 && (
+            <p style={{ fontSize: "13px", color: "#28a745", fontWeight: "bold", marginTop: "-8px" }}>
+              ✓ Comparing your {currentChoices.length} selected choices
+            </p>
+          )}
           {bubbleState.bubbles.length === 0 ? (
             <p style={{ color: "#999" }}>
               Add some bubbles to see recommendations
