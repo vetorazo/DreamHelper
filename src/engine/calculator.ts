@@ -1,6 +1,74 @@
 import type { BubbleState, LotusEffect, UserWeights } from "../types";
 
 /**
+ * Apply fundamental effects to a state
+ * These are persistent "upon entering nightmare" effects
+ * 
+ * CONCEPT vs Rails: Like ActiveRecord scopes that stack
+ *   Rails: User.active.premium.recent (chains scopes)
+ *   Here: applyFundamental(state, fundamental) modifies state based on fundamental type
+ */
+function applyFundamentalEffects(state: BubbleState): BubbleState {
+  if (!state.fundamental) return state;
+
+  const fundamental = state.fundamental;
+  const effect = fundamental.effect;
+
+  // Handle different fundamental types
+  switch (effect.type) {
+    case "fundamental_multiplyOnEnterNightmare": {
+      // Example: "For every 3 Gear bubbles, add 1 Red Gear bubble"
+      const targetBubbles = effect.bubbleType
+        ? state.bubbles.filter((b) => b.type === effect.bubbleType)
+        : state.bubbles;
+
+      const multiplier = effect.multiplier || 0.33;
+      const toAdd = Math.floor(targetBubbles.length * multiplier);
+
+      for (let i = 0; i < toAdd; i++) {
+        state.bubbles.push({
+          id: `fundamental-bonus-${Date.now()}-${i}`,
+          type: effect.bubbleType || "Whim",
+          quality: "Red",
+        });
+      }
+      break;
+    }
+
+    case "fundamental_chanceUpgradeOnEnterNightmare": {
+      // Example: "45% chance to upgrade all Gear bubbles by 1 tier"
+      const chance = effect.chance || 0.45;
+      // For simulation, we use expected value (multiply by chance)
+      const targetBubbles = effect.bubbleType
+        ? state.bubbles.filter((b) => b.type === effect.bubbleType)
+        : state.bubbles;
+
+      // Simplified: upgrade if we "roll" success
+      if (Math.random() < chance) {
+        targetBubbles.forEach((bubble) => {
+          bubble.quality = upgradeQuality(bubble.quality, 1);
+        });
+      }
+      break;
+    }
+
+    case "fundamental_bonusOnQualityChange":
+    case "fundamental_bonusOnTypeChange":
+    case "fundamental_bonusOnAddRemove":
+      // These are reactive fundamentals that trigger during gameplay
+      // For now, we don't simulate these as they depend on lotus choices
+      // In a real implementation, we'd track these and apply bonuses
+      break;
+
+    default:
+      // Complex or unhandled fundamentals
+      break;
+  }
+
+  return state;
+}
+
+/**
  * Calculate the total value of a bubble state based on user weights
  */
 export function calculateStateValue(
@@ -195,6 +263,7 @@ function upgradeQuality(
 
 /**
  * Calculate the score for a lotus choice
+ * Now includes fundamental effects!
  */
 export function scoreLotusChoice(
   currentState: BubbleState,
@@ -202,11 +271,16 @@ export function scoreLotusChoice(
   weights: UserWeights
 ): number {
   const currentValue = calculateStateValue(currentState, weights);
-  const simulatedState = simulateLotusEffect(currentState, lotus);
+  
+  // Simulate the lotus effect
+  let simulatedState = simulateLotusEffect(currentState, lotus);
+  
+  // Apply fundamental effects if entering nightmare
+  // CONCEPT: Like Rails transaction callbacks - apply all accumulated effects
+  simulatedState = applyFundamentalEffects(simulatedState);
+  
   const newValue = calculateStateValue(simulatedState, weights);
 
-  return newValue - currentValue;
-}
 
 /**
  * Rank all available lotus choices and return top N
