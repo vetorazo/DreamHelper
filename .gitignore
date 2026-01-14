@@ -25,3 +25,6 @@ dist-ssr
 
 # AI context file
 PROJECT_CONTEXT.md
+
+# Temporary files
+wiki_response.html
