@@ -48,7 +48,7 @@ const VALID_BUBBLE_TYPES: BubbleType[] = [
 
 // Helper to get bubble icon path
 function getBubbleIconPath(type: BubbleType, quality: BubbleQuality): string {
-  return `/icons/bubbles/${type}_${quality}.webp`;
+  return `./icons/bubbles/${type}_${quality}.webp`;
 }
 
 // Helper to calculate nightmare risk
