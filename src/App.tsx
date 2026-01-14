@@ -358,6 +358,7 @@ function App() {
   // NEW: Current lotus choices for comparison (like Rails shopping cart)
   const [currentChoices, setCurrentChoices] = useState<LotusEffect[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [fundamentalSearch, setFundamentalSearch] = useState<string>("");
 
   // Monte Carlo simulation toggle
   const [useMonteCarlo, setUseMonteCarlo] = useState<boolean>(false);
@@ -608,12 +609,22 @@ function App() {
       : [];
 
   // SMART RECOMMENDATIONS: 
-  // - If no fundamental and no bubbles: show only fundamentals
+  // - If no fundamental and no bubbles: show only fundamentals (with optional search filter)
   // - If currentChoices exist: use those
   // - Otherwise: show all lotuses
+  const isShowingFundamentalsView = !bubbleState.fundamental && bubbleState.bubbles.length === 0;
+  
+  let fundamentalsToShow = LOTUSES.filter(l => l.isFundamental);
+  if (isShowingFundamentalsView && fundamentalSearch.length >= 2) {
+    fundamentalsToShow = fundamentalsToShow.filter(l => 
+      l.description.toLowerCase().includes(fundamentalSearch.toLowerCase()) ||
+      l.name.toLowerCase().includes(fundamentalSearch.toLowerCase())
+    );
+  }
+  
   const lotusesToRank = 
-    !bubbleState.fundamental && bubbleState.bubbles.length === 0
-      ? LOTUSES.filter(l => l.isFundamental)
+    isShowingFundamentalsView
+      ? fundamentalsToShow
       : currentChoices.length > 0 
         ? currentChoices 
         : LOTUSES;
@@ -1263,11 +1274,45 @@ function App() {
           )}
 
           <h2 className="section-title">Recommended Lotus Choices</h2>
+          
+          {/* Fundamental Search */}
           {!bubbleState.fundamental && bubbleState.bubbles.length === 0 && (
-            <p className="text-success text-sm" style={{ marginTop: "-8px" }}>
-              ⭐ Showing available Fundamentals - pick your first lotus!
-            </p>
+            <>
+              <p className="text-success text-sm" style={{ marginTop: "-8px", marginBottom: "1rem" }}>
+                ⭐ Showing available Fundamentals - pick your first lotus!
+              </p>
+              <div className="relative mb-3">
+                <input
+                  type="text"
+                  value={fundamentalSearch}
+                  onChange={(e) => setFundamentalSearch(e.target.value)}
+                  placeholder="🔍 Search fundamentals... (e.g. 'gear', 'adds', 'upgrade')"
+                  className="input"
+                  style={{ width: "100%" }}
+                />
+                {fundamentalSearch && (
+                  <button
+                    onClick={() => setFundamentalSearch("")}
+                    className="btn btn-secondary btn-tiny"
+                    style={{ 
+                      position: "absolute", 
+                      right: "10px", 
+                      top: "50%", 
+                      transform: "translateY(-50%)" 
+                    }}
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+              {fundamentalSearch.length >= 2 && lotusesToRank.length === 0 && (
+                <p className="text-muted" style={{ marginBottom: "1rem" }}>
+                  No fundamentals found matching "{fundamentalSearch}"
+                </p>
+              )}
+            </>
           )}
+          
           {currentChoices.length > 0 && (
             <p className="text-success text-sm" style={{ marginTop: "-8px" }}>
               ✓ Comparing your {currentChoices.length} selected choices
