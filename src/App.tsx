@@ -12,7 +12,8 @@ import {
   rankLotusChoices, 
   rankLotusChoicesWithLookahead,
   applyGoalWeights,
-  calculateStateValue 
+  calculateStateValue,
+  explainRecommendation
 } from "./engine/calculator";
 import { LOTUSES } from "./data/lotuses";
 import "./App.css";
@@ -368,6 +369,11 @@ function App() {
   const [useLookahead, setUseLookahead] = useState<boolean>(false);
   const [lookaheadDepth, setLookaheadDepth] = useState<number>(2);
 
+  // Undo/Redo history
+  const [history, setHistory] = useState<BubbleState[]>([]);
+  const [historyIndex, setHistoryIndex] = useState<number>(-1);
+  const MAX_HISTORY = 20; // Keep last 20 states
+
   /**
    * useEffect - SIDE EFFECTS hook
    *
@@ -411,11 +417,45 @@ function App() {
     });
   };
 
+  // Helper to save current state to history before making changes
+  const saveToHistory = (state: BubbleState) => {
+    // Remove any future history if we're not at the end
+    const newHistory = history.slice(0, historyIndex + 1);
+    newHistory.push(JSON.parse(JSON.stringify(state))); // Deep clone
+    
+    // Keep only last MAX_HISTORY states
+    if (newHistory.length > MAX_HISTORY) {
+      newHistory.shift();
+    } else {
+      setHistoryIndex(historyIndex + 1);
+    }
+    
+    setHistory(newHistory);
+  };
+
+  // Undo last action
+  const undo = () => {
+    if (historyIndex > 0) {
+      setHistoryIndex(historyIndex - 1);
+      setBubbleState(JSON.parse(JSON.stringify(history[historyIndex - 1])));
+    }
+  };
+
+  // Redo last undone action
+  const redo = () => {
+    if (historyIndex < history.length - 1) {
+      setHistoryIndex(historyIndex + 1);
+      setBubbleState(JSON.parse(JSON.stringify(history[historyIndex + 1])));
+    }
+  };
+
   const addBubble = (type: BubbleType, quality: BubbleQuality) => {
     if (bubbleState.bubbles.length >= bubbleState.visionCapacity) {
       alert("Vision is full!");
       return;
     }
+
+    saveToHistory(bubbleState);
 
     const newBubble: Bubble = {
       id: `bubble-${Date.now()}`,
@@ -430,6 +470,8 @@ function App() {
   };
 
   const removeBubble = (id: string) => {
+    saveToHistory(bubbleState);
+    
     setBubbleState({
       ...bubbleState,
       bubbles: bubbleState.bubbles.filter((b) => b.id !== id),
@@ -437,6 +479,8 @@ function App() {
   };
 
   const updateBubbleQuality = (id: string, newQuality: BubbleQuality) => {
+    saveToHistory(bubbleState);
+    
     setBubbleState({
       ...bubbleState,
       bubbles: bubbleState.bubbles.map((b) =>
@@ -446,6 +490,8 @@ function App() {
   };
 
   const startNewRun = () => {
+    saveToHistory(bubbleState);
+    
     // Clear everything including fundamental
     setBubbleState({
       bubbles: [],
@@ -455,6 +501,8 @@ function App() {
   };
 
   const moveBubble = (fromIndex: number, toIndex: number) => {
+    saveToHistory(bubbleState);
+    
     const newBubbles = [...bubbleState.bubbles];
     const [removed] = newBubbles.splice(fromIndex, 1);
     newBubbles.splice(toIndex, 0, removed);
@@ -630,10 +678,31 @@ function App() {
           onClick={importRun}
           className="btn btn-secondary"
           style={{ marginLeft: "10px" }}
-          title="Import run from clipboard"
         >
           📥 Import Run
         </button>
+        
+        {/* Undo/Redo Controls */}
+        <span style={{ marginLeft: "20px", borderLeft: "2px solid #e1e8ed", paddingLeft: "20px" }}>
+          <button
+            onClick={undo}
+            disabled={historyIndex <= 0}
+            className="btn btn-secondary"
+            title="Undo last action (Ctrl+Z)"
+          >
+            ↶ Undo
+          </button>
+          <button
+            onClick={redo}
+            disabled={historyIndex >= history.length - 1}
+            className="btn btn-secondary"
+            style={{ marginLeft: "10px" }}
+            title="Redo last action (Ctrl+Y)"
+          >
+            ↷ Redo
+          </button>
+        </span>
+        
         <span className="help-text" style={{ marginLeft: "10px" }}>
           (Your progress auto-saves!)
         </span>
@@ -1123,7 +1192,15 @@ function App() {
             <div
               style={{ display: "flex", flexDirection: "column", gap: "15px" }}
             >
-              {recommendations.map((rec, index) => (
+              {recommendations.map((rec, index) => {
+                const reasons = explainRecommendation(
+                  bubbleState,
+                  rec.lotus,
+                  rec.simulatedState,
+                  goalType
+                );
+                
+                return (
                 <div
                   key={rec.lotus.id}
                   className={`recommendation ${index === 0 ? "best" : ""}`}
@@ -1140,6 +1217,21 @@ function App() {
                       <p className="recommendation-omen">
                         Nightmare: {rec.lotus.nightmareOmen}
                       </p>
+                      
+                      {/* Recommendation Explanations */}
+                      {reasons.length > 0 && (
+                        <div className="recommendation-reasons">
+                          {reasons.map((reason, i) => (
+                            <span
+                              key={i}
+                              className={`reason-badge reason-${reason.type}`}
+                              title={reason.description}
+                            >
+                              {reason.icon} {reason.label}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                     </div>
                     <div
                       className={`recommendation-score ${
@@ -1175,7 +1267,8 @@ function App() {
                       : "Select This Lotus"}
                   </button>
                 </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>

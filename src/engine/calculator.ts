@@ -1,5 +1,12 @@
 import type { BubbleState, LotusEffect, UserWeights, BubbleType } from "../types";
 
+export interface RecommendationReason {
+  type: "synergy" | "upgrade" | "goal" | "high_value" | "quantity";
+  label: string;
+  icon: string;
+  description: string;
+}
+
 /**
  * Apply fundamental effects to a state
  * These are persistent "upon entering nightmare" effects
@@ -427,4 +434,120 @@ export function rankLotusChoicesWithLookahead(
 
   // Sort by lookahead score (which includes future potential)
   return scored.sort((a, b) => b.lookaheadScore - a.lookaheadScore).slice(0, topN);
+}
+
+/**
+ * Analyze why a lotus recommendation is good
+ * Returns tags explaining the strategic value
+ */
+export function explainRecommendation(
+  currentState: BubbleState,
+  lotus: LotusEffect,
+  simulatedState: BubbleState,
+  goalType: BubbleType | null
+): RecommendationReason[] {
+  const reasons: RecommendationReason[] = [];
+  const effect = lotus.effect;
+
+  // Check for synergy boost (adds bubbles that create/enhance combos)
+  if (effect.type === "add" && effect.bubbleType) {
+    const currentTypeCount = currentState.bubbles.filter(b => b.type === effect.bubbleType).length;
+    const newTypeCount = simulatedState.bubbles.filter(b => b.type === effect.bubbleType).length;
+    const addedCount = newTypeCount - currentTypeCount;
+    
+    // Creates strong type cluster (3+ of same type)
+    if (currentTypeCount >= 2 && currentTypeCount < 3 && newTypeCount >= 3) {
+      reasons.push({
+        type: "synergy",
+        label: "Synergy Boost!",
+        icon: "✨",
+        description: `Creates ${effect.bubbleType} cluster (${newTypeCount} total)`
+      });
+    } else if (currentTypeCount >= 3 && addedCount > 0) {
+      reasons.push({
+        type: "synergy",
+        label: "Synergy +",
+        icon: "⚡",
+        description: `Strengthens ${effect.bubbleType} combo`
+      });
+    }
+  }
+
+  // Check for upgrades
+  if (effect.type === "upgrade") {
+    const upgradedCount = simulatedState.bubbles.filter(b => {
+      const original = currentState.bubbles.find(orig => orig.id === b.id);
+      return original && b.quality !== original.quality;
+    }).length;
+
+    if (upgradedCount >= 3) {
+      reasons.push({
+        type: "upgrade",
+        label: "Major Upgrade!",
+        icon: "⬆️",
+        description: `Upgrades ${upgradedCount} bubbles`
+      });
+    } else if (upgradedCount > 0) {
+      reasons.push({
+        type: "upgrade",
+        label: "Upgrade",
+        icon: "↗️",
+        description: `Upgrades ${upgradedCount} bubble${upgradedCount > 1 ? 's' : ''}`
+      });
+    }
+  }
+
+  // Check for goal progress
+  if (goalType && effect.type === "add" && effect.bubbleType === goalType) {
+    const addedGoalBubbles = simulatedState.bubbles.filter(b => b.type === goalType).length -
+                              currentState.bubbles.filter(b => b.type === goalType).length;
+    if (addedGoalBubbles > 0) {
+      reasons.push({
+        type: "goal",
+        label: "Goal Progress!",
+        icon: "🎯",
+        description: `Adds ${addedGoalBubbles} ${goalType} bubble${addedGoalBubbles > 1 ? 's' : ''}`
+      });
+    }
+  }
+
+  // Check for high value additions (Orange+ bubbles)
+  if (effect.type === "add") {
+    const highQualityAdded = simulatedState.bubbles.filter(b => 
+      ["Orange", "Red", "Rainbow"].includes(b.quality)
+    ).length - currentState.bubbles.filter(b => 
+      ["Orange", "Red", "Rainbow"].includes(b.quality)
+    ).length;
+
+    if (highQualityAdded >= 2) {
+      reasons.push({
+        type: "high_value",
+        label: "High Value!",
+        icon: "💎",
+        description: `Adds ${highQualityAdded} premium bubbles`
+      });
+    } else if (highQualityAdded === 1) {
+      reasons.push({
+        type: "high_value",
+        label: "Premium Add",
+        icon: "💫",
+        description: "Adds high-quality bubble"
+      });
+    }
+  }
+
+  // Check for large quantity additions
+  if (effect.type === "add" || effect.type === "replicate") {
+    const addedCount = simulatedState.bubbles.length - currentState.bubbles.length;
+    if (addedCount >= 3) {
+      reasons.push({
+        type: "quantity",
+        label: "Big Gain!",
+        icon: "📈",
+        description: `Adds ${addedCount} bubbles`
+      });
+    }
+  }
+
+  return reasons;
 }
