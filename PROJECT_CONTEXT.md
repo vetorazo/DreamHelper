@@ -69,31 +69,36 @@ scripts/
 - [x] Authentic game icons with attribution (42 bubble icons downloaded)
 - [x] Synergy detection system (combo effects and strategic insights)
 
-### Phase 3: Advanced (Future)
+### Phase 3: Advanced ✅ PARTIALLY COMPLETE
 
-- [ ] Monte Carlo simulation for probabilistic effects
+- [x] Export/import runs for sharing (JSON clipboard copy/paste)
+- [x] Monte Carlo simulation for probabilistic effects (100 simulations per lotus)
 - [ ] Lookahead optimization (multi-step planning)
 - [ ] Historical learning from previous runs
 - [ ] Goal-oriented modes (maximize specific bubble types)
-- [ ] Export/import runs for sharing
 - [ ] Statistics tracking across multiple runs
 
 ## Current Algorithm
 
-Simulation-based weighted scoring with fundamental effects and synergy detection:
+Simulation-based weighted scoring with fundamental effects, synergy detection, and optional Monte Carlo:
 
 ```
 1. simulateLotusEffect(state, lotus) -> new state
-2. applyFundamentalEffects(state) -> modified state (if fundamental set)
+2. applyFundamentalEffects(state, useMonteCarlo) -> modified state
 3. calculateStateValue(state, weights) -> numeric score
 4. detectSynergies(bubbles) -> array of active synergies
 5. Score = newValue - currentValue
 
+Monte Carlo (optional): Run 100 simulations for probabilistic effects (45% chances)
 Quality multipliers: White=1, Blue=2, Purple=4, Orange=8, Red=16, Rainbow=32
 Type weights: All default to 1.0, Whim=1.2 (user customizable)
 ```
 
 **Fundamental Effects**: Persistent bonuses that trigger "upon entering nightmare" - tracked separately and applied automatically in scoring.
+
+**Monte Carlo Simulation**: For probabilistic effects (like "45% chance to upgrade"), runs 100 simulations and averages results for more accurate recommendations. Toggle in UI.
+
+**Export/Import**: Copy entire run state (bubbles + weights) to clipboard as JSON. Share builds or save multiple strategies.
 
 **Synergy Detection**: Identifies powerful bubble combinations:
 
@@ -141,6 +146,9 @@ Type weights: All default to 1.0, Whim=1.2 (user customizable)
 - "added nightmare risk visualization" - Color-coded risk levels with value-at-risk display
 - "added authentic bubble icons" - Downloaded all 42 game icons with proper attribution
 - "added synergy detection" - Identifies powerful bubble combos and strategic opportunities
+- "fixed commodity icons" - Replaced with correct Fuel icons using proper URL abbreviations
+- "added export/import runs" - Copy builds to clipboard and share with others
+- "added Monte Carlo simulation" - Runs 100 simulations for probabilistic effects (45% chances)
 
 ## Known Issues / Future Improvements
 
@@ -154,4 +162,4 @@ Type weights: All default to 1.0, Whim=1.2 (user customizable)
 
 ## Last Updated
 
-Phase 2 complete - Enhanced UI with synergy detection, risk visualization, and authentic game icons (2026-01-14)
+Phase 3 (partial) - Added export/import and Monte Carlo simulation for better accuracy (2026-01-14)
