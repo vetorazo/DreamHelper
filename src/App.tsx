@@ -727,6 +727,29 @@ function App() {
         </div>
       )}
 
+      {/* Fundamental Reminder - Show if no fundamental selected and no bubbles yet */}
+      {!bubbleState.fundamental && bubbleState.bubbles.length === 0 && (
+        <div className="card-warning mb-3">
+          <strong>💡 Start Your Run:</strong>
+          <p className="text-sm" style={{ margin: "5px 0 0 0" }}>
+            In Twinightmare, your <strong>first</strong> lotus choice is always a Fundamental! 
+            Scroll down to recommendations and look for lotuses marked as "Fundamental" - 
+            these provide persistent bonuses for your entire run. Choose your fundamental before adding bubbles.
+          </p>
+        </div>
+      )}
+
+      {/* Fundamental Warning - Show if they have bubbles but no fundamental */}
+      {!bubbleState.fundamental && bubbleState.bubbles.length > 0 && (
+        <div className="card-info mb-3" style={{ borderColor: "#ff9800", background: "#fff3e0" }}>
+          <strong style={{ color: "#f57c00" }}>⚡ Missing Fundamental:</strong>
+          <p className="text-sm" style={{ margin: "5px 0 0 0" }}>
+            You haven't selected a Fundamental yet! In the actual game, this is your first lotus choice. 
+            Recommendations below will show fundamentals - select one to complete your run setup.
+          </p>
+        </div>
+      )}
+
       {/* Nightmare Risk Visualization */}
       {bubbleState.bubbles.length > 0 && (
         <div className={`risk-card risk-${nightmareRisk.riskLevel} mb-3`}>
@@ -1277,6 +1300,10 @@ function App() {
       <div className="card mt-4">
         <h3 className="section-subtitle">How to Use:</h3>
         <ol>
+          <li>
+            <strong>🌟 FIRST: Choose your Fundamental!</strong> This is your first lotus choice in the actual game. 
+            Look for lotuses marked as "Fundamental" in the recommendations below.
+          </li>
           <li>Add your current Dream Bubbles using the dropdowns above</li>
           <li>
             <strong>Drag bubbles to reorder them</strong> - Order doesn't affect scoring but helps organization
@@ -1311,7 +1338,8 @@ function App() {
           </li>
         </ol>
         <p className="help-text mt-3">
-          <strong>Pro Tips:</strong> Watch for synergies (3+ of same type), use goal mode when pursuing specific strategies, 
+          <strong>Pro Tips:</strong> Start with a good fundamental (it affects your whole run!), 
+          watch for synergies (3+ of same type), use goal mode when pursuing specific strategies, 
           enable lookahead for complex decisions, and hover over explanation badges for details!
         </p>
       </div>
