@@ -8,7 +8,7 @@ import type {
   LotusEffect,
 } from "./types";
 import { DEFAULT_QUALITY_MULTIPLIERS, DEFAULT_TYPE_WEIGHTS } from "./types";
-import { rankLotusChoices } from "./engine/calculator";
+import { rankLotusChoices, calculateStateValue } from "./engine/calculator";
 import { LOTUSES } from "./data/lotuses";
 import "./App.css";
 
@@ -39,6 +39,46 @@ const VALID_BUBBLE_TYPES: BubbleType[] = [
   "Fluorescent",
   "Whim",
 ];
+
+// Helper to calculate nightmare risk
+function calculateNightmareRisk(
+  bubbles: Bubble[],
+  weights: UserWeights
+): {
+  bubblesAtRisk: number;
+  valueAtRisk: number;
+  riskLevel: "none" | "low" | "medium" | "high" | "critical";
+} {
+  if (bubbles.length === 0) {
+    return { bubblesAtRisk: 0, valueAtRisk: 0, riskLevel: "none" };
+  }
+
+  // Calculate 1/6 of bubbles (rounded up for worst case)
+  const bubblesAtRisk = Math.ceil(bubbles.length / 6);
+  
+  // Calculate value at risk (assume we lose the least valuable bubbles)
+  const sortedByValue = [...bubbles].sort((a, b) => {
+    const valueA = weights.qualityMultipliers[a.quality] * weights.typeWeights[a.type];
+    const valueB = weights.qualityMultipliers[b.quality] * weights.typeWeights[b.type];
+    return valueA - valueB;
+  });
+  
+  const valueAtRisk = sortedByValue
+    .slice(0, bubblesAtRisk)
+    .reduce((sum, bubble) => {
+      return sum + weights.qualityMultipliers[bubble.quality] * weights.typeWeights[bubble.type];
+    }, 0);
+
+  // Determine risk level based on number of bubbles
+  let riskLevel: "none" | "low" | "medium" | "high" | "critical";
+  if (bubblesAtRisk === 0) riskLevel = "none";
+  else if (bubblesAtRisk <= 1) riskLevel = "low";
+  else if (bubblesAtRisk <= 2) riskLevel = "medium";
+  else if (bubblesAtRisk <= 3) riskLevel = "high";
+  else riskLevel = "critical";
+
+  return { bubblesAtRisk, valueAtRisk, riskLevel };
+}
 
 // Helper to safely access localStorage
 function safeLocalStorageGet(key: string): string | null {
@@ -279,6 +319,9 @@ function App() {
     3
   );
 
+  // Calculate nightmare risk
+  const nightmareRisk = calculateNightmareRisk(bubbleState.bubbles, userWeights);
+
   const selectLotus = (lotusId: string) => {
     const lotus = LOTUSES.find((l) => l.id === lotusId);
     if (!lotus) return;
@@ -321,6 +364,44 @@ function App() {
           <p className="text-sm" style={{ margin: "5px 0 0 0" }}>
             {bubbleState.fundamental.description}
           </p>
+        </div>
+      )}
+
+      {/* Nightmare Risk Visualization */}
+      {bubbleState.bubbles.length > 0 && (
+        <div className={`risk-card risk-${nightmareRisk.riskLevel} mb-3`}>
+          <div className="risk-header">
+            <strong className="risk-title">
+              {nightmareRisk.riskLevel === "none" && "✅"}
+              {nightmareRisk.riskLevel === "low" && "⚠️"}
+              {nightmareRisk.riskLevel === "medium" && "⚠️"}
+              {nightmareRisk.riskLevel === "high" && "🔥"}
+              {nightmareRisk.riskLevel === "critical" && "💀"}
+              {" "}Nightmare Risk
+            </strong>
+            <span className="risk-badge">
+              {nightmareRisk.riskLevel.toUpperCase()}
+            </span>
+          </div>
+          <p className="risk-description">
+            If you die in Nightmare, you'll lose <strong>{nightmareRisk.bubblesAtRisk}</strong> bubble{nightmareRisk.bubblesAtRisk !== 1 ? 's' : ''} (1/6 of your current {bubbleState.bubbles.length})
+          </p>
+          <div className="risk-stats">
+            <div className="risk-stat">
+              <span className="risk-stat-label">Value at Risk:</span>
+              <span className="risk-stat-value">{nightmareRisk.valueAtRisk.toFixed(1)}</span>
+            </div>
+            <div className="risk-stat">
+              <span className="risk-stat-label">Total Value:</span>
+              <span className="risk-stat-value">{calculateStateValue(bubbleState, userWeights).toFixed(1)}</span>
+            </div>
+            <div className="risk-stat">
+              <span className="risk-stat-label">Loss %:</span>
+              <span className="risk-stat-value">
+                {((nightmareRisk.valueAtRisk / calculateStateValue(bubbleState, userWeights)) * 100).toFixed(0)}%
+              </span>
+            </div>
+          </div>
         </div>
       )}
 

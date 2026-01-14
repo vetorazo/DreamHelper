@@ -152,6 +152,123 @@
   padding: 1.25rem;
 }
 
+/* ========== Risk Visualization ========== */
+.risk-card {
+  border-radius: 10px;
+  padding: 1.25rem;
+  border: 2px solid;
+  transition: all 0.3s ease;
+}
+
+.risk-card.risk-none {
+  background-color: #e8f8f5;
+  border-color: #27ae60;
+}
+
+.risk-card.risk-low {
+  background-color: #fff9e6;
+  border-color: #f39c12;
+}
+
+.risk-card.risk-medium {
+  background-color: #fff3e0;
+  border-color: #ff9800;
+}
+
+.risk-card.risk-high {
+  background-color: #ffe8e6;
+  border-color: #ff5722;
+}
+
+.risk-card.risk-critical {
+  background-color: #ffebee;
+  border-color: #e74c3c;
+  animation: pulse-risk 2s ease-in-out infinite;
+}
+
+@keyframes pulse-risk {
+  0%, 100% {
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.2);
+  }
+  50% {
+    box-shadow: 0 4px 16px rgba(231, 76, 60, 0.4);
+  }
+}
+
+.risk-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.risk-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.risk-badge {
+  padding: 0.375rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: white;
+}
+
+.risk-none .risk-badge {
+  background-color: #27ae60;
+}
+
+.risk-low .risk-badge {
+  background-color: #f39c12;
+}
+
+.risk-medium .risk-badge {
+  background-color: #ff9800;
+}
+
+.risk-high .risk-badge {
+  background-color: #ff5722;
+}
+
+.risk-critical .risk-badge {
+  background-color: #e74c3c;
+}
+
+.risk-description {
+  font-size: 0.9375rem;
+  color: #2c3e50;
+  margin: 0.5rem 0 1rem 0;
+  line-height: 1.5;
+}
+
+.risk-stats {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.risk-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.risk-stat-label {
+  font-size: 0.75rem;
+  color: #666;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.risk-stat-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
 /* ========== Bubble Display ========== */
 .bubble-container {
   border: 2px solid #34495e;
