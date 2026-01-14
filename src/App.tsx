@@ -40,6 +40,11 @@ const VALID_BUBBLE_TYPES: BubbleType[] = [
   "Whim",
 ];
 
+// Helper to get bubble icon path
+function getBubbleIconPath(type: BubbleType, quality: BubbleQuality): string {
+  return `/icons/bubbles/${type}_${quality}.webp`;
+}
+
 // Helper to calculate nightmare risk
 function calculateNightmareRisk(
   bubbles: Bubble[],
@@ -481,6 +486,15 @@ function App() {
                           : "#fff",
                     }}
                   >
+                    <img 
+                      src={getBubbleIconPath(bubble.type, bubble.quality)} 
+                      alt={`${bubble.type} ${bubble.quality}`}
+                      className="bubble-icon"
+                      onError={(e) => {
+                        // Fallback if icon fails to load
+                        e.currentTarget.style.display = 'none';
+                      }}
+                    />
                     <div className="bubble-type">
                       {bubble.type}
                     </div>
@@ -745,6 +759,16 @@ function App() {
         <p className="help-text mt-3">
           Note: This is an MVP version. More lotus options and advanced features
           coming soon!
+        </p>
+      </div>
+
+      {/* Attribution Footer */}
+      <div className="attribution-footer mt-4">
+        <p className="text-xs text-muted">
+          Bubble icons © XD Entertainment - Torchlight Infinite. Accessed via{" "}
+          <a href="https://tlidb.com/en/Dream_Bubbles" target="_blank" rel="noopener noreferrer">
+            TLIDB.com
+          </a>. This is a fan-made tool and is not affiliated with XD Entertainment.
         </p>
       </div>
     </div>
