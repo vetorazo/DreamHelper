@@ -1279,21 +1279,40 @@ function App() {
         <ol>
           <li>Add your current Dream Bubbles using the dropdowns above</li>
           <li>
-            <strong>Drag bubbles to reorder them</strong>
+            <strong>Drag bubbles to reorder them</strong> - Order doesn't affect scoring but helps organization
           </li>
           <li>
-            <strong>Click the ✎ button to change a bubble's quality</strong>
+            <strong>Click the ✎ button to change a bubble's quality</strong> - Made a mistake? Use Undo!
           </li>
           <li>Click the ✕ button to remove a bubble</li>
           <li>
-            The calculator will show you the top 3 recommended Lotus choices
+            <strong>Adjust bubble type priorities</strong> with sliders if you have preferences
           </li>
-          <li>The score shows the expected value increase for each choice</li>
-          <li>Green highlight = best choice</li>
+          <li>
+            <strong>Set a goal type</strong> to focus recommendations on specific bubbles (3x weight boost)
+          </li>
+          <li>
+            <strong>Enable Lookahead</strong> to plan 2-3 moves ahead for better long-term strategy
+          </li>
+          <li>
+            <strong>Enable Monte Carlo</strong> for more accurate scoring with probabilistic effects
+          </li>
+          <li>
+            The calculator shows the top 3 recommended Lotus choices with <strong>colored badges</strong> explaining why each is good
+          </li>
+          <li>
+            <strong>Green highlight = best choice</strong> - Look for badges like ✨ Synergy Boost, 🎯 Goal Progress, ⬆️ Major Upgrade
+          </li>
+          <li>
+            <strong>Use Undo/Redo buttons</strong> if you make mistakes - tracks your last 20 actions
+          </li>
+          <li>
+            <strong>Export/Import</strong> to share builds or save different strategies
+          </li>
         </ol>
         <p className="help-text mt-3">
-          Note: This is an MVP version. More lotus options and advanced features
-          coming soon!
+          <strong>Pro Tips:</strong> Watch for synergies (3+ of same type), use goal mode when pursuing specific strategies, 
+          enable lookahead for complex decisions, and hover over explanation badges for details!
         </p>
       </div>
 
