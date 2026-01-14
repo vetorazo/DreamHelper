@@ -377,6 +377,7 @@ function App() {
   // UI state for collapsible sections
   const [showAdvanced, setShowAdvanced] = useState<boolean>(false);
   const [showDetailedGuide, setShowDetailedGuide] = useState<boolean>(false);
+  const [showMoreRecommendations, setShowMoreRecommendations] = useState<boolean>(false);
 
   /**
    * useEffect - SIDE EFFECTS hook
@@ -620,13 +621,21 @@ function App() {
   // Apply goal-oriented weights if a goal type is selected
   const activeWeights = applyGoalWeights(userWeights, goalType);
 
+  // Dynamic recommendation count:
+  // - Fundamentals (first choice): show 10 initially, expand to all
+  // - Regular choices: show 3 initially, expand to 10
+  const isShowingFundamentals = !bubbleState.fundamental && bubbleState.bubbles.length === 0;
+  const baseRecommendationCount = isShowingFundamentals ? 10 : 3;
+  const expandedRecommendationCount = isShowingFundamentals ? lotusesToRank.length : 10;
+  const recommendationCount = showMoreRecommendations ? expandedRecommendationCount : baseRecommendationCount;
+
   // Use lookahead optimization if enabled, otherwise standard ranking
-  const recommendations = useLookahead
+  const allRecommendations = useLookahead
     ? rankLotusChoicesWithLookahead(
         bubbleState,
         lotusesToRank,
         activeWeights,
-        3,
+        recommendationCount,
         lookaheadDepth,
         useMonteCarlo
       )
@@ -634,9 +643,11 @@ function App() {
         bubbleState,
         lotusesToRank,
         activeWeights,
-        3,
+        recommendationCount,
         useMonteCarlo
       );
+
+  const recommendations = allRecommendations.slice(0, recommendationCount);
 
   // Calculate nightmare risk
   const nightmareRisk = calculateNightmareRisk(
@@ -1355,6 +1366,34 @@ function App() {
                   </div>
                 );
               })}
+            </div>
+          )}
+          
+          {/* Show More Button */}
+          {recommendations.length >= baseRecommendationCount && 
+           recommendations.length < lotusesToRank.length && 
+           !showMoreRecommendations && (
+            <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
+              <button
+                onClick={() => setShowMoreRecommendations(true)}
+                className="btn btn-primary"
+              >
+                {isShowingFundamentals 
+                  ? `Show All ${lotusesToRank.length} Fundamentals`
+                  : `Show More Recommendations (${Math.min(expandedRecommendationCount, lotusesToRank.length)} total)`
+                }
+              </button>
+            </div>
+          )}
+          
+          {showMoreRecommendations && (
+            <div style={{ textAlign: "center", marginTop: "1rem" }}>
+              <button
+                onClick={() => setShowMoreRecommendations(false)}
+                className="btn btn-secondary btn-small"
+              >
+                Show Less
+              </button>
             </div>
           )}
         </div>
