@@ -96,6 +96,7 @@ Type weights: All default to 1.0, Whim=1.2 (user customizable)
 **Fundamental Effects**: Persistent bonuses that trigger "upon entering nightmare" - tracked separately and applied automatically in scoring.
 
 **Synergy Detection**: Identifies powerful bubble combinations:
+
 - Type synergies (3+ of same type)
 - Quality synergies (multiple high-quality bubbles)
 - Type combos (Gear + Blacksail)

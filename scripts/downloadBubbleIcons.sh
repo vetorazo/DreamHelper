@@ -34,16 +34,16 @@ echo "================================"
 
 for bubble_name in "${!BUBBLE_TYPES[@]}"; do
   url_name="${BUBBLE_TYPES[$bubble_name]}"
-  
+
   for quality_name in "${!QUALITIES[@]}"; do
     quality_code="${QUALITIES[$quality_name]}"
-    
+
     # Construct URL and filename
     url="${BASE_URL}/UI_Item_S5Gameplay_DreamTreasure_${url_name}_${quality_code}_128.webp"
     output="${ICON_DIR}/${bubble_name}_${quality_name}.webp"
-    
+
     echo "Downloading: ${bubble_name} ${quality_name}..."
-    
+
     # Download with curl
     if curl -s -f -o "$output" "$url"; then
       echo "  ✓ Saved: $output"

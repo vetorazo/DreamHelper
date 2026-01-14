@@ -60,18 +60,24 @@ function calculateNightmareRisk(
 
   // Calculate 1/6 of bubbles (rounded up for worst case)
   const bubblesAtRisk = Math.ceil(bubbles.length / 6);
-  
+
   // Calculate value at risk (assume we lose the least valuable bubbles)
   const sortedByValue = [...bubbles].sort((a, b) => {
-    const valueA = weights.qualityMultipliers[a.quality] * weights.typeWeights[a.type];
-    const valueB = weights.qualityMultipliers[b.quality] * weights.typeWeights[b.type];
+    const valueA =
+      weights.qualityMultipliers[a.quality] * weights.typeWeights[a.type];
+    const valueB =
+      weights.qualityMultipliers[b.quality] * weights.typeWeights[b.type];
     return valueA - valueB;
   });
-  
+
   const valueAtRisk = sortedByValue
     .slice(0, bubblesAtRisk)
     .reduce((sum, bubble) => {
-      return sum + weights.qualityMultipliers[bubble.quality] * weights.typeWeights[bubble.type];
+      return (
+        sum +
+        weights.qualityMultipliers[bubble.quality] *
+          weights.typeWeights[bubble.type]
+      );
     }, 0);
 
   // Determine risk level based on number of bubbles
@@ -107,7 +113,7 @@ function detectSynergies(bubbles: Bubble[]): Synergy[] {
     Fluorescent: 0,
     Whim: 0,
   };
-  
+
   const qualityCounts: Record<BubbleQuality, number> = {
     White: 0,
     Blue: 0,
@@ -153,7 +159,8 @@ function detectSynergies(bubbles: Bubble[]): Synergy[] {
   });
 
   // Quality-based synergies
-  const highQualityCount = qualityCounts.Rainbow + qualityCounts.Red + qualityCounts.Orange;
+  const highQualityCount =
+    qualityCounts.Rainbow + qualityCounts.Red + qualityCounts.Orange;
   if (highQualityCount >= 5) {
     synergies.push({
       id: "high-quality-focus",
@@ -183,7 +190,9 @@ function detectSynergies(bubbles: Bubble[]): Synergy[] {
   }
 
   // Diversity synergy (many different types)
-  const diverseTypes = VALID_BUBBLE_TYPES.filter((t) => typeCounts[t] > 0).length;
+  const diverseTypes = VALID_BUBBLE_TYPES.filter(
+    (t) => typeCounts[t] > 0
+  ).length;
   if (diverseTypes >= 5 && bubbles.length >= 7) {
     synergies.push({
       id: "diverse-portfolio",
@@ -339,7 +348,7 @@ function App() {
 
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
   const [editingBubbleId, setEditingBubbleId] = useState<string | null>(null);
-  
+
   // NEW: Current lotus choices for comparison (like Rails shopping cart)
   const [currentChoices, setCurrentChoices] = useState<LotusEffect[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -464,6 +473,66 @@ function App() {
     setCurrentChoices([]);
   };
 
+  // Export/Import functionality
+  const [exportMessage, setExportMessage] = useState<string>("");
+  const [importError, setImportError] = useState<string>("");
+
+  const exportRun = async () => {
+    const exportData = {
+      bubbleState,
+      userWeights,
+      exportedAt: new Date().toISOString(),
+      version: "1.0",
+    };
+
+    const jsonString = JSON.stringify(exportData, null, 2);
+
+    try {
+      await navigator.clipboard.writeText(jsonString);
+      setExportMessage("✓ Copied to clipboard!");
+      setTimeout(() => setExportMessage(""), 3000);
+    } catch (err) {
+      // Fallback: show in alert if clipboard fails
+      alert("Export data (copy manually):\n\n" + jsonString);
+    }
+  };
+
+  const importRun = () => {
+    const input = prompt(
+      "Paste your exported run data (JSON):"
+    );
+
+    if (!input) return;
+
+    try {
+      const parsed = JSON.parse(input);
+
+      // Validate structure
+      if (!parsed.bubbleState || !parsed.userWeights) {
+        throw new Error("Invalid export format");
+      }
+
+      // Validate bubble types
+      if (parsed.bubbleState.bubbles) {
+        const validBubbles = parsed.bubbleState.bubbles.filter((b: Bubble) =>
+          VALID_BUBBLE_TYPES.includes(b.type)
+        );
+        parsed.bubbleState.bubbles = validBubbles;
+      }
+
+      // Apply imported state
+      setBubbleState(parsed.bubbleState);
+      setUserWeights(parsed.userWeights);
+
+      setExportMessage("✓ Run imported successfully!");
+      setTimeout(() => setExportMessage(""), 3000);
+      setImportError("");
+    } catch (err) {
+      setImportError("Failed to import: Invalid JSON or format");
+      setTimeout(() => setImportError(""), 5000);
+    }
+  };
+
   // Filter lotuses based on search query (like Rails: Product.where("name LIKE ?", query))
   const searchResults =
     searchQuery.length >= 2
@@ -482,7 +551,10 @@ function App() {
   );
 
   // Calculate nightmare risk
-  const nightmareRisk = calculateNightmareRisk(bubbleState.bubbles, userWeights);
+  const nightmareRisk = calculateNightmareRisk(
+    bubbleState.bubbles,
+    userWeights
+  );
 
   // Detect synergies
   const synergies = detectSynergies(bubbleState.bubbles);
@@ -498,7 +570,7 @@ function App() {
         fundamental: lotus,
       });
     }
-    
+
     // Clear current choices after selecting (ready for next choice)
     clearCurrentChoices();
   };
@@ -518,9 +590,35 @@ function App() {
         >
           🆕 New Run
         </button>
+        <button
+          onClick={exportRun}
+          className="btn btn-primary"
+          style={{ marginLeft: "10px" }}
+          title="Export current run to clipboard"
+        >
+          📤 Export Run
+        </button>
+        <button
+          onClick={importRun}
+          className="btn btn-secondary"
+          style={{ marginLeft: "10px" }}
+          title="Import run from clipboard"
+        >
+          📥 Import Run
+        </button>
         <span className="help-text" style={{ marginLeft: "10px" }}>
           (Your progress auto-saves!)
         </span>
+        {exportMessage && (
+          <span className="success-message" style={{ marginLeft: "10px" }}>
+            {exportMessage}
+          </span>
+        )}
+        {importError && (
+          <span className="error-message" style={{ marginLeft: "10px" }}>
+            {importError}
+          </span>
+        )}
       </div>
 
       {bubbleState.fundamental && (
@@ -541,29 +639,40 @@ function App() {
               {nightmareRisk.riskLevel === "low" && "⚠️"}
               {nightmareRisk.riskLevel === "medium" && "⚠️"}
               {nightmareRisk.riskLevel === "high" && "🔥"}
-              {nightmareRisk.riskLevel === "critical" && "💀"}
-              {" "}Nightmare Risk
+              {nightmareRisk.riskLevel === "critical" && "💀"} Nightmare Risk
             </strong>
             <span className="risk-badge">
               {nightmareRisk.riskLevel.toUpperCase()}
             </span>
           </div>
           <p className="risk-description">
-            If you die in Nightmare, you'll lose <strong>{nightmareRisk.bubblesAtRisk}</strong> bubble{nightmareRisk.bubblesAtRisk !== 1 ? 's' : ''} (1/6 of your current {bubbleState.bubbles.length})
+            If you die in Nightmare, you'll lose{" "}
+            <strong>{nightmareRisk.bubblesAtRisk}</strong> bubble
+            {nightmareRisk.bubblesAtRisk !== 1 ? "s" : ""} (1/6 of your current{" "}
+            {bubbleState.bubbles.length})
           </p>
           <div className="risk-stats">
             <div className="risk-stat">
               <span className="risk-stat-label">Value at Risk:</span>
-              <span className="risk-stat-value">{nightmareRisk.valueAtRisk.toFixed(1)}</span>
+              <span className="risk-stat-value">
+                {nightmareRisk.valueAtRisk.toFixed(1)}
+              </span>
             </div>
             <div className="risk-stat">
               <span className="risk-stat-label">Total Value:</span>
-              <span className="risk-stat-value">{calculateStateValue(bubbleState, userWeights).toFixed(1)}</span>
+              <span className="risk-stat-value">
+                {calculateStateValue(bubbleState, userWeights).toFixed(1)}
+              </span>
             </div>
             <div className="risk-stat">
               <span className="risk-stat-label">Loss %:</span>
               <span className="risk-stat-value">
-                {((nightmareRisk.valueAtRisk / calculateStateValue(bubbleState, userWeights)) * 100).toFixed(0)}%
+                {(
+                  (nightmareRisk.valueAtRisk /
+                    calculateStateValue(bubbleState, userWeights)) *
+                  100
+                ).toFixed(0)}
+                %
               </span>
             </div>
           </div>
@@ -578,7 +687,10 @@ function App() {
           </h3>
           <div className="synergy-grid">
             {synergies.map((synergy) => (
-              <div key={synergy.id} className={`synergy-card synergy-${synergy.strength}`}>
+              <div
+                key={synergy.id}
+                className={`synergy-card synergy-${synergy.strength}`}
+              >
                 <div className="synergy-title">
                   <span className="synergy-icon">{synergy.icon}</span>
                   <strong>{synergy.title}</strong>
@@ -633,16 +745,17 @@ function App() {
                 </div>
               ))}
             </div>
-            <button onClick={clearAll} className="btn btn-secondary btn-small mt-2">
+            <button
+              onClick={clearAll}
+              className="btn btn-secondary btn-small mt-2"
+            >
               Clear All
             </button>
           </div>
 
           <div className="bubble-container">
             {bubbleState.bubbles.length === 0 ? (
-              <p className="empty-state">
-                No bubbles yet. Add some above!
-              </p>
+              <p className="empty-state">No bubbles yet. Add some above!</p>
             ) : (
               <div className="bubble-grid">
                 {bubbleState.bubbles.map((bubble, index) => (
@@ -657,7 +770,9 @@ function App() {
                         setDraggedIndex(null);
                       }
                     }}
-                    className={`bubble ${editingBubbleId === bubble.id ? 'editing' : ''}`}
+                    className={`bubble ${
+                      editingBubbleId === bubble.id ? "editing" : ""
+                    }`}
                     style={{
                       backgroundColor: getQualityColor(bubble.quality),
                       color:
@@ -666,21 +781,17 @@ function App() {
                           : "#fff",
                     }}
                   >
-                    <img 
-                      src={getBubbleIconPath(bubble.type, bubble.quality)} 
+                    <img
+                      src={getBubbleIconPath(bubble.type, bubble.quality)}
                       alt={`${bubble.type} ${bubble.quality}`}
                       className="bubble-icon"
                       onError={(e) => {
                         // Fallback if icon fails to load
-                        e.currentTarget.style.display = 'none';
+                        e.currentTarget.style.display = "none";
                       }}
                     />
-                    <div className="bubble-type">
-                      {bubble.type}
-                    </div>
-                    <div className="bubble-quality">
-                      {bubble.quality}
-                    </div>
+                    <div className="bubble-type">{bubble.type}</div>
+                    <div className="bubble-quality">{bubble.quality}</div>
 
                     {editingBubbleId === bubble.id ? (
                       <div className="quality-dropdown">
@@ -757,7 +868,9 @@ function App() {
           {/* Bubble Type Weights Section */}
           <div className="card mb-3">
             <div className="flex-between mb-2">
-              <h3 className="section-subtitle" style={{ margin: 0 }}>⚖️ Bubble Type Priorities</h3>
+              <h3 className="section-subtitle" style={{ margin: 0 }}>
+                ⚖️ Bubble Type Priorities
+              </h3>
               <button
                 onClick={resetWeights}
                 className="btn btn-secondary btn-small"
@@ -773,9 +886,7 @@ function App() {
               {(Object.keys(userWeights.typeWeights) as BubbleType[]).map(
                 (type) => (
                   <div key={type} className="weight-item">
-                    <label className="weight-label">
-                      {type}:
-                    </label>
+                    <label className="weight-label">{type}:</label>
                     <input
                       type="range"
                       min="0"
@@ -798,7 +909,9 @@ function App() {
 
           {/* NEW: Lotus Choice Comparison Section */}
           <div className="card-warning mb-3">
-            <h3 className="section-subtitle" style={{ margin: "0 0 10px 0" }}>🎯 Compare Lotus Choices</h3>
+            <h3 className="section-subtitle" style={{ margin: "0 0 10px 0" }}>
+              🎯 Compare Lotus Choices
+            </h3>
             <p className="help-text mb-2">
               Search and add the lotuses you're offered in-game
             </p>
@@ -871,11 +984,13 @@ function App() {
               Add some bubbles to see recommendations
             </p>
           ) : (
-            <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "15px" }}
+            >
               {recommendations.map((rec, index) => (
                 <div
                   key={rec.lotus.id}
-                  className={`recommendation ${index === 0 ? 'best' : ''}`}
+                  className={`recommendation ${index === 0 ? "best" : ""}`}
                 >
                   <div className="recommendation-header">
                     <div>
@@ -890,7 +1005,11 @@ function App() {
                         Nightmare: {rec.lotus.nightmareOmen}
                       </p>
                     </div>
-                    <div className={`recommendation-score ${index === 0 ? 'best' : 'normal'}`}>
+                    <div
+                      className={`recommendation-score ${
+                        index === 0 ? "best" : "normal"
+                      }`}
+                    >
                       +{rec.score.toFixed(1)}
                     </div>
                   </div>
@@ -905,7 +1024,9 @@ function App() {
                   )}
                   <button
                     onClick={() => selectLotus(rec.lotus.id)}
-                    className={`btn ${index === 0 ? 'btn-success' : 'btn-primary'}`}
+                    className={`btn ${
+                      index === 0 ? "btn-success" : "btn-primary"
+                    }`}
                     style={{ marginTop: "10px" }}
                   >
                     {rec.lotus.isFundamental && !bubbleState.fundamental
@@ -946,9 +1067,14 @@ function App() {
       <div className="attribution-footer mt-4">
         <p className="text-xs text-muted">
           Bubble icons © XD Entertainment - Torchlight Infinite. Accessed via{" "}
-          <a href="https://tlidb.com/en/Dream_Bubbles" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://tlidb.com/en/Dream_Bubbles"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             TLIDB.com
-          </a>. This is a fan-made tool and is not affiliated with XD Entertainment.
+          </a>
+          . This is a fan-made tool and is not affiliated with XD Entertainment.
         </p>
       </div>
     </div>
