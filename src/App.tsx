@@ -10,6 +10,7 @@ import type {
 import { DEFAULT_QUALITY_MULTIPLIERS, DEFAULT_TYPE_WEIGHTS } from "./types";
 import { rankLotusChoices } from "./engine/calculator";
 import { LOTUSES } from "./data/lotuses";
+import "./App.css";
 
 /**
  * REACT HOOKS vs RAILS:
@@ -295,68 +296,45 @@ function App() {
   };
 
   return (
-    <div style={{ padding: "20px", fontFamily: "system-ui, sans-serif" }}>
-      <h1>🌙 Dream Helper - Twinightmare Calculator</h1>
-      <p style={{ color: "#666" }}>
+    <div className="app-container">
+      <h1 className="app-title">🌙 Dream Helper - Twinightmare Calculator</h1>
+      <p className="app-subtitle">
         Optimize your Dream Lotus choices in Torchlight Infinite
       </p>
 
-      <div style={{ marginBottom: "10px" }}>
+      <div className="mb-2">
         <button
           onClick={startNewRun}
-          style={{
-            backgroundColor: "#ff6b6b",
-            color: "white",
-            padding: "8px 16px",
-            border: "none",
-            borderRadius: "6px",
-            cursor: "pointer",
-            fontWeight: "bold",
-          }}
+          className="btn btn-danger"
           title="Clear all bubbles and start fresh"
         >
           🆕 New Run
         </button>
-        <span style={{ marginLeft: "10px", fontSize: "12px", color: "#999" }}>
+        <span className="help-text" style={{ marginLeft: "10px" }}>
           (Your progress auto-saves!)
         </span>
       </div>
 
       {bubbleState.fundamental && (
-        <div
-          style={{
-            backgroundColor: "#e3f2fd",
-            border: "2px solid #2196F3",
-            borderRadius: "8px",
-            padding: "15px",
-            marginBottom: "20px",
-          }}
-        >
+        <div className="card-info mb-3">
           <strong style={{ color: "#1976D2" }}>⭐ Fundamental Active:</strong>
-          <p style={{ margin: "5px 0 0 0", fontSize: "14px" }}>
+          <p className="text-sm" style={{ margin: "5px 0 0 0" }}>
             {bubbleState.fundamental.description}
           </p>
         </div>
       )}
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "40px",
-          marginTop: "30px",
-        }}
-      >
+      <div className="main-grid">
         {/* Left side: Current State */}
         <div>
-          <h2>
+          <h2 className="section-title">
             Current Dream Bubbles ({bubbleState.bubbles.length}/
             {bubbleState.visionCapacity})
           </h2>
 
-          <div style={{ marginBottom: "20px" }}>
-            <h3>Add Bubble:</h3>
-            <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+          <div className="card mb-3">
+            <h3 className="section-subtitle">Add Bubble:</h3>
+            <div className="bubble-selector">
               {(
                 [
                   "Gear",
@@ -369,9 +347,10 @@ function App() {
                   "Whim",
                 ] as BubbleType[]
               ).map((type) => (
-                <div key={type}>
-                  <strong>{type}:</strong>
+                <div key={type} className="bubble-type-group">
+                  <span className="bubble-type-label">{type}:</span>
                   <select
+                    className="select"
                     onChange={(e) =>
                       addBubble(type, e.target.value as BubbleQuality)
                     }
@@ -388,26 +367,18 @@ function App() {
                 </div>
               ))}
             </div>
-            <button onClick={clearAll} style={{ marginTop: "10px" }}>
+            <button onClick={clearAll} className="btn btn-secondary btn-small mt-2">
               Clear All
             </button>
           </div>
 
-          <div
-            style={{
-              border: "2px solid #333",
-              borderRadius: "8px",
-              padding: "15px",
-              minHeight: "200px",
-              backgroundColor: "#f9f9f9",
-            }}
-          >
+          <div className="bubble-container">
             {bubbleState.bubbles.length === 0 ? (
-              <p style={{ color: "#999", textAlign: "center" }}>
+              <p className="empty-state">
                 No bubbles yet. Add some above!
               </p>
             ) : (
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+              <div className="bubble-grid">
                 {bubbleState.bubbles.map((bubble, index) => (
                   <div
                     key={bubble.id}
@@ -420,45 +391,24 @@ function App() {
                         setDraggedIndex(null);
                       }
                     }}
+                    className={`bubble ${editingBubbleId === bubble.id ? 'editing' : ''}`}
                     style={{
-                      padding: "10px",
-                      borderRadius: "6px",
                       backgroundColor: getQualityColor(bubble.quality),
                       color:
                         bubble.quality === "White" || bubble.quality === "Blue"
                           ? "#000"
                           : "#fff",
-                      cursor: "grab",
-                      border:
-                        editingBubbleId === bubble.id
-                          ? "3px solid #4CAF50"
-                          : "2px solid #000",
-                      position: "relative",
-                      minWidth: "80px",
                     }}
                   >
-                    <div style={{ fontSize: "12px", fontWeight: "bold" }}>
+                    <div className="bubble-type">
                       {bubble.type}
                     </div>
-                    <div style={{ fontSize: "10px", marginBottom: "5px" }}>
+                    <div className="bubble-quality">
                       {bubble.quality}
                     </div>
 
                     {editingBubbleId === bubble.id ? (
-                      <div
-                        style={{
-                          position: "absolute",
-                          top: "100%",
-                          left: 0,
-                          backgroundColor: "#fff",
-                          border: "2px solid #4CAF50",
-                          borderRadius: "4px",
-                          padding: "5px",
-                          zIndex: 1000,
-                          marginTop: "5px",
-                          boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
-                        }}
-                      >
+                      <div className="quality-dropdown">
                         {(
                           [
                             "White",
@@ -476,20 +426,11 @@ function App() {
                               setEditingBubbleId(null);
                             }}
                             style={{
-                              display: "block",
-                              width: "100%",
-                              padding: "5px 10px",
-                              margin: "2px 0",
                               backgroundColor: getQualityColor(quality),
                               color:
                                 quality === "White" || quality === "Blue"
                                   ? "#000"
                                   : "#fff",
-                              border: "none",
-                              borderRadius: "3px",
-                              cursor: "pointer",
-                              fontSize: "11px",
-                              fontWeight: "bold",
                             }}
                           >
                             {quality}
@@ -498,9 +439,7 @@ function App() {
                       </div>
                     ) : null}
 
-                    <div
-                      style={{ display: "flex", gap: "5px", marginTop: "5px" }}
-                    >
+                    <div className="bubble-actions">
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -508,13 +447,10 @@ function App() {
                             editingBubbleId === bubble.id ? null : bubble.id
                           );
                         }}
+                        className="btn btn-secondary btn-tiny"
                         style={{
-                          padding: "2px 6px",
-                          fontSize: "10px",
                           backgroundColor: "rgba(255,255,255,0.3)",
                           border: "1px solid rgba(0,0,0,0.3)",
-                          borderRadius: "3px",
-                          cursor: "pointer",
                         }}
                         title="Change quality"
                       >
@@ -525,13 +461,9 @@ function App() {
                           e.stopPropagation();
                           removeBubble(bubble.id);
                         }}
+                        className="btn btn-danger btn-tiny"
                         style={{
-                          padding: "2px 6px",
-                          fontSize: "10px",
                           backgroundColor: "rgba(255,0,0,0.6)",
-                          border: "1px solid rgba(0,0,0,0.3)",
-                          borderRadius: "3px",
-                          cursor: "pointer",
                         }}
                         title="Remove bubble"
                       >
@@ -548,65 +480,25 @@ function App() {
         {/* Right side: Recommendations */}
         <div>
           {/* Bubble Type Weights Section */}
-          <div
-            style={{
-              backgroundColor: "#f5f5f5",
-              border: "2px solid #9e9e9e",
-              borderRadius: "8px",
-              padding: "15px",
-              marginBottom: "20px",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginBottom: "10px",
-              }}
-            >
-              <h3 style={{ margin: 0 }}>⚖️ Bubble Type Priorities</h3>
+          <div className="card mb-3">
+            <div className="flex-between mb-2">
+              <h3 className="section-subtitle" style={{ margin: 0 }}>⚖️ Bubble Type Priorities</h3>
               <button
                 onClick={resetWeights}
-                style={{
-                  padding: "4px 8px",
-                  fontSize: "12px",
-                  backgroundColor: "#757575",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "4px",
-                  cursor: "pointer",
-                }}
+                className="btn btn-secondary btn-small"
                 title="Reset to default weights"
               >
                 Reset
               </button>
             </div>
-            <p
-              style={{ fontSize: "12px", color: "#666", margin: "0 0 10px 0" }}
-            >
+            <p className="help-text mb-2">
               Higher values = more valuable in recommendations
             </p>
-            <div
-              style={{ display: "flex", flexDirection: "column", gap: "8px" }}
-            >
+            <div className="weight-list">
               {(Object.keys(userWeights.typeWeights) as BubbleType[]).map(
                 (type) => (
-                  <div
-                    key={type}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "10px",
-                    }}
-                  >
-                    <label
-                      style={{
-                        minWidth: "100px",
-                        fontSize: "13px",
-                        fontWeight: "500",
-                      }}
-                    >
+                  <div key={type} className="weight-item">
+                    <label className="weight-label">
                       {type}:
                     </label>
                     <input
@@ -618,15 +510,9 @@ function App() {
                       onChange={(e) =>
                         updateTypeWeight(type, parseFloat(e.target.value))
                       }
-                      style={{ flex: 1 }}
+                      className="weight-slider"
                     />
-                    <span
-                      style={{
-                        minWidth: "35px",
-                        fontSize: "13px",
-                        fontWeight: "bold",
-                      }}
-                    >
+                    <span className="weight-value">
                       {userWeights.typeWeights[type].toFixed(1)}
                     </span>
                   </div>
@@ -636,71 +522,30 @@ function App() {
           </div>
 
           {/* NEW: Lotus Choice Comparison Section */}
-          <div
-            style={{
-              backgroundColor: "#fff3cd",
-              border: "2px solid #ffc107",
-              borderRadius: "8px",
-              padding: "15px",
-              marginBottom: "20px",
-              marginTop: "20px",
-            }}
-          >
-            <h3 style={{ margin: "0 0 10px 0" }}>🎯 Compare Lotus Choices</h3>
-            <p style={{ fontSize: "12px", color: "#666", margin: "0 0 10px 0" }}>
+          <div className="card-warning mb-3">
+            <h3 className="section-subtitle" style={{ margin: "0 0 10px 0" }}>🎯 Compare Lotus Choices</h3>
+            <p className="help-text mb-2">
               Search and add the lotuses you're offered in-game
             </p>
 
             {/* Search Input */}
-            <div style={{ position: "relative", marginBottom: "10px" }}>
+            <div className="relative mb-2">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search lotus... (e.g. 'adds 2 gear')"
-                style={{
-                  width: "100%",
-                  padding: "8px",
-                  fontSize: "14px",
-                  border: "2px solid #ffc107",
-                  borderRadius: "4px",
-                  boxSizing: "border-box",
-                }}
+                className="input input-search"
               />
 
               {/* Search Results Dropdown */}
               {searchResults.length > 0 && (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "100%",
-                    left: 0,
-                    right: 0,
-                    backgroundColor: "white",
-                    border: "2px solid #ffc107",
-                    borderTop: "none",
-                    borderRadius: "0 0 4px 4px",
-                    maxHeight: "200px",
-                    overflowY: "auto",
-                    zIndex: 1000,
-                  }}
-                >
+                <div className="search-dropdown">
                   {searchResults.map((lotus) => (
                     <div
                       key={lotus.id}
                       onClick={() => addToCurrentChoices(lotus)}
-                      style={{
-                        padding: "8px",
-                        cursor: "pointer",
-                        borderBottom: "1px solid #eee",
-                        fontSize: "13px",
-                      }}
-                      onMouseOver={(e) =>
-                        (e.currentTarget.style.backgroundColor = "#f5f5f5")
-                      }
-                      onMouseOut={(e) =>
-                        (e.currentTarget.style.backgroundColor = "white")
-                      }
+                      className="search-result"
                     >
                       {lotus.description}
                     </div>
@@ -712,59 +557,24 @@ function App() {
             {/* Current Choices */}
             {currentChoices.length > 0 && (
               <div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginBottom: "8px",
-                  }}
-                >
-                  <strong style={{ fontSize: "14px" }}>
+                <div className="flex-between mb-1">
+                  <strong className="text-sm">
                     Comparing ({currentChoices.length}):
                   </strong>
                   <button
                     onClick={clearCurrentChoices}
-                    style={{
-                      padding: "4px 8px",
-                      fontSize: "12px",
-                      backgroundColor: "#dc3545",
-                      color: "white",
-                      border: "none",
-                      borderRadius: "4px",
-                      cursor: "pointer",
-                    }}
+                    className="btn btn-danger btn-small"
                   >
                     Clear All
                   </button>
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                <div className="choice-list">
                   {currentChoices.map((lotus) => (
-                    <div
-                      key={lotus.id}
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        padding: "8px",
-                        backgroundColor: "white",
-                        border: "1px solid #ddd",
-                        borderRadius: "4px",
-                        fontSize: "13px",
-                      }}
-                    >
+                    <div key={lotus.id} className="choice-item">
                       <span>{lotus.description}</span>
                       <button
                         onClick={() => removeFromCurrentChoices(lotus.id)}
-                        style={{
-                          padding: "2px 6px",
-                          fontSize: "12px",
-                          backgroundColor: "#dc3545",
-                          color: "white",
-                          border: "none",
-                          borderRadius: "3px",
-                          cursor: "pointer",
-                        }}
+                        className="btn btn-danger btn-tiny"
                       >
                         ✕
                       </button>
@@ -775,111 +585,53 @@ function App() {
             )}
           </div>
 
-          <h2>Recommended Lotus Choices</h2>
+          <h2 className="section-title">Recommended Lotus Choices</h2>
           {currentChoices.length > 0 && (
-            <p style={{ fontSize: "13px", color: "#28a745", fontWeight: "bold", marginTop: "-8px" }}>
+            <p className="text-success text-sm" style={{ marginTop: "-8px" }}>
               ✓ Comparing your {currentChoices.length} selected choices
             </p>
           )}
           {bubbleState.bubbles.length === 0 ? (
-            <p style={{ color: "#999" }}>
+            <p className="text-muted">
               Add some bubbles to see recommendations
             </p>
           ) : (
-            <div
-              style={{ display: "flex", flexDirection: "column", gap: "15px" }}
-            >
+            <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
               {recommendations.map((rec, index) => (
                 <div
                   key={rec.lotus.id}
-                  style={{
-                    border: `3px solid ${index === 0 ? "#4CAF50" : "#ddd"}`,
-                    borderRadius: "8px",
-                    padding: "15px",
-                    backgroundColor: index === 0 ? "#f0f8f0" : "#fff",
-                  }}
+                  className={`recommendation ${index === 0 ? 'best' : ''}`}
                 >
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "start",
-                    }}
-                  >
+                  <div className="recommendation-header">
                     <div>
-                      <h3 style={{ margin: "0 0 5px 0" }}>
+                      <h3 className="recommendation-title">
                         {index === 0 && "⭐ "}
                         {rec.lotus.name}
                       </h3>
-                      <p
-                        style={{
-                          margin: "5px 0",
-                          fontSize: "14px",
-                          color: "#666",
-                        }}
-                      >
+                      <p className="recommendation-description">
                         {rec.lotus.description}
                       </p>
-                      <p
-                        style={{
-                          fontSize: "12px",
-                          color: "#999",
-                          margin: "5px 0",
-                        }}
-                      >
+                      <p className="recommendation-omen">
                         Nightmare: {rec.lotus.nightmareOmen}
                       </p>
                     </div>
-                    <div
-                      style={{
-                        backgroundColor: index === 0 ? "#4CAF50" : "#2196F3",
-                        color: "white",
-                        padding: "5px 15px",
-                        borderRadius: "20px",
-                        fontWeight: "bold",
-                        fontSize: "18px",
-                      }}
-                    >
+                    <div className={`recommendation-score ${index === 0 ? 'best' : 'normal'}`}>
                       +{rec.score.toFixed(1)}
                     </div>
                   </div>
-                  <div
-                    style={{
-                      marginTop: "10px",
-                      fontSize: "12px",
-                      color: "#666",
-                    }}
-                  >
+                  <div className="recommendation-info">
                     Result: {rec.simulatedState.bubbles.length} bubbles
                   </div>
                   {rec.lotus.isFundamental && !bubbleState.fundamental && (
-                    <div
-                      style={{
-                        marginTop: "10px",
-                        padding: "8px",
-                        backgroundColor: "#fff3cd",
-                        border: "1px solid #ffc107",
-                        borderRadius: "4px",
-                        fontSize: "12px",
-                      }}
-                    >
+                    <div className="card-warning" style={{ marginTop: "10px" }}>
                       ⚠️ This is a <strong>Fundamental</strong> - persistent
                       effect for the whole run!
                     </div>
                   )}
                   <button
                     onClick={() => selectLotus(rec.lotus.id)}
-                    style={{
-                      marginTop: "10px",
-                      padding: "8px 16px",
-                      backgroundColor: index === 0 ? "#4CAF50" : "#2196F3",
-                      color: "white",
-                      border: "none",
-                      borderRadius: "6px",
-                      cursor: "pointer",
-                      fontWeight: "bold",
-                      fontSize: "14px",
-                    }}
+                    className={`btn ${index === 0 ? 'btn-success' : 'btn-primary'}`}
+                    style={{ marginTop: "10px" }}
                   >
                     {rec.lotus.isFundamental && !bubbleState.fundamental
                       ? "Set as Fundamental"
@@ -892,15 +644,8 @@ function App() {
         </div>
       </div>
 
-      <div
-        style={{
-          marginTop: "40px",
-          padding: "20px",
-          backgroundColor: "#f5f5f5",
-          borderRadius: "8px",
-        }}
-      >
-        <h3>How to Use:</h3>
+      <div className="card mt-4">
+        <h3 className="section-subtitle">How to Use:</h3>
         <ol>
           <li>Add your current Dream Bubbles using the dropdowns above</li>
           <li>
@@ -916,7 +661,7 @@ function App() {
           <li>The score shows the expected value increase for each choice</li>
           <li>Green highlight = best choice</li>
         </ol>
-        <p style={{ fontSize: "12px", color: "#999", marginTop: "15px" }}>
+        <p className="help-text mt-3">
           Note: This is an MVP version. More lotus options and advanced features
           coming soon!
         </p>
