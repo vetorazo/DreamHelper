@@ -1278,6 +1278,14 @@ function App() {
               Add some bubbles above to get lotus recommendations
             </p>
           ) : (
+            <div 
+              className={showMoreRecommendations ? "recommendations-scrollable" : ""}
+              style={showMoreRecommendations ? { 
+                maxHeight: "600px", 
+                overflowY: "auto",
+                paddingRight: "10px"
+              } : {}}
+            >
             <div
               style={{ display: "flex", flexDirection: "column", gap: "15px" }}
             >
@@ -1366,6 +1374,7 @@ function App() {
                   </div>
                 );
               })}
+            </div>
             </div>
           )}
           

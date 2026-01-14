@@ -665,6 +665,31 @@
   color: white;
 }
 
+/* ========== Scrollable Recommendations ========== */
+.recommendations-scrollable {
+  scrollbar-width: thin;
+  scrollbar-color: #3498db #f0f0f0;
+}
+
+.recommendations-scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+.recommendations-scrollable::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+
+.recommendations-scrollable::-webkit-scrollbar-thumb {
+  background: #3498db;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.recommendations-scrollable::-webkit-scrollbar-thumb:hover {
+  background: #2980b9;
+}
+
 /* ========== Toggle Switch ========== */
 .monte-carlo-toggle,
 .lookahead-toggle,
