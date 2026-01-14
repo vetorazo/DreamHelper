@@ -85,6 +85,163 @@ function calculateNightmareRisk(
   return { bubblesAtRisk, valueAtRisk, riskLevel };
 }
 
+// Synergy detection
+interface Synergy {
+  id: string;
+  title: string;
+  description: string;
+  strength: "weak" | "moderate" | "strong" | "powerful";
+  icon: string;
+}
+
+function detectSynergies(bubbles: Bubble[]): Synergy[] {
+  const synergies: Synergy[] = [];
+
+  // Count bubbles by type and quality
+  const typeCounts: Record<BubbleType, number> = {
+    Gear: 0,
+    Blacksail: 0,
+    Cube: 0,
+    Commodity: 0,
+    Netherrealm: 0,
+    Fluorescent: 0,
+    Whim: 0,
+  };
+  
+  const qualityCounts: Record<BubbleQuality, number> = {
+    White: 0,
+    Blue: 0,
+    Purple: 0,
+    Orange: 0,
+    Red: 0,
+    Rainbow: 0,
+  };
+
+  bubbles.forEach((bubble) => {
+    typeCounts[bubble.type]++;
+    qualityCounts[bubble.quality]++;
+  });
+
+  // Type-based synergies (3+ of same type)
+  VALID_BUBBLE_TYPES.forEach((type) => {
+    const count = typeCounts[type];
+    if (count >= 6) {
+      synergies.push({
+        id: `${type}-critical-mass`,
+        title: `${type} Dominance`,
+        description: `${count} ${type} bubbles! Lotuses that add Rainbow ${type} bubbles become extremely valuable (gain 1 per 6)`,
+        strength: "powerful",
+        icon: "🔥",
+      });
+    } else if (count >= 4) {
+      synergies.push({
+        id: `${type}-strong`,
+        title: `${type} Focus`,
+        description: `${count} ${type} bubbles benefit from type-specific lotuses that replicate or upgrade`,
+        strength: "strong",
+        icon: "⚡",
+      });
+    } else if (count >= 3) {
+      synergies.push({
+        id: `${type}-moderate`,
+        title: `${type} Cluster`,
+        description: `${count} ${type} bubbles - enough to gain bonus bubbles from nightmare lotuses`,
+        strength: "moderate",
+        icon: "✨",
+      });
+    }
+  });
+
+  // Quality-based synergies
+  const highQualityCount = qualityCounts.Rainbow + qualityCounts.Red + qualityCounts.Orange;
+  if (highQualityCount >= 5) {
+    synergies.push({
+      id: "high-quality-focus",
+      title: "Premium Collection",
+      description: `${highQualityCount} high-quality bubbles (Orange+)! Protect these from nightmare - extremely valuable`,
+      strength: "powerful",
+      icon: "💎",
+    });
+  } else if (highQualityCount >= 3) {
+    synergies.push({
+      id: "quality-stack",
+      title: "Quality Stack",
+      description: `${highQualityCount} Orange+ bubbles benefit from 'highest quality' lotuses`,
+      strength: "strong",
+      icon: "💫",
+    });
+  }
+
+  if (qualityCounts.Rainbow >= 2) {
+    synergies.push({
+      id: "rainbow-power",
+      title: "Rainbow Power",
+      description: `${qualityCounts.Rainbow} Rainbow bubbles! Maximum value - prioritize protection`,
+      strength: "powerful",
+      icon: "🌈",
+    });
+  }
+
+  // Diversity synergy (many different types)
+  const diverseTypes = VALID_BUBBLE_TYPES.filter((t) => typeCounts[t] > 0).length;
+  if (diverseTypes >= 5 && bubbles.length >= 7) {
+    synergies.push({
+      id: "diverse-portfolio",
+      title: "Diverse Portfolio",
+      description: `${diverseTypes} different bubble types! Whim bubbles become more valuable (count as any type)`,
+      strength: "moderate",
+      icon: "🎨",
+    });
+  }
+
+  // Gear + Blacksail combo (common endgame pairing)
+  if (typeCounts.Gear >= 2 && typeCounts.Blacksail >= 2) {
+    synergies.push({
+      id: "gear-blacksail-combo",
+      title: "Gear & Blacksail Combo",
+      description: "Balanced offensive setup - great synergy for late game",
+      strength: "strong",
+      icon: "⚔️",
+    });
+  }
+
+  // Cube collection (inventory expansion)
+  if (typeCounts.Cube >= 3) {
+    synergies.push({
+      id: "cube-collector",
+      title: "Cube Collector",
+      description: `${typeCounts.Cube} Cubes = more inventory space. Cube-specific lotuses are valuable`,
+      strength: "moderate",
+      icon: "📦",
+    });
+  }
+
+  // Whim flexibility
+  if (typeCounts.Whim >= 2) {
+    synergies.push({
+      id: "whim-flexibility",
+      title: "Whim Flexibility",
+      description: `${typeCounts.Whim} Whim bubbles provide type flexibility for all lotus effects`,
+      strength: "moderate",
+      icon: "🎭",
+    });
+  }
+
+  // Low quality upgrade potential
+  const lowQualityCount = qualityCounts.White + qualityCounts.Blue;
+  if (lowQualityCount >= 4) {
+    synergies.push({
+      id: "upgrade-potential",
+      title: "Upgrade Potential",
+      description: `${lowQualityCount} low-quality bubbles - prioritize upgrade lotuses for massive gains`,
+      strength: "moderate",
+      icon: "⬆️",
+    });
+  }
+
+  return synergies;
+}
+
 // Helper to safely access localStorage
 function safeLocalStorageGet(key: string): string | null {
   try {
@@ -327,6 +484,9 @@ function App() {
   // Calculate nightmare risk
   const nightmareRisk = calculateNightmareRisk(bubbleState.bubbles, userWeights);
 
+  // Detect synergies
+  const synergies = detectSynergies(bubbleState.bubbles);
+
   const selectLotus = (lotusId: string) => {
     const lotus = LOTUSES.find((l) => l.id === lotusId);
     if (!lotus) return;
@@ -406,6 +566,26 @@ function App() {
                 {((nightmareRisk.valueAtRisk / calculateStateValue(bubbleState, userWeights)) * 100).toFixed(0)}%
               </span>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Synergy Detection */}
+      {synergies.length > 0 && (
+        <div className="synergy-container mb-3">
+          <h3 className="synergy-header">
+            ✨ Active Synergies ({synergies.length})
+          </h3>
+          <div className="synergy-grid">
+            {synergies.map((synergy) => (
+              <div key={synergy.id} className={`synergy-card synergy-${synergy.strength}`}>
+                <div className="synergy-title">
+                  <span className="synergy-icon">{synergy.icon}</span>
+                  <strong>{synergy.title}</strong>
+                </div>
+                <p className="synergy-description">{synergy.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       )}

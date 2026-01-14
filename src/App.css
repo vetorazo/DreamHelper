@@ -700,3 +700,77 @@
 .attribution-footer a:hover {
   text-decoration: underline;
 }
+
+/* ========== Synergy Detection ========== */
+.synergy-container {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.synergy-header {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.synergy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.synergy-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid;
+  transition: transform 0.2s ease;
+}
+
+.synergy-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Synergy strength colors */
+.synergy-weak {
+  border-left-color: #95a5a6;
+}
+
+.synergy-moderate {
+  border-left-color: #3498db;
+}
+
+.synergy-strong {
+  border-left-color: #f39c12;
+}
+
+.synergy-powerful {
+  border-left-color: #e74c3c;
+  background: linear-gradient(135deg, #ffffff 0%, #fff5f5 100%);
+}
+
+.synergy-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.synergy-icon {
+  font-size: 1.5rem;
+}
+
+.synergy-description {
+  font-size: 0.875rem;
+  color: #555;
+  margin: 0;
+  line-height: 1.4;
+}

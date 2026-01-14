@@ -65,9 +65,9 @@ scripts/
 - [x] Lotus comparison workflow (search, add, compare)
 - [x] Improved bubble selector visibility
 - [x] Dark mode text fixes (all white-on-white issues resolved)
-- [ ] Synergy detection (combo effects)
-- [ ] Risk assessment visualization
-- [ ] More accurate simulation (handle conditionals)
+- [x] Nightmare risk visualization with color-coded severity levels
+- [x] Authentic game icons with attribution (42 bubble icons downloaded)
+- [x] Synergy detection system (combo effects and strategic insights)
 
 ### Phase 3: Advanced (Future)
 
@@ -75,22 +75,33 @@ scripts/
 - [ ] Lookahead optimization (multi-step planning)
 - [ ] Historical learning from previous runs
 - [ ] Goal-oriented modes (maximize specific bubble types)
+- [ ] Export/import runs for sharing
+- [ ] Statistics tracking across multiple runs
 
 ## Current Algorithm
 
-Simulation-based weighted scoring with fundamental effects:
+Simulation-based weighted scoring with fundamental effects and synergy detection:
 
 ```
 1. simulateLotusEffect(state, lotus) -> new state
 2. applyFundamentalEffects(state) -> modified state (if fundamental set)
 3. calculateStateValue(state, weights) -> numeric score
-4. Score = newValue - currentValue
+4. detectSynergies(bubbles) -> array of active synergies
+5. Score = newValue - currentValue
 
 Quality multipliers: White=1, Blue=2, Purple=4, Orange=8, Red=16, Rainbow=32
-Type weights: All default to 1.0 (user customization planned)
+Type weights: All default to 1.0, Whim=1.2 (user customizable)
 ```
 
 **Fundamental Effects**: Persistent bonuses that trigger "upon entering nightmare" - tracked separately and applied automatically in scoring.
+
+**Synergy Detection**: Identifies powerful bubble combinations:
+- Type synergies (3+ of same type)
+- Quality synergies (multiple high-quality bubbles)
+- Type combos (Gear + Blacksail)
+- Critical mass thresholds (6+ for Rainbow gains)
+- Upgrade potential (low-quality clusters)
+- Diversity bonuses (Whim value with many types)
 
 ## Key Files to Remember
 
@@ -126,16 +137,20 @@ Type weights: All default to 1.0 (user customization planned)
 - "improved UI styling" - Replaced inline styles with organized CSS
 - "improved bubble selector dropdowns" - Larger, more visible with better contrast
 - "fixed dropdown/search/card text colors" - Resolved all white-on-white visibility issues
+- "added nightmare risk visualization" - Color-coded risk levels with value-at-risk display
+- "added authentic bubble icons" - Downloaded all 42 game icons with proper attribution
+- "added synergy detection" - Identifies powerful bubble combos and strategic opportunities
 
 ## Known Issues / Future Improvements
 
-- [ ] Synergy detection (combos like "multiple Gear bubbles")
-- [ ] Risk visualization (show expected losses on nightmare deaths)
 - [ ] Handle complex lotus conditions better (currently simplified)
 - [ ] Probabilistic effects (45% chance) use simplified simulation
+- [ ] Monte Carlo for better accuracy with random effects
+- [ ] Lookahead planning (multi-step optimization)
 - [ ] Export/import runs for sharing
 - [ ] Statistics tracking across multiple runs
+- [ ] Goal-oriented modes (maximize specific bubble types)
 
 ## Last Updated
 
-Phase 2 complete - Enhanced UI with weight customization and lotus comparison (2026-01-14)
+Phase 2 complete - Enhanced UI with synergy detection, risk visualization, and authentic game icons (2026-01-14)
