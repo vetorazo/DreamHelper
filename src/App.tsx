@@ -374,6 +374,10 @@ function App() {
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
   const MAX_HISTORY = 20; // Keep last 20 states
 
+  // UI state for collapsible sections
+  const [showAdvanced, setShowAdvanced] = useState<boolean>(false);
+  const [showDetailedGuide, setShowDetailedGuide] = useState<boolean>(false);
+
   /**
    * useEffect - SIDE EFFECTS hook
    *
@@ -602,8 +606,16 @@ function App() {
         ).slice(0, 10) // Limit to 10 results
       : [];
 
-  // SMART RECOMMENDATIONS: Use currentChoices if available, otherwise show top 3 from all
-  const lotusesToRank = currentChoices.length > 0 ? currentChoices : LOTUSES;
+  // SMART RECOMMENDATIONS: 
+  // - If no fundamental and no bubbles: show only fundamentals
+  // - If currentChoices exist: use those
+  // - Otherwise: show all lotuses
+  const lotusesToRank = 
+    !bubbleState.fundamental && bubbleState.bubbles.length === 0
+      ? LOTUSES.filter(l => l.isFundamental)
+      : currentChoices.length > 0 
+        ? currentChoices 
+        : LOTUSES;
 
   // Apply goal-oriented weights if a goal type is selected
   const activeWeights = applyGoalWeights(userWeights, goalType);
@@ -673,7 +685,22 @@ function App() {
         </a>
       </div>
 
-      <div className="mb-2">
+      {/* Quick Start Guide */}
+      {!bubbleState.fundamental && bubbleState.bubbles.length === 0 && (
+        <div className="card-success mb-3">
+          <h3 className="section-subtitle" style={{ margin: "0 0 10px 0" }}>
+            🚀 Quick Start - First Time?
+          </h3>
+          <ol style={{ margin: "10px 0", paddingLeft: "20px" }}>
+            <li><strong>Step 1:</strong> Scroll down to "Recommended Lotus Choices" and pick a <strong>Fundamental</strong> (your first choice in-game)</li>
+            <li><strong>Step 2:</strong> Add your current Dream Bubbles using the dropdowns below</li>
+            <li><strong>Step 3:</strong> Get recommendations for your next lotus choice!</li>
+          </ol>
+        </div>
+      )}
+
+      {/* Primary Actions */}
+      <div className="mb-2" style={{ display: "flex", gap: "10px", flexWrap: "wrap", alignItems: "center" }}>
         <button
           onClick={startNewRun}
           className="btn btn-danger"
@@ -681,63 +708,68 @@ function App() {
         >
           🆕 New Run
         </button>
+        
         <button
-          onClick={exportRun}
-          className="btn btn-primary"
-          style={{ marginLeft: "10px" }}
-          title="Export current run to clipboard"
-        >
-          📤 Export Run
-        </button>
-        <button
-          onClick={importRun}
+          onClick={undo}
+          disabled={historyIndex <= 0}
           className="btn btn-secondary"
-          style={{ marginLeft: "10px" }}
+          title="Undo last action"
         >
-          📥 Import Run
+          ↶ Undo
         </button>
-
-        {/* Undo/Redo Controls */}
-        <span
-          style={{
-            marginLeft: "20px",
-            borderLeft: "2px solid #e1e8ed",
-            paddingLeft: "20px",
-          }}
+        <button
+          onClick={redo}
+          disabled={historyIndex >= history.length - 1}
+          className="btn btn-secondary"
+          title="Redo last action"
         >
-          <button
-            onClick={undo}
-            disabled={historyIndex <= 0}
-            className="btn btn-secondary"
-            title="Undo last action (Ctrl+Z)"
-          >
-            ↶ Undo
-          </button>
-          <button
-            onClick={redo}
-            disabled={historyIndex >= history.length - 1}
-            className="btn btn-secondary"
-            style={{ marginLeft: "10px" }}
-            title="Redo last action (Ctrl+Y)"
-          >
-            ↷ Redo
-          </button>
-        </span>
+          ↷ Redo
+        </button>
 
         <span className="help-text" style={{ marginLeft: "10px" }}>
-          (Your progress auto-saves!)
+          (Auto-saves your progress)
         </span>
-        {exportMessage && (
-          <span className="success-message" style={{ marginLeft: "10px" }}>
-            {exportMessage}
-          </span>
-        )}
-        {importError && (
-          <span className="error-message" style={{ marginLeft: "10px" }}>
-            {importError}
-          </span>
-        )}
+
+        {/* Advanced Features Toggle */}
+        <button
+          onClick={() => setShowAdvanced(!showAdvanced)}
+          className="btn btn-secondary btn-small"
+          style={{ marginLeft: "auto" }}
+        >
+          {showAdvanced ? "− Hide" : "+ Show"} Advanced
+        </button>
       </div>
+
+      {/* Advanced Features (Collapsible) */}
+      {showAdvanced && (
+        <div className="card mb-3" style={{ padding: "1rem" }}>
+          <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+            <button
+              onClick={exportRun}
+              className="btn btn-primary btn-small"
+              title="Export current run to clipboard"
+            >
+              📤 Export Run
+            </button>
+            <button
+              onClick={importRun}
+              className="btn btn-secondary btn-small"
+            >
+              📥 Import Run
+            </button>
+          </div>
+          {exportMessage && (
+            <span className="success-message" style={{ marginTop: "10px", display: "block" }}>
+              {exportMessage}
+            </span>
+          )}
+          {importError && (
+            <span className="error-message" style={{ marginTop: "10px", display: "block" }}>
+              {importError}
+            </span>
+          )}
+        </div>
+      )}
 
       {bubbleState.fundamental && (
         <div className="card-info mb-3">
@@ -748,30 +780,12 @@ function App() {
         </div>
       )}
 
-      {/* Fundamental Reminder - Show if no fundamental selected and no bubbles yet */}
-      {!bubbleState.fundamental && bubbleState.bubbles.length === 0 && (
-        <div className="card-warning mb-3">
-          <strong>💡 Start Your Run:</strong>
-          <p className="text-sm" style={{ margin: "5px 0 0 0" }}>
-            In Twinightmare, your <strong>first</strong> lotus choice is always
-            a Fundamental! Scroll down to recommendations and look for lotuses
-            marked as "Fundamental" - these provide persistent bonuses for your
-            entire run. Choose your fundamental before adding bubbles.
-          </p>
-        </div>
-      )}
-
       {/* Fundamental Warning - Show if they have bubbles but no fundamental */}
       {!bubbleState.fundamental && bubbleState.bubbles.length > 0 && (
-        <div
-          className="card-info mb-3"
-          style={{ borderColor: "#ff9800", background: "#fff3e0" }}
-        >
-          <strong style={{ color: "#f57c00" }}>⚡ Missing Fundamental:</strong>
+        <div className="card-warning mb-3">
+          <strong>⚡ Missing Fundamental!</strong>
           <p className="text-sm" style={{ margin: "5px 0 0 0" }}>
-            You haven't selected a Fundamental yet! In the actual game, this is
-            your first lotus choice. Recommendations below will show
-            fundamentals - select one to complete your run setup.
+            You haven't selected a Fundamental yet. Scroll down to recommendations - fundamentals are shown first when you have no fundamental selected.
           </p>
         </div>
       )}
@@ -1169,7 +1183,8 @@ function App() {
             </div>
           </div>
 
-          {/* NEW: Lotus Choice Comparison Section */}
+          {/* NEW: Lotus Choice Comparison Section - Only show after fundamental is selected */}
+          {bubbleState.fundamental && (
           <div className="card-warning mb-3">
             <h3 className="section-subtitle" style={{ margin: "0 0 10px 0" }}>
               🎯 Compare Lotus Choices
@@ -1234,16 +1249,22 @@ function App() {
               </div>
             )}
           </div>
+          )}
 
           <h2 className="section-title">Recommended Lotus Choices</h2>
+          {!bubbleState.fundamental && bubbleState.bubbles.length === 0 && (
+            <p className="text-success text-sm" style={{ marginTop: "-8px" }}>
+              ⭐ Showing available Fundamentals - pick your first lotus!
+            </p>
+          )}
           {currentChoices.length > 0 && (
             <p className="text-success text-sm" style={{ marginTop: "-8px" }}>
               ✓ Comparing your {currentChoices.length} selected choices
             </p>
           )}
-          {bubbleState.bubbles.length === 0 ? (
+          {bubbleState.fundamental && bubbleState.bubbles.length === 0 ? (
             <p className="text-muted">
-              Add some bubbles to see recommendations
+              Add some bubbles above to get lotus recommendations
             </p>
           ) : (
             <div
@@ -1328,8 +1349,8 @@ function App() {
                       style={{ marginTop: "10px" }}
                     >
                       {rec.lotus.isFundamental && !bubbleState.fundamental
-                        ? "Set as Fundamental"
-                        : "Select This Lotus"}
+                        ? "✓ Choose as Fundamental"
+                        : "✓ Choose This Lotus"}
                     </button>
                   </div>
                 );
@@ -1340,8 +1361,15 @@ function App() {
       </div>
 
       <div className="card mt-4">
-        <h3 className="section-subtitle">How to Use:</h3>
-        <ol>
+        <div 
+          onClick={() => setShowDetailedGuide(!showDetailedGuide)}
+          style={{ cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center" }}
+        >
+          <h3 className="section-subtitle" style={{ margin: 0 }}>📖 Detailed Guide</h3>
+          <span style={{ fontSize: "1.5rem", color: "#666" }}>{showDetailedGuide ? "−" : "+"}</span>
+        </div>
+        {showDetailedGuide && (
+        <ol style={{ marginTop: "1rem" }}>
           <li>
             <strong>🌟 FIRST: Choose your Fundamental!</strong> This is your
             first lotus choice in the actual game. Look for lotuses marked as
@@ -1396,6 +1424,7 @@ function App() {
           when pursuing specific strategies, enable lookahead for complex
           decisions, and hover over explanation badges for details!
         </p>
+        )}
       </div>
 
       {/* Support & Attribution Footer */}
