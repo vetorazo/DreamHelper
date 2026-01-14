@@ -347,6 +347,7 @@
   border: 1px solid #ddd;
   border-radius: 6px;
   font-size: 0.875rem;
+  color: #2c3e50;
   transition: border-color 0.2s ease;
 }
 
