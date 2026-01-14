@@ -562,7 +562,7 @@
 
 .recommendation-omen {
   font-size: 0.8125rem;
-  color: #999;
+  color: #666;
   margin: 0.5rem 0;
 }
 
@@ -670,7 +670,7 @@
 
 /* ========== Utility Classes ========== */
 .empty-state {
-  color: #999;
+  color: #666;
   text-align: center;
   padding: 2rem;
   font-size: 0.9375rem;
@@ -725,7 +725,7 @@
 }
 
 .text-muted {
-  color: #999;
+  color: #666;
 }
 .text-success {
   color: #27ae60;
