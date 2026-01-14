@@ -853,21 +853,203 @@
   text-align: center;
 }
 
-/* ========== Attribution Footer ========== */
-.attribution-footer {
-  text-align: center;
-  padding: 1.5rem;
-  border-top: 1px solid #e1e8ed;
+/* ========== Header with Support Button ========== */
+.header-with-support {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  gap: 2rem;
 }
 
-.attribution-footer a {
-  color: #3498db;
+.support-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+  white-space: nowrap;
+  margin-top: 0.5rem;
+}
+
+.support-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4);
+  background: linear-gradient(135deg, #ee5a6f 0%, #c92a2a 100%);
+}
+
+@media (max-width: 768px) {
+  .header-with-support {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .support-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ========== Support & Attribution Footer ========== */
+.footer {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  padding: 2rem;
+  color: white;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.footer-section {
+  margin-bottom: 2rem;
+}
+
+.footer-section:last-child {
+  margin-bottom: 0;
+}
+
+.footer-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.75rem 0;
+  color: white;
+}
+
+.footer-text {
+  font-size: 1rem;
+  margin: 0 0 1.25rem 0;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.5;
+}
+
+.support-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.support-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  background: white;
+  color: #2c3e50;
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.125rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: fit-content;
+}
+
+.support-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.support-link.kofi:hover {
+  background: #ff5e5b;
+  color: white;
+}
+
+.support-icon {
+  font-size: 1.5rem;
+}
+
+.support-name {
+  font-size: 1.25rem;
+}
+
+.crypto-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.crypto-option {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 1rem;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.crypto-label {
+  display: block;
+  font-weight: 700;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.crypto-address {
+  display: block;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  color: #fff;
+  word-break: break-all;
+  line-height: 1.4;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease;
+}
+
+.crypto-address:hover {
+  background: rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.footer-section.attribution {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 1.5rem;
+  text-align: center;
+}
+
+.footer-section.attribution p {
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+.footer-section.attribution a {
+  color: white;
   text-decoration: none;
   font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  transition: border-color 0.2s ease;
 }
 
-.attribution-footer a:hover {
-  text-decoration: underline;
+.footer-section.attribution a:hover {
+  border-bottom-color: white;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 1.5rem;
+  }
+  
+  .footer-title {
+    font-size: 1.25rem;
+  }
+  
+  .support-link {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .crypto-address {
+    font-size: 0.625rem;
+  }
 }
 
 /* ========== Synergy Detection ========== */

@@ -109,6 +109,7 @@ Goal mode: Boosts selected type weight by 3x for focused strategies
 **Lookahead Optimization**: Plans 2-3 moves ahead by simulating each choice and evaluating the next best moves that would follow. Finds better long-term strategies by avoiding "greedy" choices that limit future options. Future value discounted by 0.7.
 
 **Recommendation Explanations**: Each lotus shows visual badges explaining strategic value:
+
 - ✨ Synergy Boost (creates/strengthens type combos)
 - ⬆️ Major Upgrade (upgrades 3+ bubbles)
 - 🎯 Goal Progress (adds bubbles matching goal type)
@@ -133,6 +134,7 @@ Goal mode: Boosts selected type weight by 3x for focused strategies
 **Lookahead Optimization**: Toggle to plan 2-3 moves ahead instead of just immediate value. Considers what good moves become available after each choice. Slower but finds better long-term strategies.
 
 **Recommendation Explanations**: Visual badges on each recommendation:
+
 - ✨ Synergy Boost! (purple) - Creates/strengthens bubble type combos
 - ⬆️ Major Upgrade! (blue) - Upgrades 3+ bubbles at once
 - 🎯 Goal Progress! (yellow) - Adds bubbles matching your goal type
@@ -185,7 +187,9 @@ Goal mode: Boosts selected type weight by 3x for focused strategies
 - "added recommendation explanations and undo/redo" - Visual badges show why lotuses are good, players can undo mistakes
 
 ## Known Issues / Future Improvements
+
 Statistics dashboard (track performance across multiple runs)
+
 - [ ] Historical learning from previous runs
 - [ ] Keyboard shortcuts (Space to add, Delete to remove, arrows to navigate)
 - [ ] Save multiple builds (compare different strategies)

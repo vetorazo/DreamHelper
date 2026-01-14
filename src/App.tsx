@@ -653,10 +653,23 @@ function App() {
 
   return (
     <div className="app-container">
-      <h1 className="app-title">🌙 Dream Helper - Twinightmare Calculator</h1>
-      <p className="app-subtitle">
-        Optimize your Dream Lotus choices in Torchlight Infinite
-      </p>
+      <div className="header-with-support">
+        <div>
+          <h1 className="app-title">🌙 Dream Helper - Twinightmare Calculator</h1>
+          <p className="app-subtitle">
+            Optimize your Dream Lotus choices in Torchlight Infinite
+          </p>
+        </div>
+        <a
+          href="https://ko-fi.com/vndtta"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="support-button"
+          title="Support the development of Dream Helper"
+        >
+          ☕ Support Me
+        </a>
+      </div>
 
       <div className="mb-2">
         <button
@@ -1383,20 +1396,54 @@ function App() {
         </p>
       </div>
 
-      {/* Attribution Footer */}
-      <div className="attribution-footer mt-4">
-        <p className="text-xs text-muted">
-          Bubble icons © XD Entertainment - Torchlight Infinite. Accessed via{" "}
-          <a
-            href="https://tlidb.com/en/Dream_Bubbles"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            TLIDB.com
-          </a>
-          . This is a fan-made tool and is not affiliated with XD Entertainment.
-        </p>
-      </div>
+      {/* Support & Attribution Footer */}
+      <footer className="footer mt-4">
+        <div className="footer-section">
+          <h4 className="footer-title">☕ Support Development</h4>
+          <p className="footer-text">
+            Enjoying Dream Helper? Support its development and future features!
+          </p>
+          <div className="support-options">
+            <a
+              href="https://ko-fi.com/vndtta"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="support-link kofi"
+            >
+              <span className="support-icon">☕</span>
+              <span className="support-name">Ko-fi</span>
+            </a>
+            <div className="crypto-options">
+              <div className="crypto-option">
+                <span className="crypto-label">₿ Bitcoin:</span>
+                <code className="crypto-address" title="Click to copy">
+                  bc1q9dpgdfsy5tg3ydtsqjwrwg5ekrsg6xuapkugdd
+                </code>
+              </div>
+              <div className="crypto-option">
+                <span className="crypto-label">⚡ Lightning:</span>
+                <code className="crypto-address" title="Lightning Node ID">
+                  03575fe004da73a3b787f2c217fc6221928b639ce29e9b5bc22c67e07e630388c9
+                </code>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="footer-section attribution">
+          <p className="text-xs text-muted">
+            Bubble icons © XD Entertainment - Torchlight Infinite. Accessed via{" "}
+            <a
+              href="https://tlidb.com/en/Dream_Bubbles"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              TLIDB.com
+            </a>
+            . This is a fan-made tool and is not affiliated with XD Entertainment.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
