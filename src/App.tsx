@@ -1369,6 +1369,7 @@ function App() {
           <span style={{ fontSize: "1.5rem", color: "#666" }}>{showDetailedGuide ? "−" : "+"}</span>
         </div>
         {showDetailedGuide && (
+        <>
         <ol style={{ marginTop: "1rem" }}>
           <li>
             <strong>🌟 FIRST: Choose your Fundamental!</strong> This is your
@@ -1424,6 +1425,7 @@ function App() {
           when pursuing specific strategies, enable lookahead for complex
           decisions, and hover over explanation badges for details!
         </p>
+        </>
         )}
       </div>
 
