@@ -11,12 +11,13 @@ Web application to help Torchlight Infinite players optimize their Twinightmare 
 - **Fundamentals**: First lotus choice with persistent "upon entering nightmare" effects (tracked separately, applied automatically)
 - **Vision**: Limited slots for bubbles (default 10, can overflow if full)
 - **Nightmare**: Risk/reward - lose 1/6 bubbles per death, but rewards become real
+- **Lotus Comparison**: Search and add specific lotus choices from in-game to compare them directly
 
 ## Tech Stack
 
 - **Frontend**: React 19 + TypeScript
 - **Build**: Vite + tsx for scripts
-- **Styling**: Basic CSS (Tailwind planned)
+- **Styling**: Organized CSS with semantic classes (App.css)
 - **State**: useState + localStorage for persistence
 - **Data Generation**: Programmatic lotus generation using TypeScript scripts
 
@@ -30,7 +31,8 @@ src/
 │   └── calculator.ts      # Scoring engine with fundamental effects
 ├── data/
 │   └── lotuses.ts         # AUTO-GENERATED - 274 lotus variants
-├── App.tsx                # Main UI (bubble management, drag-drop, recommendations)
+├── App.tsx                # Main UI with comparison workflow
+├── App.css                # Organized styles with semantic classes
 └── main.tsx
 
 scripts/
@@ -47,14 +49,22 @@ scripts/
 - [x] Basic calculation engine (weighted scoring with simulation)
 - [x] UI with bubble add/remove, quality editing, drag-and-drop reordering
 - [x] Lotus parser and programmatic data generation (274 variants)
-- [x] localStorage auto-save persistence
+- [x] localStorage auto-save persistence with error handling
 - [x] Fundamental tracking UI and engine integration
 - [x] "New Run" functionality
+- [x] User weight customization (sliders for bubble type preferences)
+- [x] Lotus choice comparison (search and compare specific in-game choices)
+- [x] UI polish with organized CSS and semantic classes
+- [x] Fixed "Fuel" bubble type (removed - not in game)
+- [x] localStorage validation and fallback clearing
 
-### Phase 2: Enhanced (Planned)
+### Phase 2: Enhanced ✅ COMPLETE
 
-- [ ] User weight customization (sliders for bubble type preferences)
-- [ ] Better UI polish with Tailwind CSS
+- [x] User weight customization (sliders for bubble type preferences)
+- [x] Better UI polish with organized CSS
+- [x] Lotus comparison workflow (search, add, compare)
+- [x] Improved bubble selector visibility
+- [x] Dark mode text fixes (all white-on-white issues resolved)
 - [ ] Synergy detection (combo effects)
 - [ ] Risk assessment visualization
 - [ ] More accurate simulation (handle conditionals)
@@ -108,15 +118,24 @@ Type weights: All default to 1.0 (user customization planned)
 - "localStorage auto-save" - Persistence across page reloads
 - "fundamental tracking UI" - Blue banner, selection button
 - "calculator applies fundamentals" - Engine integration
-- "expanded lotus database to 274 variants with programmatic generation" - Full data
+- "expanded lotus database to 274 variants" - Full data with programmatic generation
+- "added user weight customization" - Sliders for bubble type priorities
+- "removed Fuel bubble type" - Not in game, added validation
+- "localStorage validation" - Error handling for security restrictions
+- "added lotus choice comparison" - Search and compare specific lotuses from game
+- "improved UI styling" - Replaced inline styles with organized CSS
+- "improved bubble selector dropdowns" - Larger, more visible with better contrast
+- "fixed dropdown/search/card text colors" - Resolved all white-on-white visibility issues
 
 ## Known Issues / Future Improvements
 
-- [ ] Add weight customization UI (currently uses defaults)
+- [ ] Synergy detection (combos like "multiple Gear bubbles")
+- [ ] Risk visualization (show expected losses on nightmare deaths)
 - [ ] Handle complex lotus conditions better (currently simplified)
-- [ ] Add Tailwind CSS for better styling
 - [ ] Probabilistic effects (45% chance) use simplified simulation
+- [ ] Export/import runs for sharing
+- [ ] Statistics tracking across multiple runs
 
 ## Last Updated
 
-Phase 1 complete - Full MVP with 274 lotuses (2026-01-13)
+Phase 2 complete - Enhanced UI with weight customization and lotus comparison (2026-01-14)
