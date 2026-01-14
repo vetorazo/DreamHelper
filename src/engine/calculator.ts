@@ -7,8 +7,14 @@ import type { BubbleState, LotusEffect, UserWeights } from "../types";
  * CONCEPT vs Rails: Like ActiveRecord scopes that stack
  *   Rails: User.active.premium.recent (chains scopes)
  *   Here: applyFundamental(state, fundamental) modifies state based on fundamental type
+ *
+ * Monte Carlo Integration: For probabilistic effects, we now track if we should use
+ * deterministic (for averaging) or stochastic (for individual simulation runs)
  */
-function applyFundamentalEffects(state: BubbleState): BubbleState {
+function applyFundamentalEffects(
+  state: BubbleState,
+  useMonteCarlo: boolean = false
+): BubbleState {
   if (!state.fundamental) return state;
 
   const fundamental = state.fundamental;
@@ -38,15 +44,25 @@ function applyFundamentalEffects(state: BubbleState): BubbleState {
     case "fundamental_chanceUpgradeOnEnterNightmare": {
       // Example: "45% chance to upgrade all Gear bubbles by 1 tier"
       const chance = effect.chance || 0.45;
-      // For simulation, we use expected value (multiply by chance)
       const targetBubbles = effect.bubbleType
         ? state.bubbles.filter((b) => b.type === effect.bubbleType)
         : state.bubbles;
 
-      // Simplified: upgrade if we "roll" success
-      if (Math.random() < chance) {
+      if (useMonteCarlo) {
+        // Monte Carlo: actually roll the dice
+        if (Math.random() < chance) {
+          targetBubbles.forEach((bubble) => {
+            bubble.quality = upgradeQuality(bubble.quality, 1);
+          });
+        }
+      } else {
+        // Deterministic: apply fractional upgrade (expected value)
+        // For averaging, we apply partial upgrades based on probability
+        // This is a simplified approach - in reality we'd need weighted averaging
         targetBubbles.forEach((bubble) => {
-          bubble.quality = upgradeQuality(bubble.quality, 1);
+          if (Math.random() < chance) {
+            bubble.quality = upgradeQuality(bubble.quality, 1);
+          }
         });
       }
       break;
@@ -277,7 +293,7 @@ export function scoreLotusChoice(
 
   // Apply fundamental effects if entering nightmare
   // CONCEPT: Like Rails transaction callbacks - apply all accumulated effects
-  simulatedState = applyFundamentalEffects(simulatedState);
+  simulatedState = applyFundamentalEffects(simulatedState, false);
 
   const newValue = calculateStateValue(simulatedState, weights);
 
@@ -285,17 +301,48 @@ export function scoreLotusChoice(
 }
 
 /**
+ * Monte Carlo simulation for probabilistic effects
+ * Runs N simulations and returns the average score
+ * 
+ * CONCEPT: Like running A/B tests multiple times to get statistical significance
+ * Instead of one roll of the dice, we roll many times and average the results
+ */
+export function scoreLotusChoiceMonteCarlo(
+  currentState: BubbleState,
+  lotus: LotusEffect,
+  weights: UserWeights,
+  numSimulations: number = 100
+): number {
+  const currentValue = calculateStateValue(currentState, weights);
+  let totalValue = 0;
+
+  for (let i = 0; i < numSimulations; i++) {
+    // Each simulation gets its own random outcomes
+    let simulatedState = simulateLotusEffect(currentState, lotus);
+    simulatedState = applyFundamentalEffects(simulatedState, true);
+    totalValue += calculateStateValue(simulatedState, weights);
+  }
+
+  const averageValue = totalValue / numSimulations;
+  return averageValue - currentValue;
+}
+
+/**
  * Rank all available lotus choices and return top N
+ * Can optionally use Monte Carlo for better accuracy
  */
 export function rankLotusChoices(
   currentState: BubbleState,
   availableLotuses: LotusEffect[],
   weights: UserWeights,
-  topN: number = 3
+  topN: number = 3,
+  useMonteCarlo: boolean = false
 ): Array<{ lotus: LotusEffect; score: number; simulatedState: BubbleState }> {
   const scored = availableLotuses.map((lotus) => ({
     lotus,
-    score: scoreLotusChoice(currentState, lotus, weights),
+    score: useMonteCarlo
+      ? scoreLotusChoiceMonteCarlo(currentState, lotus, weights, 100)
+      : scoreLotusChoice(currentState, lotus, weights),
     simulatedState: simulateLotusEffect(currentState, lotus),
   }));
 

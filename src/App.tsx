@@ -353,6 +353,9 @@ function App() {
   const [currentChoices, setCurrentChoices] = useState<LotusEffect[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
+  // Monte Carlo simulation toggle
+  const [useMonteCarlo, setUseMonteCarlo] = useState<boolean>(false);
+
   /**
    * useEffect - SIDE EFFECTS hook
    *
@@ -547,7 +550,8 @@ function App() {
     bubbleState,
     lotusesToRank,
     userWeights,
-    3
+    3,
+    useMonteCarlo
   );
 
   // Calculate nightmare risk
@@ -903,6 +907,26 @@ function App() {
                     </span>
                   </div>
                 )
+              )}
+            </div>
+
+            {/* Monte Carlo Toggle */}
+            <div className="monte-carlo-toggle mt-3" style={{ paddingTop: "1rem", borderTop: "1px solid #e1e8ed" }}>
+              <label className="toggle-label">
+                <input
+                  type="checkbox"
+                  checked={useMonteCarlo}
+                  onChange={(e) => setUseMonteCarlo(e.target.checked)}
+                  className="toggle-checkbox"
+                />
+                <span className="toggle-text">
+                  🎲 Use Monte Carlo Simulation (more accurate for probabilistic effects)
+                </span>
+              </label>
+              {useMonteCarlo && (
+                <p className="help-text" style={{ marginTop: "0.5rem", fontSize: "0.8125rem" }}>
+                  Running 100 simulations per lotus - may be slightly slower but more accurate
+                </p>
               )}
             </div>
           </div>
