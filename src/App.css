@@ -120,6 +120,15 @@
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   border: 1px solid #e1e8ed;
+  color: #2c3e50;
+}
+
+.card h3 {
+  color: #2c3e50;
+}
+
+.card ol, .card li {
+  color: #2c3e50;
 }
 
 .card-info {
