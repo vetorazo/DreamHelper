@@ -8,7 +8,12 @@ import type {
   LotusEffect,
 } from "./types";
 import { DEFAULT_QUALITY_MULTIPLIERS, DEFAULT_TYPE_WEIGHTS } from "./types";
-import { rankLotusChoices, calculateStateValue } from "./engine/calculator";
+import { 
+  rankLotusChoices, 
+  rankLotusChoicesWithLookahead,
+  applyGoalWeights,
+  calculateStateValue 
+} from "./engine/calculator";
 import { LOTUSES } from "./data/lotuses";
 import "./App.css";
 
@@ -356,6 +361,13 @@ function App() {
   // Monte Carlo simulation toggle
   const [useMonteCarlo, setUseMonteCarlo] = useState<boolean>(false);
 
+  // Goal-oriented mode
+  const [goalType, setGoalType] = useState<BubbleType | null>(null);
+
+  // Lookahead optimization
+  const [useLookahead, setUseLookahead] = useState<boolean>(false);
+  const [lookaheadDepth, setLookaheadDepth] = useState<number>(2);
+
   /**
    * useEffect - SIDE EFFECTS hook
    *
@@ -501,9 +513,7 @@ function App() {
   };
 
   const importRun = () => {
-    const input = prompt(
-      "Paste your exported run data (JSON):"
-    );
+    const input = prompt("Paste your exported run data (JSON):");
 
     if (!input) return;
 
@@ -546,13 +556,27 @@ function App() {
 
   // SMART RECOMMENDATIONS: Use currentChoices if available, otherwise show top 3 from all
   const lotusesToRank = currentChoices.length > 0 ? currentChoices : LOTUSES;
-  const recommendations = rankLotusChoices(
-    bubbleState,
-    lotusesToRank,
-    userWeights,
-    3,
-    useMonteCarlo
-  );
+  
+  // Apply goal-oriented weights if a goal type is selected
+  const activeWeights = applyGoalWeights(userWeights, goalType);
+  
+  // Use lookahead optimization if enabled, otherwise standard ranking
+  const recommendations = useLookahead
+    ? rankLotusChoicesWithLookahead(
+        bubbleState,
+        lotusesToRank,
+        activeWeights,
+        3,
+        lookaheadDepth,
+        useMonteCarlo
+      )
+    : rankLotusChoices(
+        bubbleState,
+        lotusesToRank,
+        activeWeights,
+        3,
+        useMonteCarlo
+      );
 
   // Calculate nightmare risk
   const nightmareRisk = calculateNightmareRisk(
@@ -911,7 +935,10 @@ function App() {
             </div>
 
             {/* Monte Carlo Toggle */}
-            <div className="monte-carlo-toggle mt-3" style={{ paddingTop: "1rem", borderTop: "1px solid #e1e8ed" }}>
+            <div
+              className="monte-carlo-toggle mt-3"
+              style={{ paddingTop: "1rem", borderTop: "1px solid #e1e8ed" }}
+            >
               <label className="toggle-label">
                 <input
                   type="checkbox"
@@ -920,12 +947,97 @@ function App() {
                   className="toggle-checkbox"
                 />
                 <span className="toggle-text">
-                  🎲 Use Monte Carlo Simulation (more accurate for probabilistic effects)
+                  🎲 Use Monte Carlo Simulation (more accurate for probabilistic
+                  effects)
                 </span>
               </label>
               {useMonteCarlo && (
-                <p className="help-text" style={{ marginTop: "0.5rem", fontSize: "0.8125rem" }}>
-                  Running 100 simulations per lotus - may be slightly slower but more accurate
+                <p
+                  className="help-text"
+                  style={{ marginTop: "0.5rem", fontSize: "0.8125rem" }}
+                >
+                  Running 100 simulations per lotus - may be slightly slower but
+                  more accurate
+                </p>
+              )}
+            </div>
+
+            {/* Lookahead Optimization Toggle */}
+            <div
+              className="lookahead-toggle mt-3"
+              style={{ paddingTop: "1rem", borderTop: "1px solid #e1e8ed" }}
+            >
+              <label className="toggle-label">
+                <input
+                  type="checkbox"
+                  checked={useLookahead}
+                  onChange={(e) => setUseLookahead(e.target.checked)}
+                  className="toggle-checkbox"
+                />
+                <span className="toggle-text">
+                  🔮 Enable Lookahead Optimization (plan {lookaheadDepth} moves ahead)
+                </span>
+              </label>
+              {useLookahead && (
+                <div style={{ marginTop: "0.75rem" }}>
+                  <label
+                    className="help-text"
+                    style={{ display: "block", marginBottom: "0.25rem" }}
+                  >
+                    Lookahead Depth: {lookaheadDepth}
+                  </label>
+                  <input
+                    type="range"
+                    min="2"
+                    max="3"
+                    value={lookaheadDepth}
+                    onChange={(e) => setLookaheadDepth(Number(e.target.value))}
+                    style={{ width: "100%" }}
+                  />
+                  <p
+                    className="help-text"
+                    style={{ marginTop: "0.5rem", fontSize: "0.8125rem" }}
+                  >
+                    Considers future lotus opportunities - better long-term strategy but slower
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* Goal-Oriented Mode */}
+            <div
+              className="goal-mode mt-3"
+              style={{ paddingTop: "1rem", borderTop: "1px solid #e1e8ed" }}
+            >
+              <h4 className="help-text" style={{ marginBottom: "0.5rem", fontWeight: "600" }}>
+                🎯 Goal-Oriented Mode
+              </h4>
+              <p className="help-text" style={{ marginBottom: "0.75rem", fontSize: "0.8125rem" }}>
+                Focus recommendations on a specific bubble type
+              </p>
+              <div className="goal-buttons">
+                <button
+                  onClick={() => setGoalType(null)}
+                  className={`goal-btn ${goalType === null ? "active" : ""}`}
+                >
+                  None
+                </button>
+                {VALID_BUBBLE_TYPES.map((type) => (
+                  <button
+                    key={type}
+                    onClick={() => setGoalType(type)}
+                    className={`goal-btn ${goalType === type ? "active" : ""}`}
+                  >
+                    {type}
+                  </button>
+                ))}
+              </div>
+              {goalType && (
+                <p
+                  className="help-text"
+                  style={{ marginTop: "0.5rem", fontSize: "0.8125rem" }}
+                >
+                  Prioritizing {goalType} bubbles (3x weight boost)
                 </p>
               )}
             </div>
@@ -1035,6 +1147,11 @@ function App() {
                       }`}
                     >
                       +{rec.score.toFixed(1)}
+                      {useLookahead && "lookaheadScore" in rec && typeof rec.lookaheadScore === "number" && (
+                        <div className="lookahead-score" style={{ fontSize: "0.75rem", opacity: 0.8 }}>
+                          (w/ future: +{rec.lookaheadScore.toFixed(1)})
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div className="recommendation-info">

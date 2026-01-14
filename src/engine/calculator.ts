@@ -1,4 +1,4 @@
-import type { BubbleState, LotusEffect, UserWeights } from "../types";
+import type { BubbleState, LotusEffect, UserWeights, BubbleType } from "../types";
 
 /**
  * Apply fundamental effects to a state
@@ -303,7 +303,7 @@ export function scoreLotusChoice(
 /**
  * Monte Carlo simulation for probabilistic effects
  * Runs N simulations and returns the average score
- * 
+ *
  * CONCEPT: Like running A/B tests multiple times to get statistical significance
  * Instead of one roll of the dice, we roll many times and average the results
  */
@@ -328,6 +328,27 @@ export function scoreLotusChoiceMonteCarlo(
 }
 
 /**
+ * Apply goal-oriented weights by boosting a specific bubble type
+ * Returns modified weights that heavily favor the goal type
+ */
+export function applyGoalWeights(
+  baseWeights: UserWeights,
+  goalType: BubbleType | null
+): UserWeights {
+  if (!goalType) return baseWeights;
+
+  const modifiedWeights: UserWeights = {
+    ...baseWeights,
+    typeWeights: { ...baseWeights.typeWeights },
+  };
+
+  // Boost goal type weight by 3x
+  modifiedWeights.typeWeights[goalType] *= 3;
+
+  return modifiedWeights;
+}
+
+/**
  * Rank all available lotus choices and return top N
  * Can optionally use Monte Carlo for better accuracy
  */
@@ -347,4 +368,63 @@ export function rankLotusChoices(
   }));
 
   return scored.sort((a, b) => b.score - a.score).slice(0, topN);
+}
+
+/**
+ * Lookahead optimization: evaluate lotus choices considering future moves
+ * For each option, simulate taking it and then rank the next best moves
+ * Returns choices sorted by their long-term value (current + future potential)
+ * 
+ * CONCEPT: Like chess engines - don't just look at immediate move, 
+ * but consider what moves become available afterwards
+ */
+export function rankLotusChoicesWithLookahead(
+  currentState: BubbleState,
+  availableLotuses: LotusEffect[],
+  weights: UserWeights,
+  topN: number = 3,
+  lookaheadDepth: number = 2,
+  useMonteCarlo: boolean = false
+): Array<{ lotus: LotusEffect; score: number; lookaheadScore: number; simulatedState: BubbleState }> {
+  const scored = availableLotuses.map((lotus) => {
+    // Score the immediate effect
+    const immediateScore = useMonteCarlo
+      ? scoreLotusChoiceMonteCarlo(currentState, lotus, weights, 100)
+      : scoreLotusChoice(currentState, lotus, weights);
+
+    // Simulate taking this lotus
+    let nextState = simulateLotusEffect(currentState, lotus);
+    nextState = applyFundamentalEffects(nextState, useMonteCarlo);
+
+    // Look ahead to future moves (recursive lookahead)
+    let futureValue = 0;
+    if (lookaheadDepth > 1 && availableLotuses.length > 1) {
+      // For performance, only look at top 5 next moves
+      const nextBestMoves = rankLotusChoices(
+        nextState,
+        availableLotuses,
+        weights,
+        Math.min(5, availableLotuses.length),
+        false // Don't use Monte Carlo in lookahead for performance
+      );
+
+      // Average the top 3 future options (representing uncertainty about what will be offered)
+      futureValue = nextBestMoves
+        .slice(0, 3)
+        .reduce((sum, move) => sum + move.score, 0) / Math.min(3, nextBestMoves.length);
+      
+      // Discount future value (immediate gains > future potential)
+      futureValue *= 0.7;
+    }
+
+    return {
+      lotus,
+      score: immediateScore,
+      lookaheadScore: immediateScore + futureValue,
+      simulatedState: nextState,
+    };
+  });
+
+  // Sort by lookahead score (which includes future potential)
+  return scored.sort((a, b) => b.lookaheadScore - a.lookaheadScore).slice(0, topN);
 }

@@ -591,7 +591,9 @@
 }
 
 /* ========== Toggle Switch ========== */
-.monte-carlo-toggle {
+.monte-carlo-toggle,
+.lookahead-toggle,
+.goal-mode {
   display: flex;
   flex-direction: column;
 }
@@ -614,6 +616,42 @@
 
 .toggle-text {
   font-weight: 600;
+}
+
+/* ========== Goal-Oriented Mode ========== */
+.goal-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.goal-btn {
+  padding: 0.5rem 0.875rem;
+  border: 2px solid #e1e8ed;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #2c3e50;
+  transition: all 0.2s ease;
+}
+
+.goal-btn:hover {
+  border-color: #3498db;
+  background: #f0f8ff;
+  transform: translateY(-1px);
+}
+
+.goal-btn.active {
+  border-color: #3498db;
+  background: #3498db;
+  color: white;
+}
+
+.goal-btn.active:hover {
+  background: #2980b9;
+  border-color: #2980b9;
 }
 
 /* ========== Weight Sliders ========== */
