@@ -1,4 +1,9 @@
-import type { BubbleState, LotusEffect, UserWeights, BubbleType } from "../types";
+import type {
+  BubbleState,
+  LotusEffect,
+  UserWeights,
+  BubbleType,
+} from "../types";
 
 export interface RecommendationReason {
   type: "synergy" | "upgrade" | "goal" | "high_value" | "quantity";
@@ -381,8 +386,8 @@ export function rankLotusChoices(
  * Lookahead optimization: evaluate lotus choices considering future moves
  * For each option, simulate taking it and then rank the next best moves
  * Returns choices sorted by their long-term value (current + future potential)
- * 
- * CONCEPT: Like chess engines - don't just look at immediate move, 
+ *
+ * CONCEPT: Like chess engines - don't just look at immediate move,
  * but consider what moves become available afterwards
  */
 export function rankLotusChoicesWithLookahead(
@@ -392,7 +397,12 @@ export function rankLotusChoicesWithLookahead(
   topN: number = 3,
   lookaheadDepth: number = 2,
   useMonteCarlo: boolean = false
-): Array<{ lotus: LotusEffect; score: number; lookaheadScore: number; simulatedState: BubbleState }> {
+): Array<{
+  lotus: LotusEffect;
+  score: number;
+  lookaheadScore: number;
+  simulatedState: BubbleState;
+}> {
   const scored = availableLotuses.map((lotus) => {
     // Score the immediate effect
     const immediateScore = useMonteCarlo
@@ -416,10 +426,10 @@ export function rankLotusChoicesWithLookahead(
       );
 
       // Average the top 3 future options (representing uncertainty about what will be offered)
-      futureValue = nextBestMoves
-        .slice(0, 3)
-        .reduce((sum, move) => sum + move.score, 0) / Math.min(3, nextBestMoves.length);
-      
+      futureValue =
+        nextBestMoves.slice(0, 3).reduce((sum, move) => sum + move.score, 0) /
+        Math.min(3, nextBestMoves.length);
+
       // Discount future value (immediate gains > future potential)
       futureValue *= 0.7;
     }
@@ -433,7 +443,9 @@ export function rankLotusChoicesWithLookahead(
   });
 
   // Sort by lookahead score (which includes future potential)
-  return scored.sort((a, b) => b.lookaheadScore - a.lookaheadScore).slice(0, topN);
+  return scored
+    .sort((a, b) => b.lookaheadScore - a.lookaheadScore)
+    .slice(0, topN);
 }
 
 /**
@@ -451,32 +463,36 @@ export function explainRecommendation(
 
   // Check for synergy boost (adds bubbles that create/enhance combos)
   if (effect.type === "add" && effect.bubbleType) {
-    const currentTypeCount = currentState.bubbles.filter(b => b.type === effect.bubbleType).length;
-    const newTypeCount = simulatedState.bubbles.filter(b => b.type === effect.bubbleType).length;
+    const currentTypeCount = currentState.bubbles.filter(
+      (b) => b.type === effect.bubbleType
+    ).length;
+    const newTypeCount = simulatedState.bubbles.filter(
+      (b) => b.type === effect.bubbleType
+    ).length;
     const addedCount = newTypeCount - currentTypeCount;
-    
+
     // Creates strong type cluster (3+ of same type)
     if (currentTypeCount >= 2 && currentTypeCount < 3 && newTypeCount >= 3) {
       reasons.push({
         type: "synergy",
         label: "Synergy Boost!",
         icon: "✨",
-        description: `Creates ${effect.bubbleType} cluster (${newTypeCount} total)`
+        description: `Creates ${effect.bubbleType} cluster (${newTypeCount} total)`,
       });
     } else if (currentTypeCount >= 3 && addedCount > 0) {
       reasons.push({
         type: "synergy",
         label: "Synergy +",
         icon: "⚡",
-        description: `Strengthens ${effect.bubbleType} combo`
+        description: `Strengthens ${effect.bubbleType} combo`,
       });
     }
   }
 
   // Check for upgrades
   if (effect.type === "upgrade") {
-    const upgradedCount = simulatedState.bubbles.filter(b => {
-      const original = currentState.bubbles.find(orig => orig.id === b.id);
+    const upgradedCount = simulatedState.bubbles.filter((b) => {
+      const original = currentState.bubbles.find((orig) => orig.id === b.id);
       return original && b.quality !== original.quality;
     }).length;
 
@@ -485,66 +501,74 @@ export function explainRecommendation(
         type: "upgrade",
         label: "Major Upgrade!",
         icon: "⬆️",
-        description: `Upgrades ${upgradedCount} bubbles`
+        description: `Upgrades ${upgradedCount} bubbles`,
       });
     } else if (upgradedCount > 0) {
       reasons.push({
         type: "upgrade",
         label: "Upgrade",
         icon: "↗️",
-        description: `Upgrades ${upgradedCount} bubble${upgradedCount > 1 ? 's' : ''}`
+        description: `Upgrades ${upgradedCount} bubble${
+          upgradedCount > 1 ? "s" : ""
+        }`,
       });
     }
   }
 
   // Check for goal progress
   if (goalType && effect.type === "add" && effect.bubbleType === goalType) {
-    const addedGoalBubbles = simulatedState.bubbles.filter(b => b.type === goalType).length -
-                              currentState.bubbles.filter(b => b.type === goalType).length;
+    const addedGoalBubbles =
+      simulatedState.bubbles.filter((b) => b.type === goalType).length -
+      currentState.bubbles.filter((b) => b.type === goalType).length;
     if (addedGoalBubbles > 0) {
       reasons.push({
         type: "goal",
         label: "Goal Progress!",
         icon: "🎯",
-        description: `Adds ${addedGoalBubbles} ${goalType} bubble${addedGoalBubbles > 1 ? 's' : ''}`
+        description: `Adds ${addedGoalBubbles} ${goalType} bubble${
+          addedGoalBubbles > 1 ? "s" : ""
+        }`,
       });
     }
   }
 
   // Check for high value additions (Orange+ bubbles)
   if (effect.type === "add") {
-    const highQualityAdded = simulatedState.bubbles.filter(b => 
-      ["Orange", "Red", "Rainbow"].includes(b.quality)
-    ).length - currentState.bubbles.filter(b => 
-      ["Orange", "Red", "Rainbow"].includes(b.quality)
-    ).length;
+    const highQualityAdded =
+      simulatedState.bubbles.filter((b) =>
+        ["Orange", "Red", "Rainbow"].includes(b.quality)
+      ).length -
+      currentState.bubbles.filter((b) =>
+        ["Orange", "Red", "Rainbow"].includes(b.quality)
+      ).length;
 
     if (highQualityAdded >= 2) {
       reasons.push({
         type: "high_value",
         label: "High Value!",
         icon: "💎",
-        description: `Adds ${highQualityAdded} premium bubbles`
+        description: `Adds ${highQualityAdded} premium bubbles`,
       });
     } else if (highQualityAdded === 1) {
       reasons.push({
         type: "high_value",
         label: "Premium Add",
         icon: "💫",
-        description: "Adds high-quality bubble"
+        description: "Adds high-quality bubble",
       });
     }
   }
 
   // Check for large quantity additions
   if (effect.type === "add" || effect.type === "replicate") {
-    const addedCount = simulatedState.bubbles.length - currentState.bubbles.length;
+    const addedCount =
+      simulatedState.bubbles.length - currentState.bubbles.length;
     if (addedCount >= 3) {
       reasons.push({
         type: "quantity",
         label: "Big Gain!",
         icon: "📈",
-        description: `Adds ${addedCount} bubbles`
+        description: `Adds ${addedCount} bubbles`,
       });
     }
   }

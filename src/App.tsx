@@ -8,12 +8,12 @@ import type {
   LotusEffect,
 } from "./types";
 import { DEFAULT_QUALITY_MULTIPLIERS, DEFAULT_TYPE_WEIGHTS } from "./types";
-import { 
-  rankLotusChoices, 
+import {
+  rankLotusChoices,
   rankLotusChoicesWithLookahead,
   applyGoalWeights,
   calculateStateValue,
-  explainRecommendation
+  explainRecommendation,
 } from "./engine/calculator";
 import { LOTUSES } from "./data/lotuses";
 import "./App.css";
@@ -422,14 +422,14 @@ function App() {
     // Remove any future history if we're not at the end
     const newHistory = history.slice(0, historyIndex + 1);
     newHistory.push(JSON.parse(JSON.stringify(state))); // Deep clone
-    
+
     // Keep only last MAX_HISTORY states
     if (newHistory.length > MAX_HISTORY) {
       newHistory.shift();
     } else {
       setHistoryIndex(historyIndex + 1);
     }
-    
+
     setHistory(newHistory);
   };
 
@@ -471,7 +471,7 @@ function App() {
 
   const removeBubble = (id: string) => {
     saveToHistory(bubbleState);
-    
+
     setBubbleState({
       ...bubbleState,
       bubbles: bubbleState.bubbles.filter((b) => b.id !== id),
@@ -480,7 +480,7 @@ function App() {
 
   const updateBubbleQuality = (id: string, newQuality: BubbleQuality) => {
     saveToHistory(bubbleState);
-    
+
     setBubbleState({
       ...bubbleState,
       bubbles: bubbleState.bubbles.map((b) =>
@@ -491,7 +491,7 @@ function App() {
 
   const startNewRun = () => {
     saveToHistory(bubbleState);
-    
+
     // Clear everything including fundamental
     setBubbleState({
       bubbles: [],
@@ -502,7 +502,7 @@ function App() {
 
   const moveBubble = (fromIndex: number, toIndex: number) => {
     saveToHistory(bubbleState);
-    
+
     const newBubbles = [...bubbleState.bubbles];
     const [removed] = newBubbles.splice(fromIndex, 1);
     newBubbles.splice(toIndex, 0, removed);
@@ -604,10 +604,10 @@ function App() {
 
   // SMART RECOMMENDATIONS: Use currentChoices if available, otherwise show top 3 from all
   const lotusesToRank = currentChoices.length > 0 ? currentChoices : LOTUSES;
-  
+
   // Apply goal-oriented weights if a goal type is selected
   const activeWeights = applyGoalWeights(userWeights, goalType);
-  
+
   // Use lookahead optimization if enabled, otherwise standard ranking
   const recommendations = useLookahead
     ? rankLotusChoicesWithLookahead(
@@ -681,9 +681,15 @@ function App() {
         >
           📥 Import Run
         </button>
-        
+
         {/* Undo/Redo Controls */}
-        <span style={{ marginLeft: "20px", borderLeft: "2px solid #e1e8ed", paddingLeft: "20px" }}>
+        <span
+          style={{
+            marginLeft: "20px",
+            borderLeft: "2px solid #e1e8ed",
+            paddingLeft: "20px",
+          }}
+        >
           <button
             onClick={undo}
             disabled={historyIndex <= 0}
@@ -702,7 +708,7 @@ function App() {
             ↷ Redo
           </button>
         </span>
-        
+
         <span className="help-text" style={{ marginLeft: "10px" }}>
           (Your progress auto-saves!)
         </span>
@@ -732,20 +738,25 @@ function App() {
         <div className="card-warning mb-3">
           <strong>💡 Start Your Run:</strong>
           <p className="text-sm" style={{ margin: "5px 0 0 0" }}>
-            In Twinightmare, your <strong>first</strong> lotus choice is always a Fundamental! 
-            Scroll down to recommendations and look for lotuses marked as "Fundamental" - 
-            these provide persistent bonuses for your entire run. Choose your fundamental before adding bubbles.
+            In Twinightmare, your <strong>first</strong> lotus choice is always
+            a Fundamental! Scroll down to recommendations and look for lotuses
+            marked as "Fundamental" - these provide persistent bonuses for your
+            entire run. Choose your fundamental before adding bubbles.
           </p>
         </div>
       )}
 
       {/* Fundamental Warning - Show if they have bubbles but no fundamental */}
       {!bubbleState.fundamental && bubbleState.bubbles.length > 0 && (
-        <div className="card-info mb-3" style={{ borderColor: "#ff9800", background: "#fff3e0" }}>
+        <div
+          className="card-info mb-3"
+          style={{ borderColor: "#ff9800", background: "#fff3e0" }}
+        >
           <strong style={{ color: "#f57c00" }}>⚡ Missing Fundamental:</strong>
           <p className="text-sm" style={{ margin: "5px 0 0 0" }}>
-            You haven't selected a Fundamental yet! In the actual game, this is your first lotus choice. 
-            Recommendations below will show fundamentals - select one to complete your run setup.
+            You haven't selected a Fundamental yet! In the actual game, this is
+            your first lotus choice. Recommendations below will show
+            fundamentals - select one to complete your run setup.
           </p>
         </div>
       )}
@@ -1067,7 +1078,8 @@ function App() {
                   className="toggle-checkbox"
                 />
                 <span className="toggle-text">
-                  🔮 Enable Lookahead Optimization (plan {lookaheadDepth} moves ahead)
+                  🔮 Enable Lookahead Optimization (plan {lookaheadDepth} moves
+                  ahead)
                 </span>
               </label>
               {useLookahead && (
@@ -1090,7 +1102,8 @@ function App() {
                     className="help-text"
                     style={{ marginTop: "0.5rem", fontSize: "0.8125rem" }}
                   >
-                    Considers future lotus opportunities - better long-term strategy but slower
+                    Considers future lotus opportunities - better long-term
+                    strategy but slower
                   </p>
                 </div>
               )}
@@ -1101,10 +1114,16 @@ function App() {
               className="goal-mode mt-3"
               style={{ paddingTop: "1rem", borderTop: "1px solid #e1e8ed" }}
             >
-              <h4 className="help-text" style={{ marginBottom: "0.5rem", fontWeight: "600" }}>
+              <h4
+                className="help-text"
+                style={{ marginBottom: "0.5rem", fontWeight: "600" }}
+              >
                 🎯 Goal-Oriented Mode
               </h4>
-              <p className="help-text" style={{ marginBottom: "0.75rem", fontSize: "0.8125rem" }}>
+              <p
+                className="help-text"
+                style={{ marginBottom: "0.75rem", fontSize: "0.8125rem" }}
+              >
                 Focus recommendations on a specific bubble type
               </p>
               <div className="goal-buttons">
@@ -1222,74 +1241,82 @@ function App() {
                   rec.simulatedState,
                   goalType
                 );
-                
+
                 return (
-                <div
-                  key={rec.lotus.id}
-                  className={`recommendation ${index === 0 ? "best" : ""}`}
-                >
-                  <div className="recommendation-header">
-                    <div>
-                      <h3 className="recommendation-title">
-                        {index === 0 && "⭐ "}
-                        {rec.lotus.name}
-                      </h3>
-                      <p className="recommendation-description">
-                        {rec.lotus.description}
-                      </p>
-                      <p className="recommendation-omen">
-                        Nightmare: {rec.lotus.nightmareOmen}
-                      </p>
-                      
-                      {/* Recommendation Explanations */}
-                      {reasons.length > 0 && (
-                        <div className="recommendation-reasons">
-                          {reasons.map((reason, i) => (
-                            <span
-                              key={i}
-                              className={`reason-badge reason-${reason.type}`}
-                              title={reason.description}
-                            >
-                              {reason.icon} {reason.label}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                    <div
-                      className={`recommendation-score ${
-                        index === 0 ? "best" : "normal"
-                      }`}
-                    >
-                      +{rec.score.toFixed(1)}
-                      {useLookahead && "lookaheadScore" in rec && typeof rec.lookaheadScore === "number" && (
-                        <div className="lookahead-score" style={{ fontSize: "0.75rem", opacity: 0.8 }}>
-                          (w/ future: +{rec.lookaheadScore.toFixed(1)})
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <div className="recommendation-info">
-                    Result: {rec.simulatedState.bubbles.length} bubbles
-                  </div>
-                  {rec.lotus.isFundamental && !bubbleState.fundamental && (
-                    <div className="card-warning" style={{ marginTop: "10px" }}>
-                      ⚠️ This is a <strong>Fundamental</strong> - persistent
-                      effect for the whole run!
-                    </div>
-                  )}
-                  <button
-                    onClick={() => selectLotus(rec.lotus.id)}
-                    className={`btn ${
-                      index === 0 ? "btn-success" : "btn-primary"
-                    }`}
-                    style={{ marginTop: "10px" }}
+                  <div
+                    key={rec.lotus.id}
+                    className={`recommendation ${index === 0 ? "best" : ""}`}
                   >
-                    {rec.lotus.isFundamental && !bubbleState.fundamental
-                      ? "Set as Fundamental"
-                      : "Select This Lotus"}
-                  </button>
-                </div>
+                    <div className="recommendation-header">
+                      <div>
+                        <h3 className="recommendation-title">
+                          {index === 0 && "⭐ "}
+                          {rec.lotus.name}
+                        </h3>
+                        <p className="recommendation-description">
+                          {rec.lotus.description}
+                        </p>
+                        <p className="recommendation-omen">
+                          Nightmare: {rec.lotus.nightmareOmen}
+                        </p>
+
+                        {/* Recommendation Explanations */}
+                        {reasons.length > 0 && (
+                          <div className="recommendation-reasons">
+                            {reasons.map((reason, i) => (
+                              <span
+                                key={i}
+                                className={`reason-badge reason-${reason.type}`}
+                                title={reason.description}
+                              >
+                                {reason.icon} {reason.label}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                      <div
+                        className={`recommendation-score ${
+                          index === 0 ? "best" : "normal"
+                        }`}
+                      >
+                        +{rec.score.toFixed(1)}
+                        {useLookahead &&
+                          "lookaheadScore" in rec &&
+                          typeof rec.lookaheadScore === "number" && (
+                            <div
+                              className="lookahead-score"
+                              style={{ fontSize: "0.75rem", opacity: 0.8 }}
+                            >
+                              (w/ future: +{rec.lookaheadScore.toFixed(1)})
+                            </div>
+                          )}
+                      </div>
+                    </div>
+                    <div className="recommendation-info">
+                      Result: {rec.simulatedState.bubbles.length} bubbles
+                    </div>
+                    {rec.lotus.isFundamental && !bubbleState.fundamental && (
+                      <div
+                        className="card-warning"
+                        style={{ marginTop: "10px" }}
+                      >
+                        ⚠️ This is a <strong>Fundamental</strong> - persistent
+                        effect for the whole run!
+                      </div>
+                    )}
+                    <button
+                      onClick={() => selectLotus(rec.lotus.id)}
+                      className={`btn ${
+                        index === 0 ? "btn-success" : "btn-primary"
+                      }`}
+                      style={{ marginTop: "10px" }}
+                    >
+                      {rec.lotus.isFundamental && !bubbleState.fundamental
+                        ? "Set as Fundamental"
+                        : "Select This Lotus"}
+                    </button>
+                  </div>
                 );
               })}
             </div>
@@ -1301,46 +1328,58 @@ function App() {
         <h3 className="section-subtitle">How to Use:</h3>
         <ol>
           <li>
-            <strong>🌟 FIRST: Choose your Fundamental!</strong> This is your first lotus choice in the actual game. 
-            Look for lotuses marked as "Fundamental" in the recommendations below.
+            <strong>🌟 FIRST: Choose your Fundamental!</strong> This is your
+            first lotus choice in the actual game. Look for lotuses marked as
+            "Fundamental" in the recommendations below.
           </li>
           <li>Add your current Dream Bubbles using the dropdowns above</li>
           <li>
-            <strong>Drag bubbles to reorder them</strong> - Order doesn't affect scoring but helps organization
+            <strong>Drag bubbles to reorder them</strong> - Order doesn't affect
+            scoring but helps organization
           </li>
           <li>
-            <strong>Click the ✎ button to change a bubble's quality</strong> - Made a mistake? Use Undo!
+            <strong>Click the ✎ button to change a bubble's quality</strong> -
+            Made a mistake? Use Undo!
           </li>
           <li>Click the ✕ button to remove a bubble</li>
           <li>
-            <strong>Adjust bubble type priorities</strong> with sliders if you have preferences
+            <strong>Adjust bubble type priorities</strong> with sliders if you
+            have preferences
           </li>
           <li>
-            <strong>Set a goal type</strong> to focus recommendations on specific bubbles (3x weight boost)
+            <strong>Set a goal type</strong> to focus recommendations on
+            specific bubbles (3x weight boost)
           </li>
           <li>
-            <strong>Enable Lookahead</strong> to plan 2-3 moves ahead for better long-term strategy
+            <strong>Enable Lookahead</strong> to plan 2-3 moves ahead for better
+            long-term strategy
           </li>
           <li>
-            <strong>Enable Monte Carlo</strong> for more accurate scoring with probabilistic effects
+            <strong>Enable Monte Carlo</strong> for more accurate scoring with
+            probabilistic effects
           </li>
           <li>
-            The calculator shows the top 3 recommended Lotus choices with <strong>colored badges</strong> explaining why each is good
+            The calculator shows the top 3 recommended Lotus choices with{" "}
+            <strong>colored badges</strong> explaining why each is good
           </li>
           <li>
-            <strong>Green highlight = best choice</strong> - Look for badges like ✨ Synergy Boost, 🎯 Goal Progress, ⬆️ Major Upgrade
+            <strong>Green highlight = best choice</strong> - Look for badges
+            like ✨ Synergy Boost, 🎯 Goal Progress, ⬆️ Major Upgrade
           </li>
           <li>
-            <strong>Use Undo/Redo buttons</strong> if you make mistakes - tracks your last 20 actions
+            <strong>Use Undo/Redo buttons</strong> if you make mistakes - tracks
+            your last 20 actions
           </li>
           <li>
-            <strong>Export/Import</strong> to share builds or save different strategies
+            <strong>Export/Import</strong> to share builds or save different
+            strategies
           </li>
         </ol>
         <p className="help-text mt-3">
-          <strong>Pro Tips:</strong> Start with a good fundamental (it affects your whole run!), 
-          watch for synergies (3+ of same type), use goal mode when pursuing specific strategies, 
-          enable lookahead for complex decisions, and hover over explanation badges for details!
+          <strong>Pro Tips:</strong> Start with a good fundamental (it affects
+          your whole run!), watch for synergies (3+ of same type), use goal mode
+          when pursuing specific strategies, enable lookahead for complex
+          decisions, and hover over explanation badges for details!
         </p>
       </div>
 
