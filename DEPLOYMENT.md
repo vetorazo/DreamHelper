@@ -25,6 +25,7 @@ npm run deploy
 ```
 
 This will:
+
 1. Build the production bundle
 2. Create/update a `gh-pages` branch
 3. Push the built files to GitHub Pages
@@ -61,6 +62,7 @@ npm run deploy
 ### Files Ignored by Git
 
 The following files are in `.gitignore`:
+
 - `node_modules/` - npm dependencies
 - `dist/` - build output
 - `PROJECT_CONTEXT.md` - AI context file

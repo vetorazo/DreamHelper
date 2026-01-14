@@ -655,7 +655,9 @@ function App() {
     <div className="app-container">
       <div className="header-with-support">
         <div>
-          <h1 className="app-title">🌙 Dream Helper - Twinightmare Calculator</h1>
+          <h1 className="app-title">
+            🌙 Dream Helper - Twinightmare Calculator
+          </h1>
           <p className="app-subtitle">
             Optimize your Dream Lotus choices in Torchlight Infinite
           </p>
@@ -1429,7 +1431,7 @@ function App() {
             </div>
           </div>
         </div>
-        
+
         <div className="footer-section attribution">
           <p className="text-xs text-muted">
             Bubble icons © XD Entertainment - Torchlight Infinite. Accessed via{" "}
@@ -1440,7 +1442,8 @@ function App() {
             >
               TLIDB.com
             </a>
-            . This is a fan-made tool and is not affiliated with XD Entertainment.
+            . This is a fan-made tool and is not affiliated with XD
+            Entertainment.
           </p>
         </div>
       </footer>

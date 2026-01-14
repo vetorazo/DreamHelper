@@ -5,6 +5,7 @@
 ## Features
 
 ### Core Functionality
+
 - **274 Lotus Variants** - Complete database of all Sweet Dream Lotus options
 - **Bubble Management** - Add, remove, edit quality, and drag-to-reorder bubbles
 - **Fundamental Tracking** - Persistent effects automatically applied in scoring
@@ -12,6 +13,7 @@
 - **Authentic Icons** - All 42 bubble icons directly from the game
 
 ### Advanced Planning
+
 - **Goal-Oriented Mode** - Focus on specific bubble types (3x weight boost)
 - **Lookahead Optimization** - Plan 2-3 moves ahead for better long-term strategy
 - **Monte Carlo Simulation** - 100 iterations for accurate probabilistic effects (45% chances)
@@ -19,6 +21,7 @@
 - **Recommendation Explanations** - Visual badges show why each lotus is good
 
 ### User Experience
+
 - **Export/Import Runs** - Share builds via JSON clipboard
 - **Undo/Redo** - Tracks last 20 actions for easy mistake recovery
 - **Custom Weights** - Adjust bubble type priorities with sliders
