@@ -3454,7 +3454,40 @@ export const LOTUSES: LotusEffect[] = [
     },
     "nightmareOmen": "Moderate difficulty increase",
     "isFundamental": false
+  },
+  {
+    "id": "dream-within-a-dream-sequence-1",
+    "name": "Dream Within a Dream - Current sequence: 1",
+    "description": "Dream Within a Dream\n\nCurrent sequence: 1",
+    "effect": {
+      "type": "complex",
+      "customLogic": "Dream Within a Dream - Sequence 1"
+    },
+    "nightmareOmen": "Minor difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "dream-within-a-dream-sequence-2",
+    "name": "Dream Within a Dream - Current sequence: 2",
+    "description": "Dream Within a Dream\n\nCurrent sequence: 2",
+    "effect": {
+      "type": "complex",
+      "customLogic": "Dream Within a Dream - Sequence 2"
+    },
+    "nightmareOmen": "Moderate difficulty increase",
+    "isFundamental": false
+  },
+  {
+    "id": "dream-within-a-dream-sequence-3",
+    "name": "Dream Within a Dream - Current sequence: 3",
+    "description": "Dream Within a Dream\n\nCurrent sequence: 3",
+    "effect": {
+      "type": "complex",
+      "customLogic": "Dream Within a Dream - Sequence 3"
+    },
+    "nightmareOmen": "Significant difficulty increase",
+    "isFundamental": false
   }
 ];
 
-// Total lotuses: 274
+// Total lotuses: 277
