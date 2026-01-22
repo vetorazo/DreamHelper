@@ -3257,7 +3257,7 @@ export const LOTUSES: LotusEffect[] = [
       "tiers": 1
     },
     "nightmareOmen": "Significant difficulty increase",
-    "isFundamental": false
+    "isFundamental": true
   },
   {
     "id": "whenever-adding-or-removing-a-bubble-additionally-upgrades-the-quality-of-1-bubble-by-1-tier",
@@ -3269,7 +3269,7 @@ export const LOTUSES: LotusEffect[] = [
       "tiers": 1
     },
     "nightmareOmen": "Significant difficulty increase",
-    "isFundamental": false
+    "isFundamental": true
   },
   {
     "id": "whenever-the-type-of-a-bubble-changes-additionally-upgrades-the-quality-of-1-bubble-by-1-tier",
@@ -3281,7 +3281,7 @@ export const LOTUSES: LotusEffect[] = [
       "tiers": 1
     },
     "nightmareOmen": "Significant difficulty increase",
-    "isFundamental": false
+    "isFundamental": true
   },
   {
     "id": "adds-4-rainbow-bubbles-in-each-dream-omen-selection-after-this-1-bubble-will-be-removed-from-lowest-quality-to-highest-quality",
